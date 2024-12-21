@@ -1,10 +1,11 @@
-import { player } from "../main.js";
+import { animatedImagesArray, player } from "../main.js";
 import { spriteCoordinates } from "../utils/animatedImagesInfo.js";
 import AnimatedImage from "./AnimatedImage.js";
 
 export default class Fruits extends AnimatedImage{
-    constructor(image,x,y,name,frames,line,w,h,canvas,imageSizeFactor,hitbox,offset){
-            super(image,x,y,name,frames,line,w,h,canvas,imageSizeFactor,hitbox,offset)
+    constructor(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,hitbox,offset,id){
+            super(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,hitbox,offset,id)
+            this.collected = false
     }
     
     checkIfCollected(){
@@ -17,19 +18,40 @@ export default class Fruits extends AnimatedImage{
             player.playerHitbox.top <= this.hitbox.bottom + 20 && // + Tiles.height &&
             player.playerHitbox.right >= this.hitbox.left &&
             player.playerHitbox.left <= this.hitbox.right ){
-            this.changeAnimation()
+                //muda a animação
+                this.image.src = spriteCoordinates["fruit-collected"].location[0].image
+                this.spriteFrames = spriteCoordinates["fruit-collected"].location[0].frames
+                this.collected = true
+            }
+    }
+    
+    animate(){
+        const position = super.animate()
+        
+        if(this.collected){
+            this.collectFruit(position)
         }
+
     }
     
-    animate(){super.animate()}
-    
-    calculatetHitbox(){super.calculateHitbox()}
+    collectFruit(position){
 
-    changeAnimation(){
-        this.image.src = spriteCoordinates["fruit-collected"].location[0].image
-        this.frames = spriteCoordinates["fruit-collected"].location.lenght
+        if(position == this.spriteFrames - 1){ //só para a animação quando roda todos os frames
+                animatedImagesArray.forEach((image,index) => {
+                    if(image.id == this.id){
+                        animatedImagesArray.splice(index,1) //deleta o objeto de imagem inteiro
+                    }
+                })
+
+            }
     }
 
-    
+
+    calculatetHitbox(){
+      
+        super.calculateHitbox()
+    }
+
+   
 }
 

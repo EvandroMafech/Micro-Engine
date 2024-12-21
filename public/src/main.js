@@ -5,12 +5,6 @@ import {tileSetCanvasFrameInfo} from "./components/tilesetCanvas.js";
 import Player from "./components/Player.js";
 import Fruits from "./components/Fruits.js";
 
-
-// const fruit = new Fruits(1)
-
-// fruit.changeAnimation()
-// console.log(fruit)
-
 //canvas para os tilesets
 const tileSetCanvas = document.querySelector(".tileset") 
 const ctx = tileSetCanvas.getContext("2d")
@@ -30,7 +24,8 @@ tileSetCanvas.height = animationCanvas.height = 2000
 ctx.imageSmoothingEnabled = false
 ctxAnimations.imageSmoothingEnabled = false
 
-const tilesWithImages = [] 
+const tilesWithImages = []
+let numeralId = 0 
 const tileArray = [] //guarda uma instancia para cada frame do editor
 const animatedImagesArray = [] //salva em sequencia todas as imagens animadas
 const allSetIdsArray = [] //salva todas as imagens em sequencia para ser usada ao apertar a tecla CTRL+Z
@@ -49,7 +44,7 @@ const activeSelectedImage = { //usada para salvar a ultima imagem selecionada pe
 let frames = 0 //contator de frames do loop principal
 
 
-export {staggerFrames,frames,activeSelectedImage}
+export {staggerFrames,frames,activeSelectedImage,animatedImagesArray}
 
 function createTileId(event){ //cria um Id para cada tile do canvas principal
     const rect = tileSetCanvas.getBoundingClientRect(); // usado para referenciar a posição do mouse
@@ -119,15 +114,23 @@ function createAnimatedImage(TileId){
             const sheetImage = new Image()
             sheetImage.src = image
             //const animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
-            
-            const animatedImage = new Fruits(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
-           
+            const imageId = numeralId++
+            const animatedImage = new Fruits(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,imageId)
             animatedImagesArray.push(animatedImage)
             allSetIdsArray.push(activeSelectedImage.imageId)
 
         }
      })
     
+}
+
+function manageImages(event){
+
+    const TileId = createTileId(event)    
+    tilesWithImages.push(TileId)
+    
+    if(activeSelectedImage.type =="tileset"){setTileSetImageOnCanvas(TileId)}
+    else if(activeSelectedImage.type === "animated"){createAnimatedImage(TileId)}
 }
 
 function animationLoop(){
@@ -150,47 +153,6 @@ function animationLoop(){
     
     frames++
     window.requestAnimationFrame(animationLoop)
-}
-
-// function undoImages(event){
-//     const key = event.key.toLowerCase() 
-
-//     if(event.ctrlKey && key == "z"){
-
-//        let LastTileId = tilesWithImages.pop()
-//        let LastImageId = allSetIdsArray.pop()
-     
-//        tileArray.forEach(tile => {
-     
-//         if(tile.id == LastTileId){
-
-//             if(AnimatedImagesIds.includes(LastImageId)){
-
-//                animatedImagesArray.pop()
-
-//             }else{   
-           
-//                 const image = new Image()
-//                 image.src =  " "//"../assets/Water.png"
-//                 tile.activeImage = image
-//                 tile.image(LastTileId)
-//                 tile.activeImage = " "
-           
-//             }
-//             }
-//          })
-
-        
-//     }
-// }
-
-function manageImages(event){
-
-    const TileId = createTileId(event)    
-    tilesWithImages.push(TileId)
-    
-    if(activeSelectedImage.type =="tileset"){setTileSetImageOnCanvas(TileId)}
-    else if(activeSelectedImage.type === "animated"){createAnimatedImage(TileId)}
 }
 
 createGrid()

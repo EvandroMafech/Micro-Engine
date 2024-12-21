@@ -1,11 +1,11 @@
 import { frames, staggerFrames } from "../main.js"
 
 class AnimatedImage{
-    constructor(image,x,y,name,frames,line,w,h,canvas,imageSizeFactor){
+    constructor(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,id){
         this.x = x
         this.y = y
         this.name = name
-        this.spriteFrames = frames
+        this.spriteFrames = spriteFrames
         this.line = line
         this.width = w
         this.height = h
@@ -19,6 +19,7 @@ class AnimatedImage{
             left: 0
         }
         this.hitbox = this.calculateHitbox()
+        this.id = id
     }
      
 
@@ -42,6 +43,7 @@ class AnimatedImage{
         let frameY = this.line*this.height
     
         ctxAnimations.drawImage(image,frameX,frameY, this.width,this.height, this.x, this.y, this.width*this.size , this.height*this.size) //(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+        return position
     }
 }
 
