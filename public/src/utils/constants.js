@@ -1,0 +1,1 @@
+export const tileSetSpriteheet_image_path = "../public/assets/images/Terrain/Terrain (16x16) vertical.png"

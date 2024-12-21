@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="./src/styles/style.css">
+   
+    <script type="module" src="./src/components/InterfaceButtons.js" defer></script>
+    <script type="module" src="./src/components/tilesetCanvas.js" defer></script>
+    <script type="module" src="./src/utils/animatedImagesInfo.js" defer></script>
+    
+    <script type="module" src="./src/main.js" defer ></script>
+    <title>Map Creator</title>
+
+</head>
+
+<body>
+
+    <header>
+        <h1>GAME CREATOR</h1>
+       
+       <div>
+        <button class="headerButtons" id="player">Player</button>
+        <button class="headerButtons" id="play">Play</button>
+        <button class="headerButtons" id="restart">restart</button>
+        <button class="headerButtons" id="save">Save</button>
+        <button class="headerButtons" id="clear">Clear</button>
+       </div>
+    </header>
+
+    <main>
+
+        <aside class="left-aside">
+
+                <button class="main-btn" id="1">Fruits</button>
+               
+                    <div class="dropdown" id="dropdown-1">
+                       <button class="sub-btn" id="fruit-apple"></button>
+                       <button class="sub-btn" id="fruit-bananas"></button>
+                       <button class="sub-btn" id="fruit-cherries"></button>
+                       <button class="sub-btn" id="fruit-kiwi"></button>
+                       <button class="sub-btn" id="fruit-melon"></button>
+                       <button class="sub-btn" id="fruit-orange"></button>
+                       <button class="sub-btn" id="fruit-pineapple"></button>
+                       <button class="sub-btn" id="fruit-strawberry"></button>
+
+                    </div>
+            
+                <button class="main-btn" id="2">Enemies</button>
+               
+                    <div class="dropdown" id="dropdown-2">
+                       <button class="sub-btn" id="ninjafrog-run"></button>
+                    </div>
+              
+                <button class="main-btn" id="3">Background</button>
+               
+                    <div class="dropdown" id="dropdown-3">
+                       <button class="sub-btn" id="k1"></button>
+                    </div>
+                <button class="main-btn" id="4">Items</button>
+               
+                    <div class="dropdown" id="dropdown-4">
+                       <button class="sub-btn" id="g1"></button>
+                    </div>
+            
+                <button class="main-btn" id="5">Traps</button>
+               
+                    <div class="dropdown" id="dropdown-5">
+                        <button class="sub-btn" id="platform-off"></button>
+                        <button class="sub-btn" id="fan-off"></button>
+                        <button class="sub-btn" id="saw-on"></button>
+                        <button class="sub-btn" id="spykes-idle"></button>
+                        <button class="sub-btn" id="trampoline-idle"></button>
+                        <button class="sub-btn" id="trampoline-jump"></button>
+
+                    </div>
+             
+                <button class="main-btn" id="6">Objects</button>
+               
+                   <div class="dropdown" id="dropdown-6">
+                    <button class="sub-btn" id="checkpoint-idle"></button>
+                    <button class="sub-btn" id="checkpoint-noflag"></button>
+
+                    <button class="sub-btn" id="box1-idle"></button>
+                    <button class="sub-btn" id="box2-idle"></button>
+                    <button class="sub-btn" id="box3-idle"></button>
+
+                    <button class="sub-btn" id="end-idle"></button>
+                    <button class="sub-btn" id="start-idle"></button>
+
+                    <button class="sub-btn" id="block-idle"></button>
+
+
+
+
+
+
+                </div>
+
+        </aside>
+        
+        <div class="scroll-container">
+            <section class="canvas-container">
+
+                <canvas class="tileset"  width="2000" height="2000"></canvas>
+                <canvas class="animations"  width="2000" height="2000"></canvas>
+
+            </section>
+        </div>
+        
+        <aside class="right-aside" id="right-aside">
+            <button id="toggle-right-aside">|</button>
+            <canvas class="tileSet-canvas"id="right-canvas"></canvas>
+        </aside>
+
+   
+    </main>
+
+
+</body>
+
+</html>
