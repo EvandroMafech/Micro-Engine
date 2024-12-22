@@ -1,4 +1,4 @@
-import { frames, staggerFrames} from "../main.js"
+import { frames, staggerFrames,tileArray} from "../main.js"
 import { spriteCoordinates } from "../utils/animatedImagesInfo.js"
 
 class Player{
@@ -95,7 +95,7 @@ move()
     }
 }
 
-checkCollisionOnFloor(tilesArray){
+checkCollisionOnFloor(){
    
         const playerBottomY = this.position.y + this.spriteHeight*this.spriteSize - this.spriteOffset.bottom*this.spriteSize
         const playerOffSetBottom = this.spriteHeight*this.spriteSize - this.spriteOffset.bottom*this.spriteSize
@@ -106,7 +106,7 @@ checkCollisionOnFloor(tilesArray){
             this.spriteState = "ninjafrog-fall"
         }
 
-        tilesArray.some(Tiles => {
+        tileArray.some(Tiles => {
 
                 const topTiles = Tiles.y
                 const leftTiles = Tiles.x

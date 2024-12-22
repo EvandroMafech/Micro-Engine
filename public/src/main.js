@@ -4,6 +4,7 @@ import Tile from "./components/Tile.js";
 import {tileSetCanvasFrameInfo} from "./components/tilesetCanvas.js";
 import Player from "./components/Player.js";
 import Fruits from "./components/Fruits.js";
+import Saw from "./components/Saw.js";
 
 //canvas para os tilesets
 const tileSetCanvas = document.querySelector(".tileset") 
@@ -14,7 +15,6 @@ const animationCanvas = document.querySelector(".animations")
 const ctxAnimations = animationCanvas.getContext("2d")
 
 const player = new Player(ctxAnimations) //(ctx,image,x,y,sheetPosition){
-export {player}
 
 //dimensoes fixas do canvas
 tileSetCanvas.width = animationCanvas.width = 2000 
@@ -44,7 +44,7 @@ const activeSelectedImage = { //usada para salvar a ultima imagem selecionada pe
 let frames = 0 //contator de frames do loop principal
 
 
-export {staggerFrames,frames,activeSelectedImage,animatedImagesArray}
+export {staggerFrames,frames,activeSelectedImage,animatedImagesArray,player,tileArray}
 
 function createTileId(event){ //cria um Id para cada tile do canvas principal
     const rect = tileSetCanvas.getBoundingClientRect(); // usado para referenciar a posição do mouse
@@ -113,9 +113,44 @@ function createAnimatedImage(TileId){
             const y = tile.y
             const sheetImage = new Image()
             sheetImage.src = image
-            //const animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
-            const imageId = numeralId++
-            const animatedImage = new Fruits(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,imageId)
+            const numeralImageId = numeralId++
+
+
+
+
+            let animatedImage
+            if (activeSelectedImage.imageId.includes("fruit")) {
+                animatedImage = new Fruits(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,numeralImageId)
+            }else if(activeSelectedImage.imageId.includes("saw")){
+                 animatedImage = new Saw(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+            }else if(activeSelectedImage.imageId.includes("enemy")){
+                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+            }else if(activeSelectedImage.imageId.includes("platform")){
+                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+            }else if(activeSelectedImage.imageId.includes("block")){
+                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+            }else if(activeSelectedImage.imageId.includes("box1")){
+                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+            }else if(activeSelectedImage.imageId.includes("box2")){
+                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+            }else if(activeSelectedImage.imageId.includes("box3")){
+                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+            }else if(activeSelectedImage.imageId.includes("checkpoint")){
+                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+            }else if(activeSelectedImage.imageId.includes("end")){
+                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+            }else if(activeSelectedImage.imageId.includes("fan")){
+                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+            }else if(activeSelectedImage.imageId.includes("spykes")){
+                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+            }else if(activeSelectedImage.imageId.includes("start")){
+                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+            }else if(activeSelectedImage.imageId.includes("trampoline")){
+                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+            }
+
+            
+            
             animatedImagesArray.push(animatedImage)
             allSetIdsArray.push(activeSelectedImage.imageId)
 
@@ -136,15 +171,15 @@ function manageImages(event){
 function animationLoop(){
       
     ctxAnimations.clearRect(0,0, tileSetCanvas.width,tileSetCanvas.height)
-    animatedImagesArray.forEach(image => {image.animate()})
-
-    animatedImagesArray.forEach((image) => {
-        image.checkIfCollected()
-    })
+    
+    animatedImagesArray.forEach(image => {
+        image.animate()  //atualiza os quadros de todas as imagens animadas
+        image.checkCollisionWithPlayer() //verifica se colidiu com o player
+    }) 
 
     player.animate()
     player.applyGravity()
-    player.checkCollisionOnFloor(tileArray)
+    player.checkCollisionOnFloor()
 
    
     if(player.MoveAction.left || player.MoveAction.right)player.move()

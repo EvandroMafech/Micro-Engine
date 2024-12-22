@@ -1,4 +1,4 @@
-import { frames, staggerFrames } from "../main.js"
+import { frames, player, staggerFrames } from "../main.js"
 
 class AnimatedImage{
     constructor(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,id){
@@ -21,7 +21,21 @@ class AnimatedImage{
         this.hitbox = this.calculateHitbox()
         this.id = id
     }
-     
+    
+    checkCollisionWithPlayer(){
+        //atualiza a hitbox do player
+        player.playerHitbox = player.calculateHitbox()  
+        this.hitbox = this.calculateHitbox() 
+
+        //checa colisão com o player
+        if( player.playerHitbox.bottom >= this.hitbox.top &&
+            player.playerHitbox.top <= this.hitbox.bottom + 20 && // + Tiles.height &&
+            player.playerHitbox.right >= this.hitbox.left &&
+            player.playerHitbox.left <= this.hitbox.right ){
+
+                return true
+            }
+    }
 
     calculateHitbox(){
         return {
