@@ -25,7 +25,6 @@ ctx.imageSmoothingEnabled = false
 ctxAnimations.imageSmoothingEnabled = false
 
 const tilesWithImages = []
-let numeralId = 0 
 const tileArray = [] //guarda uma instancia para cada frame do editor
 const animatedImagesArray = [] //salva em sequencia todas as imagens animadas
 const allSetIdsArray = [] //salva todas as imagens em sequencia para ser usada ao apertar a tecla CTRL+Z
@@ -42,9 +41,34 @@ const activeSelectedImage = { //usada para salvar a ultima imagem selecionada pe
 }
 
 let frames = 0 //contator de frames do loop principal
-
+let numeralId = 0 
 
 export {staggerFrames,frames,activeSelectedImage,animatedImagesArray,player,tileArray}
+
+function createBaseForTests(){ //posiciona os tilesets de terreno no canvas para testes
+
+    const baseTiles = [
+        "l0c11", "l1c11", "l2c11", "l3c11", "l4c11", "l5c11", "l6c11", "l7c11", "l8c11", 
+        "l9c11", "l10c11", "l11c11", "l12c11", "l13c11", "l14c11", "l15c11", "l16c11", 
+        "l17c11", "l18c11", "l19c11", "l20c11", "l21c11", "l22c11", "l23c11", "l24c11",
+        "l25c11", "l26c11", "l27c11", "l28c11", "l29c11", "l30c11"
+    ]
+
+    const tileSetInfo = {
+        x: 16,
+        y: 208,
+        id: "l1c13"
+    }
+
+    tileArray.forEach(tile => {
+       if(baseTiles.includes(tile.id)){
+
+            tile.activeImage = tileSetInfo.id 
+            tile.drawImage(tileSetInfo)
+            allSetIdsArray.push(tileSetInfo.id)
+        }
+})
+}
 
 function createTileId(event){ //cria um Id para cada tile do canvas principal
     const rect = tileSetCanvas.getBoundingClientRect(); // usado para referenciar a posição do mouse
@@ -66,7 +90,6 @@ function createGrid(){ //cria todas as instancias do grid principal do editor
             let id = `l${x/tileSize}` + `c${y/tileSize}` //adiciona um id único para cada um
             const tile = new Tile(x,y,tileSize,tileSize,ctx,id)
             tileArray.push(tile)
-
         }
     }
 }
@@ -163,7 +186,7 @@ function manageImages(event){
 
     const TileId = createTileId(event)    
     tilesWithImages.push(TileId)
-    
+        
     if(activeSelectedImage.type =="tileset"){setTileSetImageOnCanvas(TileId)}
     else if(activeSelectedImage.type === "animated"){createAnimatedImage(TileId)}
 }
@@ -171,21 +194,18 @@ function manageImages(event){
 function animationLoop(){
       
     ctxAnimations.clearRect(0,0, tileSetCanvas.width,tileSetCanvas.height)
-    
     animatedImagesArray.forEach(image => {
         image.animate()  //atualiza os quadros de todas as imagens animadas
         image.checkCollisionWithPlayer() //verifica se colidiu com o player
     }) 
-
     player.animate()
     player.applyGravity()
     player.checkCollisionOnFloor()
 
-   
     if(player.MoveAction.left || player.MoveAction.right)player.move()
     if(player.MoveAction.jump == true)player.jump()
     
-    
+    createBaseForTests()
     frames++
     window.requestAnimationFrame(animationLoop)
 }
@@ -193,8 +213,6 @@ function animationLoop(){
 createGrid()
 drawBaseTiles()
 animationLoop()
-
-
 
 tileSetCanvas.addEventListener("mousedown", (event) => {manageImages(event)})
 
@@ -217,15 +235,9 @@ window.addEventListener("keyup",(event) => {
     if(key == " ") {
         player.MoveAction.jump = false
         player.playerState.keyJumpIsUp = true
-        //console.log(tileArray) //para debugar
-
-          
-
-
-        
-
     }
 })
+
 
 
 

@@ -12,19 +12,16 @@ export default class Fruits extends AnimatedImage{
         //checa colisão com o player
         if(super.checkCollisionWithPlayer()){ // chama a função de colisão da classe super
                 //muda a animação
-                this.image.src = spriteCoordinates["fruit-collected"].location[0].image
+                this.image.src = spriteCoordinates["fruit-collected"].location[0].image 
                 this.spriteFrames = spriteCoordinates["fruit-collected"].location[0].frames
                 this.collected = true
             }
     }
     
     animate(){
-        const position = super.animate()
+        const position = super.animate() //pega a posição do position na superclasse 
         
-        if(this.collected){
-            this.collectFruit(position)
-        }
-
+        if(this.collected){this.collectFruit(position)}
     }
     
     collectFruit(position){
@@ -35,15 +32,10 @@ export default class Fruits extends AnimatedImage{
                         animatedImagesArray.splice(index,1) //deleta o objeto de imagem inteiro
                     }
                 })
-
             }
     }
 
-
-    calculatetHitbox(){
-      
-        super.calculateHitbox()
-    }
+    calculatetHitbox(){super.calculateHitbox()}
   
 }
 

@@ -20,10 +20,10 @@ class Player{
         this.ctx = ctx
        
         this.phisics = {
-        gravity: 0.5,
+        gravity: 1,
         velocityY: 0,
         speed: 8,
-        jumpStrength: -15
+        jumpStrength: -18
         }
       
         this.gameFrame = 1

@@ -92,6 +92,16 @@ const ImagesInfo = [ //line é a linha onde esta presente os frames em um sprite
         imageInstance: createImage()
     },
     {
+        name: "ninjafrog", 
+        state: "desappearing",
+        frames: 6,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Desappearing (96x96)2.png",
+        imageInstance: createImage()
+    },
+    {
         name: "fruit", 
         state: "strawberry",
         frames: 17,
@@ -421,7 +431,5 @@ ImagesInfo.forEach((content,index) => { //função que cria um array contendo um
    
     spriteCoordinates[`${content.name}-${content.state}`] = frames
 })
-
-console.log(spriteCoordinates)
 
 export {spriteCoordinates,positionAdjust}
