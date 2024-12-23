@@ -431,5 +431,5 @@ ImagesInfo.forEach((content,index) => { //função que cria um array contendo um
    
     spriteCoordinates[`${content.name}-${content.state}`] = frames
 })
-
+console.log(spriteCoordinates)
 export {spriteCoordinates,positionAdjust}

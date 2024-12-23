@@ -243,7 +243,7 @@ main{
 
 #block-idle { background-image: url("../../../public/assets/images/Traps/Blocks/idle.png"); }
 
-#platform-off { background-image: url("../../../public/assets/images/Traps/Falling Platforms/Off.png"); }
+#platform-on { background-image: url("../../../public/assets/images/Traps/Falling Platforms/On (32x10).png"); }
 
 #fan-off { background-image: url("../../../public/assets/images/Traps/Fan/Off.png"); }
 
