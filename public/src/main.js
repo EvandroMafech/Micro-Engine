@@ -8,6 +8,8 @@ import Saw from "./components/Saw.js";
 import Spykes from "./components/spykes.js";
 import Trampoline from "./components/Trampoline.js";
 import Platform from "./components/Platform.js";
+import Fan from "./components/Fan.js";
+import Spikedball from "./components/Spikedball.js";
 
 //canvas para os tilesets
 const tileSetCanvas = document.querySelector(".tileset") 
@@ -166,13 +168,15 @@ function createAnimatedImage(TileId){
             }else if(activeSelectedImage.imageId.includes("end")){
                  animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
             }else if(activeSelectedImage.imageId.includes("fan")){
-                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+                 animatedImage = new Fan(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
             }else if(activeSelectedImage.imageId.includes("spykes")){
                  animatedImage = new Spykes(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
             }else if(activeSelectedImage.imageId.includes("start")){
                  animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
             }else if(activeSelectedImage.imageId.includes("trampoline")){
                  animatedImage = new Trampoline(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+            }else if(activeSelectedImage.imageId.includes("spikedball")){
+                 animatedImage = new Spikedball(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
             }
 
             

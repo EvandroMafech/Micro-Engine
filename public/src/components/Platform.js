@@ -31,13 +31,13 @@ export default class Platform extends AnimatedImage{
     animate(){
         super.animate()
         if(this.activated) this.applyGravity()
-        if(this.y >= 5000){
-            animatedImagesArray.forEach((image,index) => {
-                if(image.id == this.id){
-                    animatedImagesArray.splice(index,1) //deleta o objeto de imagem inteiro
-                }
-            })
-        }  
+        // if(this.y >= 5000){
+        //     animatedImagesArray.forEach((image,index) => {
+        //         if(image.id == this.id){
+        //             animatedImagesArray.splice(index,1) //deleta o objeto de imagem inteiro
+        //         }
+        //     })
+        // }  
             
     }
 

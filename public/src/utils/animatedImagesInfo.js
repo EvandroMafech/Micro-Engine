@@ -19,6 +19,9 @@ const ImagesInfo = [ //line é a linha onde esta presente os frames em um sprite
         width: 32,
         height: 32,
         image: "../public/assets/images/Main Characters/Ninja Frog/Idle (32x32).png",
+      //  image: "../public/assets/images/Main Characters/Mask Dude/Idle (32x32).png",
+      //  image: "../public/assets/images/Main Characters/Pink Man/Idle (32x32).png",
+      //  image: "../public/assets/images/Main Characters/Virtual Guy/Idle (32x32).png",
         imageInstance: createImage()
     },
     {
@@ -400,6 +403,16 @@ const ImagesInfo = [ //line é a linha onde esta presente os frames em um sprite
         height: 28,
         image: "../public/assets/images/Traps/Trampoline/Jump (28x28).png",
         imageInstance: createImage()
+    },
+    {
+        name: "spikedball", 
+        state: "chained",
+        frames: 1,
+        line: 0,
+        width: 28,
+        height: 28,
+        image: "../public/assets/images/Traps/Spiked Ball/Spiked Ball.png",
+        imageInstance: createImage()
     }
 ]
 
@@ -431,5 +444,5 @@ ImagesInfo.forEach((content,index) => { //função que cria um array contendo um
    
     spriteCoordinates[`${content.name}-${content.state}`] = frames
 })
-console.log(spriteCoordinates)
+//console.log(spriteCoordinates)
 export {spriteCoordinates,positionAdjust}
