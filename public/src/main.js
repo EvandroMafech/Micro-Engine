@@ -29,6 +29,12 @@ tileSetCanvas.height = animationCanvas.height = 2000
 ctx.imageSmoothingEnabled = false
 ctxAnimations.imageSmoothingEnabled = false
 
+const keyboardShortcuts = {
+    alignItens: true
+
+}
+
+
 const tilesWithImages = []
 const tileArray = [] //guarda uma instancia para cada frame do editor
 const animatedImagesArray = [] //salva em sequencia todas as imagens animadas
@@ -115,15 +121,18 @@ function setTileSetImageOnCanvas(TileId){ //posiciona os tilesets de terreno no 
 })
 }
 
-function createAnimatedImage(TileId){
+function createAnimatedImage(TileId,event){
   
     const newImage = new Image()
+    let x 
+    let y 
     newImage.src = activeSelectedImage.imageUrl
     activeSelectedImage.instance = newImage
     
     const {w, line, h, image, frames, id} = spriteCoordinates[activeSelectedImage.imageId].location[0]
     let adjustX 
     let adjustY 
+    
     tileArray.forEach(tile => {
          if(tile.id == TileId){
             
@@ -137,8 +146,21 @@ function createAnimatedImage(TileId){
                 adjustY = y
                 }
 
-            const x = tile.x
-            const y = tile.y
+                
+           
+            if(keyboardShortcuts.alignItens){            
+                const rect = tileSetCanvas.getBoundingClientRect(); // usado para referenciar a posição do mouse
+                const {clientX , clientY} = event
+                const positionX = clientX - rect.left
+                const positionY = clientY - rect.top
+                x = positionX
+                y = positionY
+                console.log("OI")
+            }else{
+                x = tile.x
+                y = tile.y
+            }
+
             const sheetImage = new Image()
             sheetImage.src = image
             const numeralImageId = numeralId++
@@ -195,7 +217,7 @@ function manageImages(event){
     tilesWithImages.push(TileId)
         
     if(activeSelectedImage.type =="tileset"){setTileSetImageOnCanvas(TileId)}
-    else if(activeSelectedImage.type === "animated"){createAnimatedImage(TileId)}
+    else if(activeSelectedImage.type === "animated"){createAnimatedImage(TileId,event)}
 }
 
 function animationLoop(){
@@ -208,6 +230,7 @@ function animationLoop(){
     player.animate()
     player.applyGravity()
     player.checkCollisionOnFloor()
+    //player.checkCollisionOnWalls()
 
     if(player.MoveAction.left || player.MoveAction.right)player.move()
     if(player.MoveAction.jump == true)player.jump()
@@ -232,6 +255,7 @@ window.addEventListener("keydown",(event) => {
     if(key == "arrowleft"){player.MoveAction.left = true}
     if(key == "arrowright"){player.MoveAction.right = true}
     if(key == " ") {player.MoveAction.jump = true}
+    if(key == "shift"){keyboardShortcuts.alignItens = true}
 })
 
 window.addEventListener("keyup",(event) => {
@@ -243,6 +267,7 @@ window.addEventListener("keyup",(event) => {
         player.MoveAction.jump = false
         player.playerState.keyJumpIsUp = true
     }
+    if(key == "shift"){keyboardShortcuts.alignItens = false}
 })
 
 
