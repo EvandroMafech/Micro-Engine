@@ -15,7 +15,9 @@ class Player{
         this.playerState = {
             isOnPlatform: false,
             isJumping: false,
-            keyJumpIsUp: true
+            keyJumpIsUp: true,
+            leftBlocked: false,
+            rightBlocked: false
         }
         this.ctx = ctx
        
@@ -78,25 +80,33 @@ animate(){
     let frameX = position*this.spriteWidth
     let frameY = spriteCoordinates[this.spriteState].location[position].y
    
-    // ctx.strokeRect( this.position.x+this.spriteOffset.left*this.spriteSize,
-    //                 this.position.y+this.spriteOffset.top*this.spriteSize,
-    //                 this.spriteWidth*this.spriteSize-this.spriteOffset.right*this.spriteSize,
-    //                 this.spriteHeight*this.spriteSize-this.spriteOffset.top*this.spriteSize)
+    // const playerLeftEdge = this.position.x + this.spriteOffset.left*this.spriteSize
+    // const playerRightEdge = this.position.x + this.spriteWidth*this.spriteSize - this.spriteOffset.right*this.spriteSize
+    // const playerBottomEdge = this.position.y + this.spriteHeight*this.spriteSize - this.spriteOffset.bottom*this.spriteSize
+    // const playerTopEdge = this.position.y 
+
+    ctx.strokeRect( this.position.x,
+                    this.position.y,
+                    this.spriteWidth*this.spriteSize,
+                    this.spriteHeight*this.spriteSize)
   
     ctx.drawImage(image,frameX,frameY, this.spriteWidth,this.spriteHeight, this.position.x, this.position.y , this.spriteWidth*this.spriteSize,this.spriteHeight*this.spriteSize) //(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
 }
 
 move() 
 {
-    //this.checkCollisionOnWalls() 
+    this.checkCollisionOnWalls()
+     
     if(!this.playerState.isJumping){
     this.spriteState = "ninjafrog-run"
     }
     
-    if(this.MoveAction.left){
+    if(this.MoveAction.left && !this.leftBlocked){
          this.position.x -= this.phisics.speed
-    }else{
+         this.rightBlocked = false
+    }else if(this.MoveAction.right && !this.rightBlocked){
          this.position.x += this.phisics.speed
+         this.leftBlocked = false
     }
 }
 
@@ -137,48 +147,39 @@ checkCollisionOnFloor(){
 }
 
 checkCollisionOnWalls(){
-  
+      
+    this.leftBlocked = false
+    this.rightBlocked = false
     
-    let canMoveLeft = true
-    let canMoveRight = true
-
-    tileArray.some(wall => {
-        const platformRightEdge = wall.x + wall.width
-        const platformLeftEdge = wall.x
-        const platformTopEdge = wall.y
-        const platformBottomEdge = wall.y + wall.height
+    tileArray.some(Tiles => {
+        const platformRightEdge = Tiles.x + Tiles.width
+        const platformLeftEdge = Tiles.x
+        const platformTopEdge = Tiles.y
+        const platformBottomEdge = Tiles.y + Tiles.height
 
         const playerLeftEdge = this.position.x + this.spriteOffset.left*this.spriteSize
         const playerRightEdge = this.position.x + this.spriteWidth*this.spriteSize - this.spriteOffset.right*this.spriteSize
         const playerBottomEdge = this.position.y + this.spriteHeight*this.spriteSize - this.spriteOffset.bottom*this.spriteSize
-        
+        const playerTopEdge = this.position.y 
+      
         // Verifica colisão do jogador com a parede
         const leftColisison = 
-            (this.position.x + playerLeftEdge <= platformRightEdge && 
-             this.position.x + playerRightEdge >= platformLeftEdge)
+            (playerRightEdge > platformRightEdge && 
+             playerLeftEdge < platformRightEdge)
     
         const RightColisison = 
-            (this.position.x + playerRightEdge >= platformLeftEdge && 
-             this.position.x + playerLeftEdge <= platformRightEdge)
+            (playerLeftEdge < platformLeftEdge && 
+             playerRightEdge > platformLeftEdge)
 
         const VerticalCollision = 
-            (this.position.y + playerBottomEdge >= platformTopEdge && 
-             this.position.y + playerBottomEdge <= platformBottomEdge)
+            (playerBottomEdge > platformTopEdge && 
+            playerTopEdge < platformBottomEdge)
 
-        const movingLeft = true//this.initXposition > this.position.x         
-        const movingRight = true//this.initXposition < this.position.x         
-        console.log(RightColisison)
-           
             // Verifica se está tentando mover para a esquerda
-            if (this.MoveAction.left && leftColisison && VerticalCollision && movingLeft) {
-                canMoveLeft = false
-                console.log("esquerda bloqueada")
-            }
-
-            // Verifica se está tentando mover para a direita
-            if (this.MoveAction.right && RightColisison && VerticalCollision && movingRight) {
-                canMoveRight = false
-                console.log("direita bloqueada")
+            if(leftColisison && VerticalCollision && Tiles.activeImage != " ") {
+                this.leftBlocked = true
+            }else if(RightColisison && VerticalCollision && Tiles.activeImage != " ") {
+                this.rightBlocked = true
             }
         
     })

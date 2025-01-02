@@ -30,7 +30,7 @@ ctx.imageSmoothingEnabled = false
 ctxAnimations.imageSmoothingEnabled = false
 
 const keyboardShortcuts = {
-    alignItens: true
+    alignItens: false
 
 }
 
@@ -267,7 +267,10 @@ window.addEventListener("keyup",(event) => {
         player.MoveAction.jump = false
         player.playerState.keyJumpIsUp = true
     }
-    if(key == "shift"){keyboardShortcuts.alignItens = false}
+    if(key == "shift"){
+        keyboardShortcuts.alignItens = false
+        console.log(tileArray)
+    }
 })
 
 
