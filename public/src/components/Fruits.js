@@ -1,5 +1,5 @@
 import { animatedImagesArray, player } from "../main.js";
-import { spriteCoordinates } from "../utils/animatedImagesInfo.js";
+import { spriteCoordinates } from "./animatedImagesInfo.js";
 import AnimatedImage from "./AnimatedImage.js";
 
 export default class Fruits extends AnimatedImage{

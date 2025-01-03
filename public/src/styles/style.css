@@ -219,7 +219,7 @@ main{
 
 
 
-#ninjafrog-run{background-image: url("../../../public/assets/images/Main Characters/Ninja Frog/Jump (32x32).png");}
+/* #ninjafrog-run{background-image: url("../../../public/assets/images/Main Characters/Ninja Frog/Jump (32x32).png");} */
 
 #fruit-apple { background-image: url("../../../public/assets/images/Items/Fruits/Apple.png"); }
 #fruit-bananas { background-image: url("../../../public/assets/images/Items/Fruits/Bananas.png"); }
@@ -230,24 +230,24 @@ main{
 #fruit-pineapple { background-image: url("../../../public/assets/images/Items/Fruits/Pineapple.png"); }
 #fruit-strawberry { background-image: url("../../../public/assets/images/Items/Fruits/Strawberry.png"); }
 
-#checkpoint-idle { background-image: url("../../../public/assets/images/Items/Checkpoints/Checkpoint/Checkpoint (Flag Idle)(64x64).png"); }
+/* #checkpoint-idle { background-image: url("../../../public/assets/images/Items/Checkpoints/Checkpoint/Checkpoint (Flag Idle)(64x64).png"); } */
 #checkpoint-noflag { background-image: url("../../../public/assets/images/Items/Checkpoints/Checkpoint/Checkpoint (No Flag).png"); }
+
+#end-idle{ background-image: url("../../../public/assets/images/Items/Checkpoints/End/End (Idle).png"); }
+#start-idle { background-image: url("../../../public/assets/images/Items/Checkpoints/Start/Start (Idle).png"); }
 
 
 #box1-idle{ background-image: url("../../../public/assets/images/Items/boxes/Box1/Idle.png"); }
 #box2-idle{ background-image: url("../../../public/assets/images/Items/boxes/Box2/Idle.png"); }
 #box3-idle{ background-image: url("../../../public/assets/images/Items/boxes/Box3/Idle.png"); }
 
-#end-idle{ background-image: url("../../../public/assets/images/Items/Checkpoints/End/End (Idle).png"); }
-#start-idle { background-image: url("../../../public/assets/images/Items/Checkpoints/Start/Start (Idle).png"); }
-
 #block-idle { background-image: url("../../../public/assets/images/Traps/Blocks/idle.png"); }
 
-#platform-on { background-image: url("../../../public/assets/images/Traps/Falling Platforms/On (32x10).png"); }
+#platform-on { background-image: url("../../../public/assets/images/Traps/Falling Platforms/Off.png"); }
 
 #fan-on { background-image: url("../../../public/assets/images/Traps/Fan/off.png"); }
 
-#saw-on { background-image: url("../../../public/assets/images/Traps/Saw/On (38x38).png"); }
+#saw-on { background-image: url("../../../public/assets/images/Traps/Saw/Off.png"); }
 
 #spykes-idle { background-image: url("../../../public/assets/images/Traps/Spikes/Idle.png"); }
 

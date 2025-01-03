@@ -1,4 +1,4 @@
-import {positionAdjust, spriteCoordinates } from "./utils/animatedImagesInfo.js";
+import {positionAdjust, spriteCoordinates } from "./components/animatedImagesInfo.js";
 import AnimatedImage from "./components/AnimatedImage.js";
 import Tile from "./components/Tile.js";
 import {tileSetCanvasFrameInfo} from "./components/tilesetCanvas.js";
@@ -251,15 +251,18 @@ animationCanvas.addEventListener("mousedown", (event) => {manageImages(event)})
 
 window.addEventListener("keydown",(event) => {
     const key = event.key.toLowerCase() 
-
+    
     if(key == "arrowleft"){player.MoveAction.left = true}
     if(key == "arrowright"){player.MoveAction.right = true}
-    if(key == " ") {player.MoveAction.jump = true}
+    if(key == " ") {
+        player.MoveAction.jump = true
+    }
     if(key == "shift"){keyboardShortcuts.alignItens = true}
 })
 
 window.addEventListener("keyup",(event) => {
     const key = event.key.toLowerCase() 
+    
 
     if(key == "arrowleft"){player.MoveAction.left = false}
     if(key == "arrowright"){player.MoveAction.right = false}

@@ -1,5 +1,4 @@
 import { player } from "../main.js";
-import { spriteCoordinates } from "../utils/animatedImagesInfo.js";
 import AnimatedImage from "./AnimatedImage.js";
 
 export default class Fan extends AnimatedImage{
@@ -11,13 +10,11 @@ export default class Fan extends AnimatedImage{
     checkCollisionWithPlayer(){
         //checa colisão com o player
         if(super.checkCollisionWithPlayer()){ // chama a função de colisão da classe super
-              //muda a animação do player
-             // player.phisics.jumpStrength = -30
+
              this.active = true
              player.phisics.velocityY = -30
-              //player.jump()
-              player.playerState.keyJumpIsUp = true
-             // player.phisics.jumpStrength = -18
+             player.playerState.keyJumpIsUp = true
+             player.spriteState = "ninjafrog-idle"
             }
     }
 

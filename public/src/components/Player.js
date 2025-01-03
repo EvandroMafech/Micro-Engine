@@ -1,5 +1,5 @@
 import { frames, staggerFrames,tileArray} from "../main.js"
-import { spriteCoordinates } from "../utils/animatedImagesInfo.js"
+import { spriteCoordinates } from "./animatedImagesInfo.js"
 
 class Player{
     constructor(ctx){
@@ -116,7 +116,7 @@ checkCollisionOnFloor(){
         const playerOffSetBottom = this.spriteHeight*this.spriteSize - this.spriteOffset.bottom*this.spriteSize
         const playerLeftX = this.position.x + this.spriteOffset.left*this.spriteSize
         const playerRightX = this.position.x + this.spriteWidth*this.spriteSize - this.spriteOffset.right*this.spriteSize
-        
+
         if(this.playerState.isJumping && this.phisics.velocityY > 0){
             this.spriteState = "ninjafrog-fall"
         }
@@ -142,7 +142,7 @@ checkCollisionOnFloor(){
                 this.spriteState = "ninjafrog-idle"
                 return true
             }
-        });
+        })
     this.playerState.isOnPlatform = false
 }
 
@@ -180,7 +180,7 @@ checkCollisionOnWalls(){
                 this.leftBlocked = true
             }else if(RightColisison && VerticalCollision && Tiles.activeImage != " ") {
                 this.rightBlocked = true
-            }
+            } 
         
     })
 
