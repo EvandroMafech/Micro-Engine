@@ -1,5 +1,5 @@
 import { frames, staggerFrames,tileArray} from "../main.js"
-import { spriteCoordinates } from "./animatedImagesInfo.js"
+import { spriteCoordinates } from "../utils/animatedImagesInfo.js"
 
 class Player{
     constructor(ctx){

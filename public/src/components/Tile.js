@@ -33,6 +33,14 @@ class Tile{
            ctx.strokeRect(this.x,this.y,this.height,this.width) // (x, y, largura, altura)
            }
         }
+
+        cleanTile(){
+            const ctx = this.ctx
+            ctx.fillStyle = "#3a3f3d"
+            ctx.fillRect(this.x,this.y,this.height,this.width) // (x, y, largura, altura)
+            ctx.strokeStyle = "#555"
+            ctx.strokeRect(this.x,this.y,this.height,this.width) // (x, y, largura, altura)
+        }
 }
 
 export default Tile

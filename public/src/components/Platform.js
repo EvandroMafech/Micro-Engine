@@ -20,15 +20,12 @@ export default class Platform extends AnimatedImage{
         const playerLeftX = player.position.x + player.spriteOffset.left*player.spriteSize
         const playerRightX = player.position.x + player.spriteWidth*player.spriteSize - player.spriteOffset.right*player.spriteSize
 
-        // if(player.playerState.isJumping && player.phisics.velocityY > 0){
-        //     player.spriteState = "ninjafrog-fall"
-        // }
                 const topTiles = this.y
                 const leftTiles = this.x
-                const rightTiles = this.x + this.width
+                const rightTiles = this.x + this.width*this.size
 
             if( playerBottomY >= topTiles &&
-                playerBottomY <= topTiles + this.height*5 &&
+                playerBottomY <= topTiles + this.height &&
                 playerRightX >= leftTiles &&
                 playerLeftX <= rightTiles &&
                 player.phisics.velocityY > 0 

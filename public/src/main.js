@@ -1,4 +1,4 @@
-import {positionAdjust, spriteCoordinates } from "./components/animatedImagesInfo.js";
+import {positionAdjust, spriteCoordinates } from "./utils/animatedImagesInfo.js";
 import AnimatedImage from "./components/AnimatedImage.js";
 import Tile from "./components/Tile.js";
 import {tileSetCanvasFrameInfo} from "./components/tilesetCanvas.js";
@@ -35,8 +35,11 @@ const keyboardShortcuts = {
 }
 
 
-const tilesWithImages = []
+
+
+const tilesWithImages = [] // salva somente tiles com imagens
 const tileArray = [] //guarda uma instancia para cada frame do editor
+
 const animatedImagesArray = [] //salva em sequencia todas as imagens animadas
 const allSetIdsArray = [] //salva todas as imagens em sequencia para ser usada ao apertar a tecla CTRL+Z
 const tileSize = 64 //tamanho de cada frame do grid
@@ -55,6 +58,20 @@ let frames = 0 //contator de frames do loop principal
 let numeralId = 0 
 
 export {staggerFrames,frames,activeSelectedImage,animatedImagesArray,player,tileArray}
+
+function undoImages(event){
+  
+   let lastTileImage = tilesWithImages.pop()
+ 
+   tileArray.some(tile => {
+        if(tile.id == lastTileImage){
+            tile.activeImage = " "
+            tile.cleanTile()  
+            return 
+        }
+   })
+}
+
 
 function createBaseForTests(){ //posiciona os tilesets de terreno no canvas para testes
 
@@ -114,9 +131,9 @@ function setTileSetImageOnCanvas(TileId){ //posiciona os tilesets de terreno no 
     tileArray.forEach(tile => {
     
        if(tile.id == TileId){
-       tile.activeImage = tileSetCanvasFrameInfo.id
-       tile.drawImage(tileSetCanvasFrameInfo)
-       allSetIdsArray.push(tileSetCanvasFrameInfo.id)
+            tile.activeImage = tileSetCanvasFrameInfo.id
+            tile.drawImage(tileSetCanvasFrameInfo)
+            allSetIdsArray.push(tileSetCanvasFrameInfo.id)
     }
 })
 }
@@ -232,6 +249,7 @@ function animationLoop(){
     player.checkCollisionOnFloor()
     //player.checkCollisionOnWalls()
 
+    //console.log(player.position.y)
     if(player.MoveAction.left || player.MoveAction.right)player.move()
     if(player.MoveAction.jump == true)player.jump()
     
@@ -247,6 +265,11 @@ animationLoop()
 tileSetCanvas.addEventListener("mousedown", (event) => {manageImages(event)})
 
 animationCanvas.addEventListener("mousedown", (event) => {manageImages(event)})
+
+window.addEventListener("keydown", (event) => {
+    const key = event.key.toLowerCase() 
+    if(event.ctrlKey && key == "z"){undoImages(event)}
+})
 
 
 window.addEventListener("keydown",(event) => {

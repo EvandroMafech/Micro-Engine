@@ -1,5 +1,5 @@
 import { player } from "../main.js";
-import { spriteCoordinates } from "./animatedImagesInfo.js";
+import { spriteCoordinates } from "../utils/animatedImagesInfo.js";
 import AnimatedImage from "./AnimatedImage.js";
 
 export default class Trampoline extends AnimatedImage{
