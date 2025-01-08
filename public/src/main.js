@@ -31,13 +31,9 @@ ctxAnimations.imageSmoothingEnabled = false
 
 const keyboardShortcuts = {
     alignItens: false
-
 }
 
-
-
-
-const tilesWithImages = [] // salva somente tiles com imagens
+const tilesWithImages = [] // salva somente tiles com imagens do tileset
 const tileArray = [] //guarda uma instancia para cada frame do editor
 
 const animatedImagesArray = [] //salva em sequencia todas as imagens animadas
@@ -59,19 +55,30 @@ let numeralId = 0
 
 export {staggerFrames,frames,activeSelectedImage,animatedImagesArray,player,tileArray}
 
-function undoImages(event){
-  
-   let lastTileImage = tilesWithImages.pop()
- 
-   tileArray.some(tile => {
-        if(tile.id == lastTileImage){
-            tile.activeImage = " "
-            tile.cleanTile()  
-            return 
-        }
-   })
-}
+function undoImages(){
 
+let lastImage = allSetIdsArray[allSetIdsArray.length-1].type 
+    
+if(lastImage == "animated"){
+     
+        animatedImagesArray.pop()
+        allSetIdsArray.pop()
+
+}else if(lastImage == "tileset"){
+        
+        let lastTileImageId = tilesWithImages.pop()
+        allSetIdsArray.pop()
+     
+        tileArray.some(tile => {
+             if(tile.id == lastTileImageId){
+                 tile.activeImage = " "
+                 tile.cleanTile()  
+                 return 
+             }
+        })
+
+    }
+}
 
 function createBaseForTests(){ //posiciona os tilesets de terreno no canvas para testes
 
@@ -93,7 +100,7 @@ function createBaseForTests(){ //posiciona os tilesets de terreno no canvas para
 
             tile.activeImage = tileSetInfo.id 
             tile.drawImage(tileSetInfo)
-            allSetIdsArray.push(tileSetInfo.id)
+            //allSetIdsArray.push(tileSetInfo.id)
         }
 })
 }
@@ -133,7 +140,7 @@ function setTileSetImageOnCanvas(TileId){ //posiciona os tilesets de terreno no 
        if(tile.id == TileId){
             tile.activeImage = tileSetCanvasFrameInfo.id
             tile.drawImage(tileSetCanvasFrameInfo)
-            allSetIdsArray.push(tileSetCanvasFrameInfo.id)
+            allSetIdsArray.push({id: tileSetCanvasFrameInfo.id,type: "tileset"})
     }
 })
 }
@@ -163,8 +170,7 @@ function createAnimatedImage(TileId,event){
                 adjustY = y
                 }
 
-                
-           
+
             if(keyboardShortcuts.alignItens){            
                 const rect = tileSetCanvas.getBoundingClientRect(); // usado para referenciar a posição do mouse
                 const {clientX , clientY} = event
@@ -218,10 +224,9 @@ function createAnimatedImage(TileId,event){
                  animatedImage = new Spikedball(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
             }
 
-            
-            
             animatedImagesArray.push(animatedImage)
-            allSetIdsArray.push(activeSelectedImage.imageId)
+            allSetIdsArray.push({id: activeSelectedImage.imageId,type: "animated"})
+            
 
         }
      })
@@ -231,9 +236,11 @@ function createAnimatedImage(TileId,event){
 function manageImages(event){
 
     const TileId = createTileId(event)    
-    tilesWithImages.push(TileId)
-        
-    if(activeSelectedImage.type =="tileset"){setTileSetImageOnCanvas(TileId)}
+
+    if(activeSelectedImage.type =="tileset"){
+        setTileSetImageOnCanvas(TileId)
+        tilesWithImages.push(TileId)
+    }
     else if(activeSelectedImage.type === "animated"){createAnimatedImage(TileId,event)}
 }
 
@@ -247,9 +254,7 @@ function animationLoop(){
     player.animate()
     player.applyGravity()
     player.checkCollisionOnFloor()
-    //player.checkCollisionOnWalls()
 
-    //console.log(player.position.y)
     if(player.MoveAction.left || player.MoveAction.right)player.move()
     if(player.MoveAction.jump == true)player.jump()
     
@@ -268,7 +273,7 @@ animationCanvas.addEventListener("mousedown", (event) => {manageImages(event)})
 
 window.addEventListener("keydown", (event) => {
     const key = event.key.toLowerCase() 
-    if(event.ctrlKey && key == "z"){undoImages(event)}
+    if(event.ctrlKey && key == "z"){undoImages()}
 })
 
 
