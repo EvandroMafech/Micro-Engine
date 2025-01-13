@@ -25,7 +25,7 @@ export default class Platform extends AnimatedImage{
                 const rightTiles = this.x + this.width*this.size
 
             if( playerBottomY > topTiles &&
-                playerBottomY < topTiles + this.height &&
+                playerBottomY < topTiles + this.height*3 &&
                 playerRightX > leftTiles &&
                 playerLeftX < rightTiles &&
                 player.phisics.velocityY > 0 

@@ -85,10 +85,10 @@ animate(){
     // const playerBottomEdge = this.position.y + this.spriteHeight*this.spriteSize - this.spriteOffset.bottom*this.spriteSize
     // const playerTopEdge = this.position.y 
 
-    ctx.strokeRect( this.position.x,
-                    this.position.y,
-                    this.spriteWidth*this.spriteSize,
-                    this.spriteHeight*this.spriteSize)
+    // ctx.strokeRect( this.position.x,
+    //                 this.position.y,
+    //                 this.spriteWidth*this.spriteSize,
+    //                 this.spriteHeight*this.spriteSize)
   
     ctx.drawImage(image,frameX,frameY, this.spriteWidth,this.spriteHeight, this.position.x, this.position.y , this.spriteWidth*this.spriteSize,this.spriteHeight*this.spriteSize) //(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
 }

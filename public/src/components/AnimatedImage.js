@@ -56,10 +56,10 @@ class AnimatedImage{
         let frameX = position*this.width
         let frameY = this.line*this.height
     
-        ctxAnimations.strokeRect( this.x,
-                                  this.y,
-                                  this.width*this.size,
-                                  this.height*this.size)
+        // ctxAnimations.strokeRect( this.x,
+        //                           this.y,
+        //                           this.width*this.size,
+        //                           this.height*this.size)
 
         ctxAnimations.drawImage(image,frameX,frameY, this.width,this.height, this.x, this.y, this.width*this.size , this.height*this.size) //(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
         return position

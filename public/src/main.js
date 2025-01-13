@@ -15,19 +15,26 @@ import Spikedball from "./components/Spikedball.js";
 const tileSetCanvas = document.querySelector(".tileset") 
 const ctx = tileSetCanvas.getContext("2d")
 
+const backgroundCanvas = document.querySelector(".background") 
+const ctxBackground = backgroundCanvas.getContext("2d")
+
 // canvas para imagens animadas
 const animationCanvas = document.querySelector(".animations") 
 const ctxAnimations = animationCanvas.getContext("2d")
 
+const lines = 15 //linhas do editor
+const columns = 40 // clounas do editor
+
 const player = new Player(ctxAnimations) //(ctx,image,x,y,sheetPosition){
 
 //dimensoes fixas do canvas
-tileSetCanvas.width = animationCanvas.width = 2000 
-tileSetCanvas.height = animationCanvas.height = 2000
+tileSetCanvas.width = animationCanvas.width = backgroundCanvas.width = 2000 
+tileSetCanvas.height = animationCanvas.height = backgroundCanvas.height = 2000
 
 //retira o efeito que deixa a imagem ruim
 ctx.imageSmoothingEnabled = false
 ctxAnimations.imageSmoothingEnabled = false
+ctxBackground.imageSmoothingEnabled = false
 
 const keyboardShortcuts = {
     alignItens: false
@@ -35,6 +42,7 @@ const keyboardShortcuts = {
 
 const tilesWithImages = [] // salva somente tiles com imagens do tileset
 const tileArray = [] //guarda uma instancia para cada frame do editor
+const backgroundArray = []
 
 const animatedImagesArray = [] //salva em sequencia todas as imagens animadas
 const allSetIdsArray = [] //salva todas as imagens em sequencia para ser usada ao apertar a tecla CTRL+Z
@@ -115,8 +123,6 @@ function createTileId(event){ //cria um Id para cada tile do canvas principal
 }
 
 function createGrid(){ //cria todas as instancias do grid principal do editor
-    const lines = 15 //linhas do editor
-    const columns = 40 // clounas do editor
 
     for(let c = 0; c < lines; c++){
         for(let l = 0; l <columns ; l++){
@@ -127,6 +133,24 @@ function createGrid(){ //cria todas as instancias do grid principal do editor
             tileArray.push(tile)
         }
     }
+}
+
+function createBackgroundGrid(){
+const tileSize = 64*2
+    for(let c = 0; c < lines; c++){
+        for(let l = 0; l <columns ; l++){
+            let x = tileSize*l
+            let y = tileSize*c
+            let id = `l${x/tileSize}` + `c${y/tileSize}` //adiciona um id único para cada um
+            const imagePath = "../public/assets/images/Background/Blue.png"
+            const tile = new Tile(x,y,tileSize,tileSize,ctxBackground,id,imagePath)
+            backgroundArray.push(tile)
+            
+            
+        }
+    }
+
+    console.log(backgroundArray)
 }
 
 function drawBaseTiles(){
@@ -143,6 +167,10 @@ function setTileSetImageOnCanvas(TileId){ //posiciona os tilesets de terreno no 
             allSetIdsArray.push({id: tileSetCanvasFrameInfo.id,type: "tileset"})
     }
 })
+}
+
+function setImageOnBackgroundTiles(){ //posiciona os tilesets de terreno no canvas
+    backgroundArray.forEach(tile => {tile.drawBackground(activeSelectedImage.imageUrl)})
 }
 
 function createAnimatedImage(TileId,event){
@@ -237,11 +265,16 @@ function manageImages(event){
 
     const TileId = createTileId(event)    
 
-    if(activeSelectedImage.type =="tileset"){
+    if(activeSelectedImage.type === "tileset"){
         setTileSetImageOnCanvas(TileId)
         tilesWithImages.push(TileId)
     }
-    else if(activeSelectedImage.type === "animated"){createAnimatedImage(TileId,event)}
+    else if(activeSelectedImage.type === "animated"){
+        createAnimatedImage(TileId,event)
+    }else if(activeSelectedImage.type === "background")
+    {
+        setImageOnBackgroundTiles()
+    }
 }
 
 function animationLoop(){
@@ -257,15 +290,19 @@ function animationLoop(){
 
     if(player.MoveAction.left || player.MoveAction.right)player.move()
     if(player.MoveAction.jump == true)player.jump()
-    
+
     createBaseForTests()
     frames++
     window.requestAnimationFrame(animationLoop)
 }
 
 createGrid()
+
+createBackgroundGrid()
 drawBaseTiles()
+
 animationLoop()
+
 
 tileSetCanvas.addEventListener("mousedown", (event) => {manageImages(event)})
 
@@ -286,6 +323,7 @@ window.addEventListener("keydown",(event) => {
         player.MoveAction.jump = true
     }
     if(key == "shift"){keyboardShortcuts.alignItens = true}
+    if(key == "a"){setImageOnBackgroundTiles()}
 })
 
 window.addEventListener("keyup",(event) => {

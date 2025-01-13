@@ -34,10 +34,15 @@ button.forEach(element => {
     element.addEventListener("click", (event) => {
         const selectedImageStyle = window.getComputedStyle(event.target);
         const selectedImageUrl = "../../../" + selectedImageStyle.backgroundImage.slice(27, -2) //o slice é usado para retirar o http.. e etc na hora do deploy ou teste com servidor local
-
+        //console.log(event.target.getAttribute("data-type"))
         activeSelectedImage.imageId = event.target.id
-        activeSelectedImage.type = "animated"
         activeSelectedImage.imageUrl = selectedImageUrl
+
+        if(event.target.getAttribute("data-type") == "background"){
+            activeSelectedImage.type = "background"
+        }else{
+            activeSelectedImage.type = "animated"
+        }
 
     })
 })
