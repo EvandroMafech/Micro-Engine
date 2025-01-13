@@ -1,6 +1,6 @@
 import { frames, player, staggerFrames } from "../main.js"
 
-class AnimatedImage{
+export default class AnimatedImage{
     constructor(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,id){
         this.x = x
         this.y = y
@@ -37,7 +37,7 @@ class AnimatedImage{
             }
     }
 
-    calculateHitbox(){
+    calculateHitbox(){ //retorna as coordenadas da hitbox
         return {
                 top: this.y+this.offset.top*this.size,
                 bottom: this.y + this.height*this.size - this.offset.bottom*this.size,
@@ -46,24 +46,25 @@ class AnimatedImage{
                 }
 }
 
+    showImageBorder(){//mostra contorno na imagem
+            this.ctxAnimations.strokeRect( this.x,
+                                    this.y,
+                                    this.width*this.size,
+                                    this.height*this.size)
+    }
 
     animate(){
         
-        const ctxAnimations = this.ctxAnimations
-        const image = this.image
-
         let position = Math.floor(frames/staggerFrames)%this.spriteFrames
         let frameX = position*this.width
         let frameY = this.line*this.height
     
-        // ctxAnimations.strokeRect( this.x,
-        //                           this.y,
-        //                           this.width*this.size,
-        //                           this.height*this.size)
+        this.ctxAnimations.drawImage(this.image,frameX,frameY, this.width,this.height, this.x, this.y, this.width*this.size , this.height*this.size) 
+        
+        //retirar comentario para mostrar contorno na imagem
+        this.showImageBorder()
 
-        ctxAnimations.drawImage(image,frameX,frameY, this.width,this.height, this.x, this.y, this.width*this.size , this.height*this.size) //(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
         return position
     }
 }
 
-export default AnimatedImage

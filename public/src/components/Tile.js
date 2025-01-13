@@ -1,6 +1,6 @@
 import { tileSetSpriteheet_image_path } from "../utils/constants.js"
 
-class Tile{
+export default class Tile{
     constructor(x,y,height,width,ctx,id,backgroundImageSource){
         this.x = x
         this.y = y
@@ -16,10 +16,9 @@ class Tile{
         drawImage({x,y}){
             const image = new Image()
             image.src = tileSetSpriteheet_image_path
-            const ctx = this.ctx
         
             if(image != " "){
-                ctx.drawImage(image,x,y,16,16,this.x,this.y,this.width,this.height)
+                this.ctx.drawImage(image,x,y,16,16,this.x,this.y,this.width,this.height)
             }
             
         }
@@ -27,30 +26,26 @@ class Tile{
         drawBackground(url){
             const image = new Image()
             image.src = url
-            const ctx = this.ctx
 
-                ctx.drawImage(image,this.x,this.y,this.width,this.height)
-                console.log(image.src) 
+            this.ctx.drawImage(image,this.x,this.y,this.width,this.height)
         }
 
         draw(){
-           const ctx = this.ctx
-           const color = this.color
-           if(this.activeImage == " "){
+
+          const color = this.color
+          if(this.activeImage == " "){
           // ctx.fillStyle = color
           // ctx.fillRect(this.x,this.y,this.height,this.width) // (x, y, largura, altura)
-           ctx.strokeStyle = "#555"
-           ctx.strokeRect(this.x,this.y,this.height,this.width) // (x, y, largura, altura)
+          this.ctx.strokeStyle = "#555"
+          this.ctx.strokeRect(this.x,this.y,this.height,this.width) // (x, y, largura, altura)
            }
         }
 
         cleanTile(){
-            const ctx = this.ctx
-            ctx.fillStyle = "#3a3f3d"
-            ctx.fillRect(this.x,this.y,this.height,this.width) // (x, y, largura, altura)
-            ctx.strokeStyle = "#555"
-            ctx.strokeRect(this.x,this.y,this.height,this.width) // (x, y, largura, altura)
+            this.ctx.fillStyle = "#3a3f3d"
+            this.ctx.fillRect(this.x,this.y,this.height,this.width) // (x, y, largura, altura)
+            this.ctx.strokeStyle = "#555"
+            this.ctx.strokeRect(this.x,this.y,this.height,this.width) // (x, y, largura, altura)
         }
 }
 
-export default Tile

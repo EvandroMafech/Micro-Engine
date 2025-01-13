@@ -277,19 +277,27 @@ function manageImages(event){
     }
 }
 
-function animationLoop(){
-      
-    ctxAnimations.clearRect(0,0, tileSetCanvas.width,tileSetCanvas.height)
-    animatedImagesArray.forEach(image => {
-        image.animate()  //atualiza os quadros de todas as imagens animadas
-        image.checkCollisionWithPlayer() //verifica se colidiu com o player
-    }) 
+function animatePlayer(){
+
     player.animate()
     player.applyGravity()
     player.checkCollisionOnFloor()
 
-    if(player.MoveAction.left || player.MoveAction.right)player.move()
-    if(player.MoveAction.jump == true)player.jump()
+}
+
+function animationLoop(){
+      
+    ctxAnimations.clearRect(0,0, tileSetCanvas.width,tileSetCanvas.height) //limpa tela do canvas das animações
+ 
+    animatedImagesArray.forEach(image => {
+        image.animate()  //atualiza os quadros de todas as imagens animadas
+        image.checkCollisionWithPlayer() //verifica se colidiu com o player
+    }) 
+   
+    animatePlayer()
+
+    if(player.MoveAction.left || player.MoveAction.right) player.move()
+    if(player.MoveAction.jump == true) player.jump()
 
     createBaseForTests()
     frames++
@@ -300,7 +308,6 @@ createGrid()
 
 createBackgroundGrid()
 drawBaseTiles()
-
 animationLoop()
 
 
@@ -323,7 +330,6 @@ window.addEventListener("keydown",(event) => {
         player.MoveAction.jump = true
     }
     if(key == "shift"){keyboardShortcuts.alignItens = true}
-    if(key == "a"){setImageOnBackgroundTiles()}
 })
 
 window.addEventListener("keyup",(event) => {
@@ -336,10 +342,7 @@ window.addEventListener("keyup",(event) => {
         player.MoveAction.jump = false
         player.playerState.keyJumpIsUp = true
     }
-    if(key == "shift"){
-        keyboardShortcuts.alignItens = false
-        console.log(tileArray)
-    }
+    if(key == "shift"){keyboardShortcuts.alignItens = false}
 })
 
 

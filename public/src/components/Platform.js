@@ -9,8 +9,6 @@ export default class Platform extends AnimatedImage{
             gravity: 0.1
         }
         this.activated = false
-
-            
     }
 
     checkCollisionOnFloor(){
@@ -20,14 +18,14 @@ export default class Platform extends AnimatedImage{
         const playerLeftX = player.position.x + player.spriteOffset.left*player.spriteSize
         const playerRightX = player.position.x + player.spriteWidth*player.spriteSize - player.spriteOffset.right*player.spriteSize
 
-                const topTiles = this.y
-                const leftTiles = this.x
-                const rightTiles = this.x + this.width*this.size
+        const topPlatform = this.y
+        const leftPlatform = this.x
+        const rightPlatform = this.x + this.width*this.size
 
-            if( playerBottomY > topTiles &&
-                playerBottomY < topTiles + this.height*3 &&
-                playerRightX > leftTiles &&
-                playerLeftX < rightTiles &&
+            if( playerBottomY > topPlatform &&
+                playerBottomY < topPlatform + this.height*3 &&
+                playerRightX > leftPlatform &&
+                playerLeftX < rightPlatform &&
                 player.phisics.velocityY > 0 
             )
             {
@@ -46,16 +44,12 @@ export default class Platform extends AnimatedImage{
 
     checkCollisionWithPlayer(){
         //checa colisão com o player
-        
         if(super.checkCollisionWithPlayer()){ // chama a função de colisão da classe super
-              //muda a animação do player
              this.activated = true
-             
             }
     }
 
     applyGravity(){ //aplica gravidade no player
-        
         this.phisics.velocityY += this.phisics.gravity
         this.y += this.phisics.velocityY
     }
@@ -65,6 +59,8 @@ export default class Platform extends AnimatedImage{
         this.checkCollisionOnFloor()
         if(this.activated) this.applyGravity()
       
+        //fazer com que a plataforma desapareça
+        
             // if(this.y >= 5000){
         //     animatedImagesArray.forEach((image,index) => {
         //         if(image.id == this.id){

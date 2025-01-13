@@ -43,7 +43,6 @@ export default class Spikedball extends AnimatedImage{
     }
 
     animateChain(){
-        const ctxAnimations = this.ctxAnimations
         const image = chain
    
         let position = Math.floor(frames/staggerFrames)%this.spriteFrames
@@ -59,7 +58,7 @@ export default class Spikedball extends AnimatedImage{
 
             const chainX = -chainRadious*Math.sin(this.amplitude*Math.cos(chainAngularFreq*this.time + this.phase)) + this.origin.x + this.width/1.3
             const chainY = +chainRadious*Math.cos(this.amplitude*Math.cos(chainAngularFreq*this.time + this.phase)) + this.origin.y
-            ctxAnimations.drawImage(image,frameX,frameY, this.width,this.height, chainX, chainY, this.width*this.size , this.height*this.size) //(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+            this.ctxAnimations.drawImage(image,frameX,frameY, this.width,this.height, chainX, chainY, this.width*this.size , this.height*this.size) //(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
             chainRadious -= 20
         }
         

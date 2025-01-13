@@ -417,8 +417,6 @@ const ImagesInfo = [ //line é a linha onde esta presente os frames em um sprite
 ]
 
 
-
-
 ImagesInfo.forEach((content,index) => { //função que cria um array contendo um chave de facil acesso e varias informações para manipulação da imagem
     
     const {width,height,line,image, frames: nFrames,name,imageInstance: imageInst} = ImagesInfo[index]
@@ -444,5 +442,4 @@ ImagesInfo.forEach((content,index) => { //função que cria um array contendo um
    
     spriteCoordinates[`${content.name}-${content.state}`] = frames
 })
-//console.log(spriteCoordinates)
 export {spriteCoordinates,positionAdjust}

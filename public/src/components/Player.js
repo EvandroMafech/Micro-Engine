@@ -1,7 +1,7 @@
 import { frames, staggerFrames,tileArray} from "../main.js"
 import { spriteCoordinates } from "../utils/animatedImagesInfo.js"
 
-class Player{
+export default class Player{
     constructor(ctx){
         this.position = {
             x: 1000,
@@ -68,10 +68,15 @@ jump(){
     }
 }
 
+showImageBorder(){//mostra contorno na imagem
+    this.ctx.strokeRect( this.position.x,
+                    this.position.y,
+                    this.spriteWidth*this.spriteSize,
+                    this.spriteHeight*this.spriteSize)
+}
 
 animate(){
-    const ctx = this.ctx
-   
+  
     let position = Math.floor(frames/staggerFrames)%spriteCoordinates[this.spriteState].location.length
 
     const image = spriteCoordinates[this.spriteState].location[0].imageInstance
@@ -79,18 +84,11 @@ animate(){
 
     let frameX = position*this.spriteWidth
     let frameY = spriteCoordinates[this.spriteState].location[position].y
-   
-    // const playerLeftEdge = this.position.x + this.spriteOffset.left*this.spriteSize
-    // const playerRightEdge = this.position.x + this.spriteWidth*this.spriteSize - this.spriteOffset.right*this.spriteSize
-    // const playerBottomEdge = this.position.y + this.spriteHeight*this.spriteSize - this.spriteOffset.bottom*this.spriteSize
-    // const playerTopEdge = this.position.y 
 
-    // ctx.strokeRect( this.position.x,
-    //                 this.position.y,
-    //                 this.spriteWidth*this.spriteSize,
-    //                 this.spriteHeight*this.spriteSize)
+    //retirar comentario para mostrar contorno na imagem
+    this.showImageBorder()
   
-    ctx.drawImage(image,frameX,frameY, this.spriteWidth,this.spriteHeight, this.position.x, this.position.y , this.spriteWidth*this.spriteSize,this.spriteHeight*this.spriteSize) //(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+    this.ctx.drawImage(image,frameX,frameY, this.spriteWidth,this.spriteHeight, this.position.x, this.position.y , this.spriteWidth*this.spriteSize,this.spriteHeight*this.spriteSize) //(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
 }
 
 move() 
@@ -187,8 +185,6 @@ checkCollisionOnWalls(){
 }
 
 
-
-
 applyGravity(){ //aplica gravidade no player
 
     if(this.playerState.isOnPlatform == false){
@@ -201,7 +197,7 @@ applyGravity(){ //aplica gravidade no player
 }
 
 
-export default Player
+
 
 
 
