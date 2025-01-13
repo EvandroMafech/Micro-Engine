@@ -82,10 +82,10 @@ main{
 .canvas-container {
     position: relative;
     width: 2000px;
-    height: 2000px;
+    height: 1000px;
 }
 
-.tileset, .animations, .background {
+.tileset, .animations, .background, .grid {
     position: absolute; 
     top: 0;
     left: 0;
@@ -127,10 +127,13 @@ main{
     z-index: 1; 
 }
 
-.animations {
-    z-index:  2; 
-}
+.grid {
+    z-index:  2;
 
+}
+.animations {
+    z-index:  3; 
+}
 
 
 .main-btn {

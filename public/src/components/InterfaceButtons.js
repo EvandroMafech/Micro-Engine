@@ -1,7 +1,8 @@
-import { activeSelectedImage } from "../main.js"
+import { activeSelectedImage, clearGrid, drawGrid } from "../main.js"
 
 const leftAsideMainButtons = document.querySelectorAll(".main-btn")
 const button = document.querySelectorAll(".dropdown")
+const headerButtons = document.querySelectorAll(".headerButtons")
 
 //botoes principais do menu à esquerda
 leftAsideMainButtons.forEach(element => {
@@ -42,6 +43,26 @@ button.forEach(element => {
             activeSelectedImage.type = "background"
         }else{
             activeSelectedImage.type = "animated"
+        }
+
+    })
+})
+
+const headerButtonsState = {
+    displayGrid: true
+}
+
+headerButtons.forEach(headerButton => {
+    headerButton.addEventListener("click", (event) =>{
+        console.log(event.target.id)
+        if(event.target.id === "grid"){
+            if(headerButtonsState.displayGrid == true){ 
+              clearGrid()
+              headerButtonsState.displayGrid = false
+            }else{
+              drawGrid()
+              headerButtonsState.displayGrid = true
+            }
         }
 
     })

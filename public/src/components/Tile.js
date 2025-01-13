@@ -30,22 +30,16 @@ export default class Tile{
             this.ctx.drawImage(image,this.x,this.y,this.width,this.height)
         }
 
-        draw(){
+        draw(ctxGrid){
 
-          const color = this.color
           if(this.activeImage == " "){
-          // ctx.fillStyle = color
-          // ctx.fillRect(this.x,this.y,this.height,this.width) // (x, y, largura, altura)
-          this.ctx.strokeStyle = "#555"
-          this.ctx.strokeRect(this.x,this.y,this.height,this.width) // (x, y, largura, altura)
+                ctxGrid.strokeStyle = "#555"
+                ctxGrid.strokeRect(this.x,this.y,this.height,this.width) // (x, y, largura, altura)
            }
         }
 
         cleanTile(){
-            this.ctx.fillStyle = "#3a3f3d"
-            this.ctx.fillRect(this.x,this.y,this.height,this.width) // (x, y, largura, altura)
-            this.ctx.strokeStyle = "#555"
-            this.ctx.strokeRect(this.x,this.y,this.height,this.width) // (x, y, largura, altura)
+            this.ctx.clearRect(this.x,this.y,this.height,this.width) // (x, y, largura, altura)
         }
 }
 

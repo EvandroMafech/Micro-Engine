@@ -62,7 +62,7 @@ export default class AnimatedImage{
         this.ctxAnimations.drawImage(this.image,frameX,frameY, this.width,this.height, this.x, this.y, this.width*this.size , this.height*this.size) 
         
         //retirar comentario para mostrar contorno na imagem
-        this.showImageBorder()
+        //this.showImageBorder()
 
         return position
     }

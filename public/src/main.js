@@ -18,6 +18,9 @@ const ctx = tileSetCanvas.getContext("2d")
 const backgroundCanvas = document.querySelector(".background") 
 const ctxBackground = backgroundCanvas.getContext("2d")
 
+const gridCanvas = document.querySelector(".grid") 
+const ctxGrid = gridCanvas.getContext("2d")
+
 // canvas para imagens animadas
 const animationCanvas = document.querySelector(".animations") 
 const ctxAnimations = animationCanvas.getContext("2d")
@@ -29,7 +32,7 @@ const player = new Player(ctxAnimations) //(ctx,image,x,y,sheetPosition){
 
 //dimensoes fixas do canvas
 tileSetCanvas.width = animationCanvas.width = backgroundCanvas.width = 2000 
-tileSetCanvas.height = animationCanvas.height = backgroundCanvas.height = 2000
+tileSetCanvas.height = animationCanvas.height = backgroundCanvas.height = 1000
 
 //retira o efeito que deixa a imagem ruim
 ctx.imageSmoothingEnabled = false
@@ -43,6 +46,7 @@ const keyboardShortcuts = {
 const tilesWithImages = [] // salva somente tiles com imagens do tileset
 const tileArray = [] //guarda uma instancia para cada frame do editor
 const backgroundArray = []
+let activeBackground = " "
 
 const animatedImagesArray = [] //salva em sequencia todas as imagens animadas
 const allSetIdsArray = [] //salva todas as imagens em sequencia para ser usada ao apertar a tecla CTRL+Z
@@ -80,7 +84,7 @@ if(lastImage == "animated"){
         tileArray.some(tile => {
              if(tile.id == lastTileImageId){
                  tile.activeImage = " "
-                 tile.cleanTile()  
+                 tile.cleanTile() 
                  return 
              }
         })
@@ -136,7 +140,7 @@ function createGrid(){ //cria todas as instancias do grid principal do editor
 }
 
 function createBackgroundGrid(){
-const tileSize = 64*2
+const tileSize = 64*3
     for(let c = 0; c < lines; c++){
         for(let l = 0; l <columns ; l++){
             let x = tileSize*l
@@ -150,12 +154,17 @@ const tileSize = 64*2
         }
     }
 
-    console.log(backgroundArray)
 }
 
-function drawBaseTiles(){
-    tileArray.forEach(tile => tile.draw()) // desenha o grid do editor
+function drawGrid(){
+    tileArray.forEach(tile => tile.draw(ctxGrid)) // desenha o grid do editor
 }
+
+function clearGrid(){
+    ctxGrid.clearRect(0,0, tileSetCanvas.width,tileSetCanvas.height) //limpa tela do canvas das animações
+}
+
+export {drawGrid,clearGrid}
 
 function setTileSetImageOnCanvas(TileId){ //posiciona os tilesets de terreno no canvas
 
@@ -307,7 +316,7 @@ function animationLoop(){
 createGrid()
 
 createBackgroundGrid()
-drawBaseTiles()
+drawGrid()
 animationLoop()
 
 
