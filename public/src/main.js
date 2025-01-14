@@ -10,6 +10,9 @@ import Trampoline from "./components/Trampoline.js";
 import Platform from "./components/Platform.js";
 import Fan from "./components/Fan.js";
 import Spikedball from "./components/Spikedball.js";
+import Checkpoint from "./components/Checkpoint.js";
+import End from "./components/End.js";
+import Start from "./components/Start.js";
 
 //canvas para os tilesets
 const tileSetCanvas = document.querySelector(".tileset") 
@@ -215,7 +218,6 @@ function createAnimatedImage(TileId,event){
                 const positionY = clientY - rect.top
                 x = positionX
                 y = positionY
-                console.log("OI")
             }else{
                 x = tile.x
                 y = tile.y
@@ -246,15 +248,15 @@ function createAnimatedImage(TileId,event){
             }else if(activeSelectedImage.imageId.includes("box3")){
                  animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
             }else if(activeSelectedImage.imageId.includes("checkpoint")){
-                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+                 animatedImage = new Checkpoint(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
             }else if(activeSelectedImage.imageId.includes("end")){
-                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+                 animatedImage = new End(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
             }else if(activeSelectedImage.imageId.includes("fan")){
                  animatedImage = new Fan(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
             }else if(activeSelectedImage.imageId.includes("spykes")){
                  animatedImage = new Spykes(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
             }else if(activeSelectedImage.imageId.includes("start")){
-                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+                 animatedImage = new Start(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
             }else if(activeSelectedImage.imageId.includes("trampoline")){
                  animatedImage = new Trampoline(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
             }else if(activeSelectedImage.imageId.includes("spikedball")){

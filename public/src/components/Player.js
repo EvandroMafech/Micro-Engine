@@ -17,7 +17,8 @@ export default class Player{
             isJumping: false,
             keyJumpIsUp: true,
             leftBlocked: false,
-            rightBlocked: false
+            rightBlocked: false,
+            doubleJump: false
         }
         this.ctx = ctx
        
@@ -64,7 +65,30 @@ jump(){
       this.position.y += this.phisics.velocityY
       this.playerState.isJumping = true
       this.playerState.keyJumpIsUp = false
-      this.spriteState = "ninjafrog-jump"     
+      this.spriteState = "ninjafrog-jump"
+      this.playerState.doubleJump = true     
+    }
+
+    if(this.playerState.doubleJump && !this.playerState.isOnPlatform && this.playerState.keyJumpIsUp){
+        this.phisics.velocityY = this.phisics.jumpStrength
+        this.position.y += this.phisics.velocityY
+        this.playerState.isJumping = true
+        this.playerState.keyJumpIsUp = false
+        this.spriteState = "ninjafrog-doublejump"
+        this.playerState.doubleJump = false
+    }
+}
+
+trampolineJump(){
+    
+    if(!this.playerState.isJumping && !this.playerState.isOnPlatform && this.playerState.keyJumpIsUp){
+ 
+      this.phisics.velocityY = this.phisics.jumpStrength
+      this.position.y += this.phisics.velocityY
+      this.playerState.isJumping = true
+      this.playerState.keyJumpIsUp = false
+      this.spriteState = "ninjafrog-jump"
+      this.playerState.doubleJump = true     
     }
 }
 

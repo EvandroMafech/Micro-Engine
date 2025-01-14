@@ -19,9 +19,6 @@ const ImagesInfo = [ //line é a linha onde esta presente os frames em um sprite
         width: 32,
         height: 32,
         image: "../public/assets/images/Main Characters/Ninja Frog/Idle (32x32).png",
-      //  image: "../public/assets/images/Main Characters/Mask Dude/Idle (32x32).png",
-      //  image: "../public/assets/images/Main Characters/Pink Man/Idle (32x32).png",
-      //  image: "../public/assets/images/Main Characters/Virtual Guy/Idle (32x32).png",
         imageInstance: createImage()
     },
     {
