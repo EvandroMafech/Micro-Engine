@@ -5,6 +5,10 @@ const leftAsideMainButtons = document.querySelectorAll(".main-btn")
 const button = document.querySelectorAll(".dropdown")
 const headerButtons = document.querySelectorAll(".headerButtons")
 
+const header = document.querySelector(".header")
+const leftAside = document.querySelector(".left-aside")
+const rightAside = document.querySelector(".right-aside")
+
 //botoes principais do menu à esquerda
 leftAsideMainButtons.forEach(element => {
     element.addEventListener("click", () => {
@@ -27,7 +31,17 @@ window.addEventListener("wheel", (event) => {
     
 //evita redimencionamento da tela
 window.addEventListener("keydown", (event) => {
-    if ((event.ctrlKey || event.metaKey) && (event.key === '+' || event.key === '-')) {event.preventDefault();}
+    const key = event.key.toLowerCase()
+
+    if ((event.ctrlKey || event.metaKey) && (key === '+' || key === '-')) {event.preventDefault();}
+  
+    if(key == "escape") {
+      
+        header.style.display = "flex"
+        leftAside.style.display = "flex"
+        rightAside.style.display = "flex"
+        
+    } 
 })
 
 //botões menores com imagens à esquerda
@@ -55,8 +69,7 @@ const headerButtonsState = {
 
 headerButtons.forEach(headerButton => {
     headerButton.addEventListener("click", (event) =>{
-        console.log(event.target.id)
-       
+      
         switch(event.target.id){
           
             case "grid":
@@ -68,12 +81,23 @@ headerButtons.forEach(headerButton => {
                     headerButtonsState.displayGrid = true
                   }
             break;
-          case "player":
-            player.playerState.avatarNumber++
-            if(player.playerState.avatarNumber >= 4) player.playerState.avatarNumber = 0
+          
+            case "player":
+                player.playerState.avatarNumber++
+                if(player.playerState.avatarNumber >= 4) player.playerState.avatarNumber = 0
 
-            console.log(player.playerState.avatarNumber)
-          break; 
+            break;
+
+            case "play":
+                  header.style.display = "none"
+                  leftAside.style.display = "none"
+                  rightAside.style.display = "none"
+
+            break;
+
+
+          
+          
         }
         })
        

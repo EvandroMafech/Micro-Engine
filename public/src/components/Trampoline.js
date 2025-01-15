@@ -15,9 +15,8 @@ export default class Trampoline extends AnimatedImage{
 
               this.image.src = spriteCoordinates["trampoline-jump"].location[0].image 
               this.spriteFrames = spriteCoordinates["trampoline-jump"].location[0].frames
-      
               player.phisics.jumpStrength = -30
-              player.trampolineJump()
+              player.jump()
               player.playerState.keyJumpIsUp = true
               player.phisics.jumpStrength = -18
               this.activated = true

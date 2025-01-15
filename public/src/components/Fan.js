@@ -14,18 +14,18 @@ export default class Fan extends AnimatedImage{
              this.active = true
              player.phisics.velocityY = -30
              player.playerState.keyJumpIsUp = true
-             player.spriteState = this.selectAvatar() + "-idle"
+             player.spriteState = player.selectAvatar() + "-jump"
             }
     }
 
     animate(){
         super.animate() //pega a posição do position na superclasse 
-
         if(this.active &&
            player.position.x < this.x + this.width &&
            player.position.x + player.spriteWidth > this.x)
             {
                 if(player.phisics.velocityY >= 5) player.phisics.velocityY = -Math.random()*10
+                player.spriteState = player.selectAvatar() + "-jump"
             }
 
     }

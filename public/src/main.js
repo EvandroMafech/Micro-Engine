@@ -34,6 +34,9 @@ const columns = 40 // clounas do editor
 const player = new Player(ctxAnimations) //(ctx,image,x,y,sheetPosition){
 
 //dimensoes fixas do canvas
+// tileSetCanvas.width = animationCanvas.width = backgroundCanvas.width = window.innerWidth 
+// tileSetCanvas.height = animationCanvas.height = backgroundCanvas.height = window.innerHeight
+
 tileSetCanvas.width = animationCanvas.width = backgroundCanvas.width = 2000 
 tileSetCanvas.height = animationCanvas.height = backgroundCanvas.height = 1000
 

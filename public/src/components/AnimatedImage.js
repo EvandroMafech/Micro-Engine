@@ -1,3 +1,6 @@
+//classe mãe para todas as imagens animadas
+
+
 import { frames, player, staggerFrames } from "../main.js"
 
 export default class AnimatedImage{
@@ -27,13 +30,13 @@ export default class AnimatedImage{
         player.playerHitbox = player.calculateHitbox()  
         this.hitbox = this.calculateHitbox() 
 
-        //checa colisão com o player
+        //checa colisão com o player, retorna verdadeiro se4 colidiu
         if( player.playerHitbox.bottom >= this.hitbox.top &&
             player.playerHitbox.top <= this.hitbox.bottom + 20 && // + Tiles.height &&
             player.playerHitbox.right >= this.hitbox.left &&
-            player.playerHitbox.left <= this.hitbox.right ){
-
-                return true
+            player.playerHitbox.left <= this.hitbox.right )
+            {
+            return true
             }
     }
 
@@ -48,9 +51,9 @@ export default class AnimatedImage{
 
     showImageBorder(){//mostra contorno na imagem
             this.ctxAnimations.strokeRect( this.x,
-                                    this.y,
-                                    this.width*this.size,
-                                    this.height*this.size)
+                                           this.y,
+                                           this.width*this.size,
+                                           this.height*this.size)
     }
 
     animate(){

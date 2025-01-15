@@ -44,7 +44,6 @@ export default class Player{
         this.spriteWidth = spriteCoordinates[this.spriteState].location[0].w
         this.spriteHeight = spriteCoordinates[this.spriteState].location[0].h
         this.playerHitbox = this.calculateHitbox()
-        
 
     }
 
@@ -91,19 +90,6 @@ jump(){
         this.playerState.keyJumpIsUp = false
         this.spriteState = this.selectAvatar() + "-doublejump"
         this.playerState.doubleJump = false
-    }
-}
-
-trampolineJump(){
-    
-    if(!this.playerState.isJumping && !this.playerState.isOnPlatform && this.playerState.keyJumpIsUp){
- 
-      this.phisics.velocityY = this.phisics.jumpStrength
-      this.position.y += this.phisics.velocityY
-      this.playerState.isJumping = true
-      this.playerState.keyJumpIsUp = false
-      this.spriteState = this.selectAvatar() +  "-jump"
-      this.playerState.doubleJump = true     
     }
 }
 
@@ -165,7 +151,7 @@ checkCollisionOnFloor(){
                 const rightTiles = Tiles.x + Tiles.width
 
             if(playerBottomY >= topTiles &&
-                playerBottomY <= topTiles + 20 &&// + Tiles.height &&
+                playerBottomY <= topTiles + 200 &&// + Tiles.height &&
                 playerRightX >= leftTiles &&
                 playerLeftX <= rightTiles &&
                 this.phisics.velocityY > 0 &&
@@ -218,11 +204,9 @@ checkCollisionOnWalls(){
             }else if(RightColisison && VerticalCollision && Tiles.activeImage != " ") {
                 this.rightBlocked = true
             } 
-        
     })
 
 }
-
 
 applyGravity(){ //aplica gravidade no player
 
