@@ -14,7 +14,7 @@ export default class Fan extends AnimatedImage{
              this.active = true
              player.phisics.velocityY = -30
              player.playerState.keyJumpIsUp = true
-             player.spriteState = "ninjafrog-idle"
+             player.spriteState = this.selectAvatar() + "-idle"
             }
     }
 

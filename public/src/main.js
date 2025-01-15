@@ -338,6 +338,7 @@ window.addEventListener("keydown",(event) => {
     if(key == "arrowleft"){player.MoveAction.left = true}
     if(key == "arrowright"){player.MoveAction.right = true}
     if(key == " ") {
+        event.preventDefault();
         player.MoveAction.jump = true
     }
     if(key == "shift"){keyboardShortcuts.alignItens = true}
@@ -350,6 +351,7 @@ window.addEventListener("keyup",(event) => {
     if(key == "arrowleft"){player.MoveAction.left = false}
     if(key == "arrowright"){player.MoveAction.right = false}
     if(key == " ") {
+        event.preventDefault();
         player.MoveAction.jump = false
         player.playerState.keyJumpIsUp = true
     }

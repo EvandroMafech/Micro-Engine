@@ -18,7 +18,8 @@ export default class Player{
             keyJumpIsUp: true,
             leftBlocked: false,
             rightBlocked: false,
-            doubleJump: false
+            doubleJump: false,
+            avatarNumber: 0
         }
         this.ctx = ctx
        
@@ -31,7 +32,7 @@ export default class Player{
       
         this.gameFrame = 1
         this.staggerFrames = 3
-        this.spriteState = "ninjafrog-idle"
+        this.spriteState = this.selectAvatar() + "-idle"
         this.spriteSize = 3
         
         this.spriteOffset = {
@@ -47,6 +48,19 @@ export default class Player{
 
     }
 
+
+selectAvatar(){
+
+    switch(this.playerState.avatarNumber){
+  
+        case 0: return "ninjafrog";
+        case 1: return "pinkman";
+        case 2: return "maskdude";
+        case 3: return "virtualguy";
+
+        default: return "ninjafrog";
+    }
+}
 
 calculateHitbox(){
     return {
@@ -65,8 +79,9 @@ jump(){
       this.position.y += this.phisics.velocityY
       this.playerState.isJumping = true
       this.playerState.keyJumpIsUp = false
-      this.spriteState = "ninjafrog-jump"
-      this.playerState.doubleJump = true     
+      this.spriteState = this.selectAvatar() + "-jump"
+      this.playerState.doubleJump = true 
+      console.log(this.selectAvatar())    
     }
 
     if(this.playerState.doubleJump && !this.playerState.isOnPlatform && this.playerState.keyJumpIsUp){
@@ -74,7 +89,7 @@ jump(){
         this.position.y += this.phisics.velocityY
         this.playerState.isJumping = true
         this.playerState.keyJumpIsUp = false
-        this.spriteState = "ninjafrog-doublejump"
+        this.spriteState = this.selectAvatar() + "-doublejump"
         this.playerState.doubleJump = false
     }
 }
@@ -87,7 +102,7 @@ trampolineJump(){
       this.position.y += this.phisics.velocityY
       this.playerState.isJumping = true
       this.playerState.keyJumpIsUp = false
-      this.spriteState = "ninjafrog-jump"
+      this.spriteState = this.selectAvatar() +  "-jump"
       this.playerState.doubleJump = true     
     }
 }
@@ -120,7 +135,7 @@ move()
     this.checkCollisionOnWalls()
      
     if(!this.playerState.isJumping){
-    this.spriteState = "ninjafrog-run"
+    this.spriteState = this.selectAvatar() +  "-run"
     }
     
     if(this.MoveAction.left && !this.leftBlocked){
@@ -140,7 +155,7 @@ checkCollisionOnFloor(){
         const playerRightX = this.position.x + this.spriteWidth*this.spriteSize - this.spriteOffset.right*this.spriteSize
 
         if(this.playerState.isJumping && this.phisics.velocityY > 0){
-            this.spriteState = "ninjafrog-fall"
+            this.spriteState = this.selectAvatar() + "-fall"
         }
 
         tileArray.some(Tiles => {
@@ -161,7 +176,7 @@ checkCollisionOnFloor(){
                 this.phisics.velocityY = 0
                 this.position.y = Tiles.y - playerOffSetBottom 
                 this.playerState.isJumping = false
-                this.spriteState = "ninjafrog-idle"
+                this.spriteState = this.selectAvatar() + "-idle"
                 return true
             }
         })

@@ -12,7 +12,7 @@ export default class Spykes extends AnimatedImage{
         if(super.checkCollisionWithPlayer()){ // chama a função de colisão da classe super
               //muda a animação do player
               this.hit = true
-              player.spriteState = "ninjafrog-desappearing"
+              player.spriteState = player.selectAvatar() + "-desappearing"
             }
     }
 

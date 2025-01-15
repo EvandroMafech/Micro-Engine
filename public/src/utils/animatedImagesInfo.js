@@ -102,6 +102,277 @@ const ImagesInfo = [ //line é a linha onde esta presente os frames em um sprite
         imageInstance: createImage()
     },
     {
+        name: "maskdude",
+        state: "idle",
+        frames: 11,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Mask Dude/Idle (32x32).png",
+        imageInstance: createImage()
+    },
+    {
+        name: "maskdude", 
+        state: "hit",
+        frames: 7,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Mask Dude/hit (32x32).png",
+        imageInstance: createImage()
+    },
+    {
+        name: "maskdude", 
+        state: "doublejump",
+        frames: 6,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Mask Dude/Double Jump (32x32).png",
+        imageInstance: createImage()
+    },
+    {
+        name: "maskdude", 
+        state: "walljump",
+        frames: 5,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Mask Dude/Wall Jump (32x32).png",
+        imageInstance: createImage()
+    },
+    {
+        name: "maskdude", 
+        state: "run",
+        frames: 12,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Mask Dude/Run (32x32).png",
+        imageInstance: createImage()
+    },
+    {
+        name: "maskdude", 
+        state: "run",
+        frames: 12,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Mask Dude/Run (32x32).png",
+        imageInstance: createImage()
+    },
+    {
+        name: "maskdude", 
+        state: "jump",
+        frames: 1,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Mask Dude/Jump (32x32).png",
+        imageInstance: createImage()
+    },
+    {
+        name: "maskdude", 
+        state: "fall",
+        frames: 1,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Mask Dude/Fall (32x32).png",
+        imageInstance: createImage()
+    },
+    {
+        name: "maskdude", 
+        state: "desappearing",
+        frames: 6,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Desappearing (96x96)2.png",
+        imageInstance: createImage()
+    },
+    {
+        name: "pinkman",
+        state: "idle",
+        frames: 11,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Pink Man/Idle (32x32).png",
+        imageInstance: createImage()
+    },
+    {
+        name: "pinkman", 
+        state: "hit",
+        frames: 7,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Pink Man/hit (32x32).png",
+        imageInstance: createImage()
+    },
+    {
+        name: "pinkman", 
+        state: "doublejump",
+        frames: 6,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Pink Man/Double Jump (32x32).png",
+        imageInstance: createImage()
+    },
+    {
+        name: "pinkman", 
+        state: "walljump",
+        frames: 5,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Pink Man/Wall Jump (32x32).png",
+        imageInstance: createImage()
+    },
+    {
+        name: "pinkman", 
+        state: "run",
+        frames: 12,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Pink Man/Run (32x32).png",
+        imageInstance: createImage()
+    },
+    {
+        name: "pinkman", 
+        state: "run",
+        frames: 12,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Pink Man/Run (32x32).png",
+        imageInstance: createImage()
+    },
+    {
+        name: "pinkman", 
+        state: "jump",
+        frames: 1,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Pink Man/Jump (32x32).png",
+        imageInstance: createImage()
+    },
+    {
+        name: "pinkman", 
+        state: "fall",
+        frames: 1,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Pink Man/Fall (32x32).png",
+        imageInstance: createImage()
+    },
+    {
+        name: "pinkman", 
+        state: "desappearing",
+        frames: 6,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Desappearing (96x96)2.png",
+        imageInstance: createImage()
+    },
+    {
+        name: "virtualguy",
+        state: "idle",
+        frames: 11,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Virtual Guy/Idle (32x32).png",
+        imageInstance: createImage()
+    },
+    {
+        name: "virtualguy", 
+        state: "hit",
+        frames: 7,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Virtual Guy/hit (32x32).png",
+        imageInstance: createImage()
+    },
+    {
+        name: "virtualguy", 
+        state: "doublejump",
+        frames: 6,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Virtual Guy/Double Jump (32x32).png",
+        imageInstance: createImage()
+    },
+    {
+        name: "virtualguy", 
+        state: "walljump",
+        frames: 5,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Virtual Guy/Wall Jump (32x32).png",
+        imageInstance: createImage()
+    },
+    {
+        name: "virtualguy", 
+        state: "run",
+        frames: 12,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Virtual Guy/Run (32x32).png",
+        imageInstance: createImage()
+    },
+    {
+        name: "virtualguy", 
+        state: "run",
+        frames: 12,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Virtual Guy/Run (32x32).png",
+        imageInstance: createImage()
+    },
+    {
+        name: "virtualguy", 
+        state: "jump",
+        frames: 1,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Virtual Guy/Jump (32x32).png",
+        imageInstance: createImage()
+    },
+    {
+        name: "virtualguy", 
+        state: "fall",
+        frames: 1,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Virtual Guy/Fall (32x32).png",
+        imageInstance: createImage()
+    },
+    {
+        name: "virtualguy", 
+        state: "desappearing",
+        frames: 6,
+        line: 0,
+        width: 32,
+        height: 32,
+        image: "../public/assets/images/Main Characters/Desappearing (96x96)2.png",
+        imageInstance: createImage()
+    },
+
+    {
         name: "fruit", 
         state: "strawberry",
         frames: 17,

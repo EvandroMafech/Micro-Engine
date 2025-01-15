@@ -1,4 +1,5 @@
-import { activeSelectedImage, clearGrid, drawGrid } from "../main.js"
+import { activeSelectedImage, clearGrid, drawGrid, player } from "../main.js"
+import Player from "./Player.js"
 
 const leftAsideMainButtons = document.querySelectorAll(".main-btn")
 const button = document.querySelectorAll(".dropdown")
@@ -55,15 +56,26 @@ const headerButtonsState = {
 headerButtons.forEach(headerButton => {
     headerButton.addEventListener("click", (event) =>{
         console.log(event.target.id)
-        if(event.target.id === "grid"){
-            if(headerButtonsState.displayGrid == true){ 
-              clearGrid()
-              headerButtonsState.displayGrid = false
-            }else{
-              drawGrid()
-              headerButtonsState.displayGrid = true
-            }
+       
+        switch(event.target.id){
+          
+            case "grid":
+                if(headerButtonsState.displayGrid == true){ 
+                    clearGrid()
+                    headerButtonsState.displayGrid = false
+                  }else{
+                    drawGrid()
+                    headerButtonsState.displayGrid = true
+                  }
+            break;
+          case "player":
+            player.playerState.avatarNumber++
+            if(player.playerState.avatarNumber >= 4) player.playerState.avatarNumber = 0
+
+            console.log(player.playerState.avatarNumber)
+          break; 
         }
+        })
+       
 
     })
-})

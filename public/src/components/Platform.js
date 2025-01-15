@@ -33,7 +33,7 @@ export default class Platform extends AnimatedImage{
                 player.phisics.velocityY = 0
                 player.position.y = this.y - playerOffSetBottom 
                 player.playerState.isJumping = false
-                player.spriteState = "ninjafrog-idle"
+                player.spriteState = player.selectAvatar() + "-idle"
                 return true
             }
 
