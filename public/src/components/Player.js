@@ -56,7 +56,6 @@ selectAvatar(){
         case 1: return "pinkman";
         case 2: return "maskdude";
         case 3: return "virtualguy";
-
         default: return "ninjafrog";
     }
 }
@@ -70,25 +69,24 @@ calculateHitbox(){
     }
 }
 
+performJump(jumpType) {
+    this.phisics.velocityY = this.phisics.jumpStrength;
+    this.position.y += this.phisics.velocityY;
+    this.playerState.isJumping = true
+    this.playerState.keyJumpIsUp = false
+    this.spriteState = this.selectAvatar() + jumpType;
+}
+
+
 jump(){
     
-    if(!this.playerState.isJumping && !this.playerState.isOnPlatform && this.playerState.keyJumpIsUp){
- 
-      this.phisics.velocityY = this.phisics.jumpStrength
-      this.position.y += this.phisics.velocityY
-      this.playerState.isJumping = true
-      this.playerState.keyJumpIsUp = false
-      this.spriteState = this.selectAvatar() + "-jump"
-      this.playerState.doubleJump = true 
-      console.log(this.selectAvatar())    
+    if (!this.playerState.isJumping && !this.playerState.isOnPlatform && this.playerState.keyJumpIsUp) {
+        this.performJump("-jump")
+        this.playerState.doubleJump = true
     }
-
-    if(this.playerState.doubleJump && !this.playerState.isOnPlatform && this.playerState.keyJumpIsUp){
-        this.phisics.velocityY = this.phisics.jumpStrength
-        this.position.y += this.phisics.velocityY
-        this.playerState.isJumping = true
-        this.playerState.keyJumpIsUp = false
-        this.spriteState = this.selectAvatar() + "-doublejump"
+    
+    if (this.playerState.doubleJump && !this.playerState.isOnPlatform && this.playerState.keyJumpIsUp) {
+        this.performJump("-doublejump")
         this.playerState.doubleJump = false
     }
 }
@@ -133,79 +131,71 @@ move()
     }
 }
 
-checkCollisionOnFloor(){
-   
-        const playerBottomY = this.position.y + this.spriteHeight*this.spriteSize - this.spriteOffset.bottom*this.spriteSize
-        const playerOffSetBottom = this.spriteHeight*this.spriteSize - this.spriteOffset.bottom*this.spriteSize
-        const playerLeftX = this.position.x + this.spriteOffset.left*this.spriteSize
-        const playerRightX = this.position.x + this.spriteWidth*this.spriteSize - this.spriteOffset.right*this.spriteSize
-
-        if(this.playerState.isJumping && this.phisics.velocityY > 0){
-            this.spriteState = this.selectAvatar() + "-fall"
-        }
-
-        tileArray.some(Tiles => {
-
-                const topTiles = Tiles.y
-                const leftTiles = Tiles.x
-                const rightTiles = Tiles.x + Tiles.width
-
-            if(playerBottomY >= topTiles &&
-                playerBottomY <= topTiles + 200 &&// + Tiles.height &&
-                playerRightX >= leftTiles &&
-                playerLeftX <= rightTiles &&
-                this.phisics.velocityY > 0 &&
-                Tiles.activeImage != " "
-            )
-            {
-                this.playerState.isOnTiles = true
-                this.phisics.velocityY = 0
-                this.position.y = Tiles.y - playerOffSetBottom 
-                this.playerState.isJumping = false
-                this.spriteState = this.selectAvatar() + "-idle"
-                return true
-            }
-        })
-    this.playerState.isOnPlatform = false
+calculatePlayerEdges() {
+    return {
+        left: this.position.x + this.spriteOffset.left * this.spriteSize,
+        right: this.position.x + this.spriteWidth * this.spriteSize - this.spriteOffset.right * this.spriteSize,
+        top: this.position.y,
+        bottom: this.position.y + this.spriteHeight * this.spriteSize - this.spriteOffset.bottom * this.spriteSize,
+        offsetBottom: this.spriteHeight * this.spriteSize - this.spriteOffset.bottom * this.spriteSize
+    };
 }
 
-checkCollisionOnWalls(){
-      
-    this.leftBlocked = false
-    this.rightBlocked = false
-    
-    tileArray.some(Tiles => {
-        const platformRightEdge = Tiles.x + Tiles.width
-        const platformLeftEdge = Tiles.x
-        const platformTopEdge = Tiles.y
-        const platformBottomEdge = Tiles.y + Tiles.height
+calculateTileEdges(tile) {
+    return {
+        left: tile.x,
+        right: tile.x + tile.width,
+        top: tile.y,
+        bottom: tile.y + tile.height
+    };
+}
 
-        const playerLeftEdge = this.position.x + this.spriteOffset.left*this.spriteSize
-        const playerRightEdge = this.position.x + this.spriteWidth*this.spriteSize - this.spriteOffset.right*this.spriteSize
-        const playerBottomEdge = this.position.y + this.spriteHeight*this.spriteSize - this.spriteOffset.bottom*this.spriteSize
-        const playerTopEdge = this.position.y 
-      
-        // Verifica colisão do jogador com a parede
-        const leftColisison = 
-            (playerRightEdge > platformRightEdge && 
-             playerLeftEdge < platformRightEdge)
-    
-        const RightColisison = 
-            (playerLeftEdge < platformLeftEdge && 
-             playerRightEdge > platformLeftEdge)
+checkCollisionOnFloor() {
+    const playerEdges = this.calculatePlayerEdges();
 
-        const VerticalCollision = 
-            (playerBottomEdge > platformTopEdge && 
-            playerTopEdge < platformBottomEdge)
+    if (this.playerState.isJumping && this.phisics.velocityY > 0) {
+        this.spriteState = this.selectAvatar() + "-fall";
+    }
 
-            // Verifica se está tentando mover para a esquerda
-            if(leftColisison && VerticalCollision && Tiles.activeImage != " ") {
-                this.leftBlocked = true
-            }else if(RightColisison && VerticalCollision && Tiles.activeImage != " ") {
-                this.rightBlocked = true
-            } 
-    })
+    tileArray.some(tile => {
+        const tileEdges = this.calculateTileEdges(tile);
 
+        if (playerEdges.bottom >= tileEdges.top &&
+            playerEdges.bottom <= tileEdges.top + 200 &&
+            playerEdges.right >= tileEdges.left &&
+            playerEdges.left <= tileEdges.right &&
+            this.phisics.velocityY > 0 &&
+            tile.activeImage !== " ") {
+                this.playerState.isOnTiles = true;
+                this.phisics.velocityY = 0;
+                this.position.y = tileEdges.top - playerEdges.offsetBottom;
+                this.playerState.isJumping = false;
+                this.spriteState = this.selectAvatar() + "-idle";
+            return true;
+        }
+    });
+    this.playerState.isOnPlatform = false;
+}
+
+checkCollisionOnWalls() {
+    const playerEdges = this.calculatePlayerEdges();
+
+    this.leftBlocked = false;
+    this.rightBlocked = false;
+
+    tileArray.some(tile => {
+        const tileEdges = this.calculateTileEdges(tile);
+
+        const leftCollision = playerEdges.right > tileEdges.left && playerEdges.left < tileEdges.left;
+        const rightCollision = playerEdges.left < tileEdges.right && playerEdges.right > tileEdges.right;
+        const verticalCollision = playerEdges.bottom > tileEdges.top && playerEdges.top < tileEdges.bottom;
+
+        if (leftCollision && verticalCollision && tile.activeImage !== " ") {
+            this.leftBlocked = true;
+        } else if (rightCollision && verticalCollision && tile.activeImage !== " ") {
+            this.rightBlocked = true;
+        }
+    });
 }
 
 applyGravity(){ //aplica gravidade no player
