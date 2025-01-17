@@ -33,6 +33,11 @@ const columns = 40 // clounas do editor
 
 const player = new Player(ctxAnimations) //(ctx,image,x,y,sheetPosition){
 
+const gameState = {
+    startPointPlaced: false,
+    endPointPlaced: false,
+    gameRunning: false
+}
 //dimensoes fixas do canvas
 // tileSetCanvas.width = animationCanvas.width = backgroundCanvas.width = window.innerWidth 
 // tileSetCanvas.height = animationCanvas.height = backgroundCanvas.height = window.innerHeight
@@ -51,15 +56,12 @@ const keyboardShortcuts = {
 
 const tilesWithImages = [] // salva somente tiles com imagens do tileset
 const tileArray = [] //guarda uma instancia para cada frame do editor
-const backgroundArray = []
-let activeBackground = " "
-
+const backgroundArray = [] //salva as instancia de cada frame do background
 const animatedImagesArray = [] //salva em sequencia todas as imagens animadas
 const allSetIdsArray = [] //salva todas as imagens em sequencia para ser usada ao apertar a tecla CTRL+Z
 const tileSize = 64 //tamanho de cada frame do grid
 const imageSizeFactor = 3 //fator para aumentar ou diminuir as dimensões das imagens na tela
-
-const staggerFrames = 3 //constante usada para mudar a velocidade da animação dos sprites
+const staggerFrames = 4 //constante usada para mudar a velocidade da animação dos sprites
 
 const activeSelectedImage = { //usada para salvar a ultima imagem selecionada pelo cliente
     imageUrl: "",
@@ -69,9 +71,9 @@ const activeSelectedImage = { //usada para salvar a ultima imagem selecionada pe
 }
 
 let frames = 0 //contator de frames do loop principal
-let numeralId = 0 
+let fruitsId = 0 //id de cada fruta plotada na tela 
 
-export {staggerFrames,frames,activeSelectedImage,animatedImagesArray,player,tileArray}
+export {staggerFrames,frames,activeSelectedImage,animatedImagesArray,player,tileArray,tilesWithImages,allSetIdsArray,gameState}
 
 function undoImages(){
 
@@ -104,7 +106,16 @@ function createBaseForTests(){ //posiciona os tilesets de terreno no canvas para
         "l0c11", "l1c11", "l2c11", "l3c11", "l4c11", "l5c11", "l6c11", "l7c11", "l8c11", 
         "l9c11", "l10c11", "l11c11", "l12c11", "l13c11", "l14c11", "l15c11", "l16c11", 
         "l17c11", "l18c11", "l19c11", "l20c11", "l21c11", "l22c11", "l23c11", "l24c11",
-        "l25c11", "l26c11", "l27c11", "l28c11", "l29c11", "l30c11"
+        "l25c11", "l26c11", "l27c11", "l28c11", "l29c11", "l30c11","l0c12", "l1c12", "l2c12",
+         "l3c12", "l4c12", "l5c12", "l6c12", "l7c12", "l8c12","l9c12", "l10c12", "l11c12",
+         "l12c12", "l13c12", "l14c12", "l15c12", "l16c12","l17c12", "l18c12", "l19c12", 
+         "l20c12", "l21c12", "l22c12", "l23c12", "l24c12","l25c12", "l26c12", "l27c12", 
+         "l28c12", "l29c12", "l30c12","l0c13", "l1c13", "l2c13", "l3c13", "l4c13", "l5c13", "l6c13", "l7c13", "l8c13", 
+"l9c13", "l10c13", "l11c13", "l12c13", "l13c13", "l14c13", "l15c13", "l16c13", 
+"l17c13", "l18c13", "l19c13", "l20c13", "l21c13", "l22c13", "l23c13", "l24c13",
+"l25c13", "l26c13", "l27c13", "l28c13", "l29c13", "l30c13"
+
+
     ]
 
     const tileSetInfo = {
@@ -228,14 +239,14 @@ function createAnimatedImage(TileId,event){
 
             const sheetImage = new Image()
             sheetImage.src = image
-            const numeralImageId = numeralId++
+            const fruitImageId = fruitsId++
 
 
 
 
             let animatedImage
             if (activeSelectedImage.imageId.includes("fruit")) {
-                animatedImage = new Fruits(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,numeralImageId)
+                animatedImage = new Fruits(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,fruitImageId)
             }else if(activeSelectedImage.imageId.includes("saw")){
                  animatedImage = new Saw(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
             }else if(activeSelectedImage.imageId.includes("enemy")){
@@ -253,13 +264,28 @@ function createAnimatedImage(TileId,event){
             }else if(activeSelectedImage.imageId.includes("checkpoint")){
                  animatedImage = new Checkpoint(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
             }else if(activeSelectedImage.imageId.includes("end")){
+                if(!gameState.endPointPlaced){   
+                    gameState.endPointPlaced = true
+                    animatedImage = new End(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+                 }else{
+                    const placedEndIndex = animatedImagesArray.findIndex((element) => element.name == activeSelectedImage.imageId)
+                    animatedImagesArray.splice(placedEndIndex,1)
+                    animatedImage = new End(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)    
+                 }
                  animatedImage = new End(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
             }else if(activeSelectedImage.imageId.includes("fan")){
                  animatedImage = new Fan(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
             }else if(activeSelectedImage.imageId.includes("spykes")){
                  animatedImage = new Spykes(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
             }else if(activeSelectedImage.imageId.includes("start")){
-                 animatedImage = new Start(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+                 if(!gameState.startPointPlaced){   
+                    gameState.startPointPlaced = true
+                    animatedImage = new Start(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+                 }else{
+                    const placedStartIndex = animatedImagesArray.findIndex((element) => element.name == activeSelectedImage.imageId)
+                    animatedImagesArray.splice(placedStartIndex,1)
+                    animatedImage = new Start(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)    
+                 }
             }else if(activeSelectedImage.imageId.includes("trampoline")){
                  animatedImage = new Trampoline(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
             }else if(activeSelectedImage.imageId.includes("spikedball")){

@@ -1,3 +1,4 @@
+import { gameState } from "../main.js";
 import { spriteCoordinates } from "../utils/animatedImagesInfo.js";
 import AnimatedImage from "./AnimatedImage.js";
 
@@ -23,6 +24,8 @@ export default class End extends AnimatedImage{
     animate(){
         const position = super.animate() //pega a posição do position na superclasse 
         if(this.CheckpointActivated){this.handleAnimation(position)}
+        
+        
     }
     
     handleAnimation(position){
@@ -31,6 +34,8 @@ export default class End extends AnimatedImage{
         if(this.frameCounter >= 8){ //roda 8 frames e muda a imagem
             this.image.src = spriteCoordinates["end-idle"].location[0].image 
             this.spriteFrames = spriteCoordinates["end-idle"].location[0].frames
+            if(gameState.gameRunning)
+                console.log("end game")
         }
        
     }

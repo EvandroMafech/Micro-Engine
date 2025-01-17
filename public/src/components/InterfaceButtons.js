@@ -1,4 +1,4 @@
-import { activeSelectedImage, clearGrid, drawGrid, player } from "../main.js"
+import { activeSelectedImage, allSetIdsArray, animatedImagesArray, clearGrid, drawGrid, gameState, player, tileArray, tilesWithImages } from "../main.js"
 import Player from "./Player.js"
 
 const leftAsideMainButtons = document.querySelectorAll(".main-btn")
@@ -89,9 +89,31 @@ headerButtons.forEach(headerButton => {
             break;
 
             case "play":
-                  header.style.display = "none"
-                  leftAside.style.display = "none"
-                  rightAside.style.display = "none"
+                
+                if(animatedImagesArray.some(element => element.name = "start-idle")){
+                gameState.gameRunning = true
+                const startPosition = animatedImagesArray.find(element =>  element.name === "start-idle")
+
+                player.position.x = startPosition.x + startPosition.width 
+                player.position.y = startPosition.y + startPosition.height
+                header.style.display = "none"
+                leftAside.style.display = "none" 
+                rightAside.style.display = "none"
+                }else{
+                    console.log("Não é possível iniciar o jogo sem um ponto de Start. Coloque o Start no Mapa!")
+                }
+
+            break;
+
+            case "clear":
+                animatedImagesArray.splice(0, animatedImagesArray.length)
+                tilesWithImages.splice(0, tilesWithImages.length)
+                allSetIdsArray.splice(0, allSetIdsArray.length)
+
+                tileArray.forEach(tile => {
+                    tile.activeImage = " "
+                    tile.cleanTile() 
+                })
 
             break;
 

@@ -150,52 +150,79 @@ calculateTileEdges(tile) {
     };
 }
 
-checkCollisionOnFloor() {
-    const playerEdges = this.calculatePlayerEdges();
+checkCollisionOnFloor(){
+   
+    const playerBottomY = this.position.y + this.spriteHeight*this.spriteSize - this.spriteOffset.bottom*this.spriteSize
+    const playerOffSetBottom = this.spriteHeight*this.spriteSize - this.spriteOffset.bottom*this.spriteSize
+    const playerLeftX = this.position.x + this.spriteOffset.left*this.spriteSize
+    const playerRightX = this.position.x + this.spriteWidth*this.spriteSize - this.spriteOffset.right*this.spriteSize
 
-    if (this.playerState.isJumping && this.phisics.velocityY > 0) {
-        this.spriteState = this.selectAvatar() + "-fall";
+    if(this.playerState.isJumping && this.phisics.velocityY > 0){
+        this.spriteState = this.selectAvatar() + "-fall"
     }
 
-    tileArray.some(tile => {
-        const tileEdges = this.calculateTileEdges(tile);
+    tileArray.some(Tiles => {
 
-        if (playerEdges.bottom >= tileEdges.top &&
-            playerEdges.bottom <= tileEdges.top + 200 &&
-            playerEdges.right >= tileEdges.left &&
-            playerEdges.left <= tileEdges.right &&
+            const topTiles = Tiles.y
+            const leftTiles = Tiles.x
+            const rightTiles = Tiles.x + Tiles.width
+
+        if(playerBottomY >= topTiles &&
+            playerBottomY <= topTiles +20 &&// + Tiles.height &&
+            playerRightX >= leftTiles &&
+            playerLeftX <= rightTiles &&
             this.phisics.velocityY > 0 &&
-            tile.activeImage !== " ") {
-                this.playerState.isOnTiles = true;
-                this.phisics.velocityY = 0;
-                this.position.y = tileEdges.top - playerEdges.offsetBottom;
-                this.playerState.isJumping = false;
-                this.spriteState = this.selectAvatar() + "-idle";
-            return true;
+            Tiles.activeImage != " "
+        )
+        {
+            this.playerState.isOnTiles = true
+            this.phisics.velocityY = 0
+            this.position.y = Tiles.y - playerOffSetBottom 
+            this.playerState.isJumping = false
+            this.spriteState = this.selectAvatar() + "-idle"
+            return true
         }
-    });
-    this.playerState.isOnPlatform = false;
+    })
+this.playerState.isOnPlatform = false
 }
 
-checkCollisionOnWalls() {
-    const playerEdges = this.calculatePlayerEdges();
+checkCollisionOnWalls(){
+  
+this.leftBlocked = false
+this.rightBlocked = false
 
-    this.leftBlocked = false;
-    this.rightBlocked = false;
+tileArray.some(Tiles => {
+    const platformRightEdge = Tiles.x + Tiles.width
+    const platformLeftEdge = Tiles.x
+    const platformTopEdge = Tiles.y
+    const platformBottomEdge = Tiles.y + Tiles.height
 
-    tileArray.some(tile => {
-        const tileEdges = this.calculateTileEdges(tile);
+    const playerLeftEdge = this.position.x + this.spriteOffset.left*this.spriteSize
+    const playerRightEdge = this.position.x + this.spriteWidth*this.spriteSize - this.spriteOffset.right*this.spriteSize
+    const playerBottomEdge = this.position.y + this.spriteHeight*this.spriteSize - this.spriteOffset.bottom*this.spriteSize
+    const playerTopEdge = this.position.y 
+  
+    // Verifica colisão do jogador com a parede
+    const leftColisison = 
+        (playerRightEdge > platformRightEdge && 
+         playerLeftEdge < platformRightEdge)
 
-        const leftCollision = playerEdges.right > tileEdges.left && playerEdges.left < tileEdges.left;
-        const rightCollision = playerEdges.left < tileEdges.right && playerEdges.right > tileEdges.right;
-        const verticalCollision = playerEdges.bottom > tileEdges.top && playerEdges.top < tileEdges.bottom;
+    const RightColisison = 
+        (playerLeftEdge < platformLeftEdge && 
+         playerRightEdge > platformLeftEdge)
 
-        if (leftCollision && verticalCollision && tile.activeImage !== " ") {
-            this.leftBlocked = true;
-        } else if (rightCollision && verticalCollision && tile.activeImage !== " ") {
-            this.rightBlocked = true;
-        }
-    });
+    const VerticalCollision = 
+        (playerBottomEdge > platformTopEdge && 
+        playerTopEdge < platformBottomEdge)
+
+        // Verifica se está tentando mover para a esquerda
+        if(leftColisison && VerticalCollision && Tiles.activeImage != " ") {
+            this.leftBlocked = true
+        }else if(RightColisison && VerticalCollision && Tiles.activeImage != " ") {
+            this.rightBlocked = true
+        } 
+})
+
 }
 
 applyGravity(){ //aplica gravidade no player
