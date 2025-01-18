@@ -90,10 +90,9 @@ headerButtons.forEach(headerButton => {
 
             case "play":
                 
-                if(animatedImagesArray.some(element => element.name = "start-idle")){
+                if(animatedImagesArray.some(element => element.name == "start-idle")){
                 gameState.gameRunning = true
                 const startPosition = animatedImagesArray.find(element =>  element.name === "start-idle")
-
                 player.position.x = startPosition.x + startPosition.width 
                 player.position.y = startPosition.y + startPosition.height
                 header.style.display = "none"

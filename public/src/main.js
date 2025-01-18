@@ -268,7 +268,7 @@ function createAnimatedImage(TileId,event){
                     gameState.endPointPlaced = true
                     animatedImage = new End(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
                  }else{
-                    const placedEndIndex = animatedImagesArray.findIndex((element) => element.name == activeSelectedImage.imageId)
+                    const placedEndIndex = animatedImagesArray.findIndex((element) => element.name == "end-idle")
                     animatedImagesArray.splice(placedEndIndex,1)
                     animatedImage = new End(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)    
                  }
@@ -282,7 +282,7 @@ function createAnimatedImage(TileId,event){
                     gameState.startPointPlaced = true
                     animatedImage = new Start(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
                  }else{
-                    const placedStartIndex = animatedImagesArray.findIndex((element) => element.name == activeSelectedImage.imageId)
+                    const placedStartIndex = animatedImagesArray.findIndex((element) => element.name == "start-idle")
                     animatedImagesArray.splice(placedStartIndex,1)
                     animatedImage = new Start(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)    
                  }
