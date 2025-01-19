@@ -1,6 +1,4 @@
 //classe mãe para todas as imagens animadas
-
-
 import { frames, player, staggerFrames } from "../main.js"
 
 export default class AnimatedImage{
