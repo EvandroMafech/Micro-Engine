@@ -51,7 +51,8 @@ ctxAnimations.imageSmoothingEnabled = false
 ctxBackground.imageSmoothingEnabled = false
 
 const keyboardShortcuts = {
-    alignItens: false
+    alignItens: false,
+    rotateImage: 0
 }
 
 const tilesWithImages = [] // salva somente tiles com imagens do tileset
@@ -75,12 +76,25 @@ let fruitsId = 0 //id de cada fruta plotada na tela
 
 export {staggerFrames,frames,activeSelectedImage,animatedImagesArray,player,tileArray,tilesWithImages,allSetIdsArray,gameState}
 
-function undoImages(){
+function undoImages(){ //apaga imagens da tela pelo atalho CTRL-Z
 
+
+    // const endPlaced = animatedImagesArray.some((element) => element.name == "end-idle")
+    // const startPlaced = animatedImagesArray.some((element) => element.name == "start-idle")
+    
+    // if(endPlaced) gameState.endPointPlaced = false 
+    // if(startPlaced) gameState.endPointPlaced = false 
+
+console.log(animatedImagesArray)
 let lastImage = allSetIdsArray[allSetIdsArray.length-1].type 
     
 if(lastImage == "animated"){
      
+    //essas 3 linhas são para eliminar o bug que fazia com que ao apertar CTL+Z fazer com que mudar a posição do start ou end apagava um ao outro
+    const lastImageId = animatedImagesArray[animatedImagesArray.length-1].name 
+    if(lastImageId == "end-idle") gameState.endPointPlaced = false
+    if(lastImageId == "start-idle") gameState.startPointPlaced = false
+
         animatedImagesArray.pop()
         allSetIdsArray.pop()
 
@@ -156,7 +170,7 @@ function createGrid(){ //cria todas as instancias do grid principal do editor
     }
 }
 
-function createBackgroundGrid(){
+function createBackgroundGrid(){ //cria os blocos so background (instancias)
 const tileSize = 64*3
     for(let c = 0; c < lines; c++){
         for(let l = 0; l <columns ; l++){
@@ -173,12 +187,12 @@ const tileSize = 64*3
 
 }
 
-function drawGrid(){
-    tileArray.forEach(tile => tile.draw(ctxGrid)) // desenha o grid do editor
+function drawGrid(){// desenha o grid do editor
+    tileArray.forEach(tile => tile.draw(ctxGrid)) 
 }
 
-function clearGrid(){
-    ctxGrid.clearRect(0,0, tileSetCanvas.width,tileSetCanvas.height) //limpa tela do canvas das animações
+function clearGrid(){//limpa tela do canvas das animações
+    ctxGrid.clearRect(0,0, tileSetCanvas.width,tileSetCanvas.height) 
 }
 
 export {drawGrid,clearGrid}
@@ -195,12 +209,12 @@ function setTileSetImageOnCanvas(TileId){ //posiciona os tilesets de terreno no 
 })
 }
 
-function setImageOnBackgroundTiles(){ //posiciona os tilesets de terreno no canvas
+function setImageOnBackgroundTiles(){ //posiciona os quadrados de background no canvas
     backgroundArray.forEach(tile => {tile.drawBackground(activeSelectedImage.imageUrl)})
 }
 
-function createAnimatedImage(TileId,event){
-  
+function createAnimatedImage(TileId,event){ //cria uma imagem animada
+    console.log(animatedImagesArray)
     const newImage = new Image()
     let x 
     let y 
@@ -246,50 +260,61 @@ function createAnimatedImage(TileId,event){
 
             let animatedImage
             if (activeSelectedImage.imageId.includes("fruit")) {
-                animatedImage = new Fruits(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,fruitImageId)
+                animatedImage = new Fruits(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,fruitImageId,id)
             }else if(activeSelectedImage.imageId.includes("saw")){
-                 animatedImage = new Saw(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+                 animatedImage = new Saw(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
             }else if(activeSelectedImage.imageId.includes("enemy")){
-                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
             }else if(activeSelectedImage.imageId.includes("platform")){
-                 animatedImage = new Platform(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+                 animatedImage = new Platform(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
             }else if(activeSelectedImage.imageId.includes("block")){
-                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
             }else if(activeSelectedImage.imageId.includes("box1")){
-                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
             }else if(activeSelectedImage.imageId.includes("box2")){
-                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
             }else if(activeSelectedImage.imageId.includes("box3")){
-                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
             }else if(activeSelectedImage.imageId.includes("checkpoint")){
-                 animatedImage = new Checkpoint(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
-            }else if(activeSelectedImage.imageId.includes("end")){
+                 animatedImage = new Checkpoint(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
+        
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////         
+                }else if(activeSelectedImage.imageId.includes("end")){
                 if(!gameState.endPointPlaced){   
                     gameState.endPointPlaced = true
-                    animatedImage = new End(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+                    animatedImage = new End(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
                  }else{
                     const placedEndIndex = animatedImagesArray.findIndex((element) => element.name == "end-idle")
+                    console.log(placedEndIndex)
                     animatedImagesArray.splice(placedEndIndex,1)
-                    animatedImage = new End(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)    
+                    animatedImage = new End(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)    
                  }
-                 animatedImage = new End(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+                 animatedImage = new End(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
+         
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
             }else if(activeSelectedImage.imageId.includes("fan")){
-                 animatedImage = new Fan(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+                 animatedImage = new Fan(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
             }else if(activeSelectedImage.imageId.includes("spykes")){
-                 animatedImage = new Spykes(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+                 animatedImage = new Spykes(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id,keyboardShortcuts.rotateImage)
+
+                 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
             }else if(activeSelectedImage.imageId.includes("start")){
                  if(!gameState.startPointPlaced){   
                     gameState.startPointPlaced = true
-                    animatedImage = new Start(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+                    animatedImage = new Start(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
                  }else{
                     const placedStartIndex = animatedImagesArray.findIndex((element) => element.name == "start-idle")
                     animatedImagesArray.splice(placedStartIndex,1)
-                    animatedImage = new Start(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)    
+                    animatedImage = new Start(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)    
                  }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////                
+                 
+
             }else if(activeSelectedImage.imageId.includes("trampoline")){
-                 animatedImage = new Trampoline(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+                 animatedImage = new Trampoline(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
             }else if(activeSelectedImage.imageId.includes("spikedball")){
-                 animatedImage = new Spikedball(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor)
+                 animatedImage = new Spikedball(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
             }
 
             animatedImagesArray.push(animatedImage)
@@ -301,7 +326,7 @@ function createAnimatedImage(TileId,event){
     
 }
 
-function manageImages(event){
+function manageImages(event){ //pega a imagem selecionada e joga na função correspondente para criar plotar a imagem
 
     const TileId = createTileId(event)    
 
@@ -317,15 +342,28 @@ function manageImages(event){
     }
 }
 
-function animatePlayer(){
-
+function animatePlayer(){ //funções para animar o player
     player.animate()
     player.applyGravity()
     player.checkCollisionOnFloor()
-
 }
 
-function animationLoop(){
+function moveCamera(){
+
+    animatedImagesArray.forEach(element => {
+        element.x -= tileSize
+    })
+
+    tileArray.forEach(element => {
+ 
+        const newPosition = {x: 96, y: 108}
+        element.x -= tileSize
+        element.drawImage(newPosition)
+    })
+    
+}
+
+function animationLoop(){ //loop principal
       
     ctxAnimations.clearRect(0,0, tileSetCanvas.width,tileSetCanvas.height) //limpa tela do canvas das animações
  
@@ -334,32 +372,25 @@ function animationLoop(){
         image.checkCollisionWithPlayer() //verifica se colidiu com o player
     }) 
    
-    animatePlayer()
+    animatePlayer() // anima o player na tela
 
     if(player.MoveAction.left || player.MoveAction.right) player.move()
     if(player.MoveAction.jump == true) player.jump()
 
-    createBaseForTests()
+    
     frames++
     window.requestAnimationFrame(animationLoop)
 }
 
 createGrid()
-
 createBackgroundGrid()
 drawGrid()
 animationLoop()
-
+createBaseForTests()
 
 tileSetCanvas.addEventListener("mousedown", (event) => {manageImages(event)})
 
 animationCanvas.addEventListener("mousedown", (event) => {manageImages(event)})
-
-window.addEventListener("keydown", (event) => {
-    const key = event.key.toLowerCase() 
-    if(event.ctrlKey && key == "z"){undoImages()}
-})
-
 
 window.addEventListener("keydown",(event) => {
     const key = event.key.toLowerCase() 
@@ -371,6 +402,8 @@ window.addEventListener("keydown",(event) => {
         player.MoveAction.jump = true
     }
     if(key == "shift"){keyboardShortcuts.alignItens = true}
+    if(event.ctrlKey && key == "z"){undoImages()}
+    if(key == "r"){keyboardShortcuts.rotateImage += 90}
 })
 
 window.addEventListener("keyup",(event) => {

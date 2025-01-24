@@ -31,7 +31,7 @@ export default class Platform extends AnimatedImage{
             {
                 player.playerState.isOnTiles = true
                 player.phisics.velocityY = 0
-                player.position.y = this.y - playerOffSetBottom 
+                player.position.y = this.y - playerOffSetBottom + this.phisics.velocityY 
                 player.playerState.isJumping = false
                 player.spriteState = player.selectAvatar() + "-idle"
                 return true

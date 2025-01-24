@@ -115,10 +115,7 @@ headerButtons.forEach(headerButton => {
                 })
 
             break;
-
-
-          
-          
+      
         }
         })
        

@@ -4,8 +4,8 @@ import { spriteCoordinates } from "../utils/animatedImagesInfo.js"
 export default class Player{
     constructor(ctx){
         this.position = {
-            x: 1000,
-            y: 100
+            x: 1200,
+            y: 500
         }
         this.MoveAction = {
             left: false,

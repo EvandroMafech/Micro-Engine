@@ -1,7 +1,13 @@
 const spriteCoordinates = []
 
 const positionAdjust = { //objeto com as informação de ajuste offset
-    s5: { x: 96, y: 128  }
+    spykes: { x: 0, y: 0  },
+    trampoline: { x: 10, y: 20  },
+    fan: { x: 5, y: -40  },
+    platform: { x: 15, y: 0  },
+    fruit: { x: 15, y: 15  },
+    spikedball: { x: 0, y: -15  },
+    saw: { x: -8, y: -8  }
 }
 
 function createImage(){

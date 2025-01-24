@@ -49,7 +49,7 @@ export default class Spikedball extends AnimatedImage{
         let frameX = position*this.width
         let frameY = this.line*this.height
 
-        const numberOfChains = Math.floor(this.radious/20)
+        const numberOfChains = Math.floor(this.radious/20) 
         let chainRadious = this.radious
         
         for(let nChains = 0; nChains <= numberOfChains; nChains++){

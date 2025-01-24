@@ -14,9 +14,9 @@ export default class Tile{
     }
 
         drawImage({x,y}){
+
             const image = new Image()
             image.src = tileSetSpriteheet_image_path
-        
             if(image != " "){
                 this.ctx.drawImage(image,x,y,16,16,this.x,this.y,this.width,this.height)
             }
