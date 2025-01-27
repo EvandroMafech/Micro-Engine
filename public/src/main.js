@@ -114,16 +114,7 @@ function createBaseForTests(){ //posiciona os tilesets de terreno no canvas para
         "l0c11", "l1c11", "l2c11", "l3c11", "l4c11", "l5c11", "l6c11", "l7c11", "l8c11", 
         "l9c11", "l10c11", "l11c11", "l12c11", "l13c11", "l14c11", "l15c11", "l16c11", 
         "l17c11", "l18c11", "l19c11", "l20c11", "l21c11", "l22c11", "l23c11", "l24c11",
-        "l25c11", "l26c11", "l27c11", "l28c11", "l29c11", "l30c11","l0c12", "l1c12", "l2c12",
-         "l3c12", "l4c12", "l5c12", "l6c12", "l7c12", "l8c12","l9c12", "l10c12", "l11c12",
-         "l12c12", "l13c12", "l14c12", "l15c12", "l16c12","l17c12", "l18c12", "l19c12", 
-         "l20c12", "l21c12", "l22c12", "l23c12", "l24c12","l25c12", "l26c12", "l27c12", 
-         "l28c12", "l29c12", "l30c12","l0c13", "l1c13", "l2c13", "l3c13", "l4c13", "l5c13", "l6c13", "l7c13", "l8c13", 
-"l9c13", "l10c13", "l11c13", "l12c13", "l13c13", "l14c13", "l15c13", "l16c13", 
-"l17c13", "l18c13", "l19c13", "l20c13", "l21c13", "l22c13", "l23c13", "l24c13",
-"l25c13", "l26c13", "l27c13", "l28c13", "l29c13", "l30c13"
-
-
+        "l25c11", "l26c11", "l27c11", "l28c11", "l29c11", "l30c11"
     ]
 
     const tileSetInfo = {
@@ -134,10 +125,8 @@ function createBaseForTests(){ //posiciona os tilesets de terreno no canvas para
 
     tileArray.forEach(tile => {
        if(baseTiles.includes(tile.id)){
-
             tile.activeImage = tileSetInfo.id 
             tile.drawImage(tileSetInfo)
-            //allSetIdsArray.push(tileSetInfo.id)
         }
 })
 }
@@ -208,7 +197,6 @@ function setImageOnBackgroundTiles(){ //posiciona os quadrados de background no 
 }
 
 function createAnimatedImage(TileId,event){ //cria uma imagem animada
-    console.log(animatedImagesArray)
     const newImage = new Image()
     let x 
     let y 
