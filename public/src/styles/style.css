@@ -275,3 +275,45 @@ main{
 #yellow { background-image: url("../../../public/assets/images/Background/yellow.png"); }
 
 
+
+
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+  }
+  .modal-content {
+    background: rgb(100, 99, 96);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: rgb(255, 255, 255);
+  }
+  .modal-content button {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .btn-yes {
+    background-color: #3a533b;
+    color: white;
+  }
+  .btn-no {
+    background-color: #6d4a47;
+    color: white;
+  }
+  .btn-ok {
+    background-color: #383858;
+    color: white;
+  }

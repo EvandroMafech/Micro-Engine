@@ -79,13 +79,6 @@ export {staggerFrames,frames,activeSelectedImage,animatedImagesArray,player,tile
 
 function undoImages(){ //apaga imagens da tela pelo atalho CTRL-Z
 
-
-    // const endPlaced = animatedImagesArray.some((element) => element.name == "end-idle")
-    // const startPlaced = animatedImagesArray.some((element) => element.name == "start-idle")
-    
-    // if(endPlaced) gameState.endPointPlaced = false 
-    // if(startPlaced) gameState.endPointPlaced = false 
-
 console.log(animatedImagesArray)
 let lastImage = allSetIdsArray[allSetIdsArray.length-1].type 
     
