@@ -2,7 +2,7 @@ import { player } from "../main.js";
 import { spriteCoordinates } from "../utils/animatedImagesInfo.js";
 import AnimatedImage from "./AnimatedImage.js";
 
-export default class Trampoline extends AnimatedImage{
+export default class Box extends AnimatedImage{
     constructor(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,id){
         super(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,id)
         this.activated = false
@@ -10,18 +10,15 @@ export default class Trampoline extends AnimatedImage{
 
     checkCollisionWithPlayer(){
         //checa colisão com o player
-        if(super.checkCollisionWithPlayer()){ // chama a função de colisão da classe super
+        if(!this.activated && super.checkCollisionWithPlayer()){ // chama a função de colisão da classe super
               //muda a animação do player
 
-              this.image.src = spriteCoordinates["trampoline-jump"].location[0].image 
-              this.spriteFrames = spriteCoordinates["trampoline-jump"].location[0].frames
-              player.phisics.jumpStrength = -30
-              player.jump()
-              player.playerState.keyJumpIsUp = true
-              player.phisics.jumpStrength = -18
+              this.image.src = spriteCoordinates[`${this.id}-hit`].location[0].image 
+              this.spriteFrames = spriteCoordinates[`${this.id}-hit`].location[0].frames
+
               this.activated = true
               this.frameCounter = 0
-            }
+         }
     }
 
     animate(){
@@ -35,10 +32,9 @@ export default class Trampoline extends AnimatedImage{
         
         this.frameCounter++
         if(this.frameCounter == this.spriteFrames){
-            this.image.src = spriteCoordinates["trampoline-idle"].location[0].image 
-            this.spriteFrames = spriteCoordinates["trampoline-idle"].location[0].frames
+            this.image.src = spriteCoordinates[`${this.id}-idle`].location[0].image 
+            this.spriteFrames = spriteCoordinates[`${this.id}-idle`].location[0].frames
             this.activated = false
         }
-       
     }
 }

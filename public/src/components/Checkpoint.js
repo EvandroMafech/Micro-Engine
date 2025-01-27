@@ -28,7 +28,7 @@ export default class Checkpoint extends AnimatedImage{
     handleAnimation(position){
         
         this.frameCounter++
-        if(this.frameCounter == 27){ //roda 27 frames e muda a imagem
+        if(this.frameCounter == this.spriteFrames){ //roda 27 frames e muda a imagem
             this.image.src = spriteCoordinates["checkpoint-idle"].location[0].image 
             this.spriteFrames = spriteCoordinates["checkpoint-idle"].location[0].frames
         }

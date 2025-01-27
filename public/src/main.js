@@ -13,6 +13,7 @@ import Spikedball from "./components/Spikedball.js";
 import Checkpoint from "./components/Checkpoint.js";
 import End from "./components/End.js";
 import Start from "./components/Start.js";
+import Box from "./components/Box.js";
 
 //canvas para os tilesets
 const tileSetCanvas = document.querySelector(".tileset") 
@@ -268,13 +269,13 @@ function createAnimatedImage(TileId,event){ //cria uma imagem animada
             }else if(activeSelectedImage.imageId.includes("platform")){
                  animatedImage = new Platform(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
             }else if(activeSelectedImage.imageId.includes("block")){
-                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
+                 animatedImage = new Box(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
             }else if(activeSelectedImage.imageId.includes("box1")){
-                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
+                 animatedImage = new Box(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
             }else if(activeSelectedImage.imageId.includes("box2")){
-                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
+                 animatedImage = new Box(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
             }else if(activeSelectedImage.imageId.includes("box3")){
-                 animatedImage = new AnimatedImage(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
+                 animatedImage = new Box(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
             }else if(activeSelectedImage.imageId.includes("checkpoint")){
                  animatedImage = new Checkpoint(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
         

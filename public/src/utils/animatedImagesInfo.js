@@ -7,7 +7,11 @@ const positionAdjust = { //objeto com as informação de ajuste offset
     platform: { x: 15, y: 0  },
     fruit: { x: 15, y: 15  },
     spikedball: { x: 0, y: -15  },
-    saw: { x: -8, y: -8  }
+    saw: { x: -8, y: -8  },
+    box1: { x: 10, y: 5  },
+    box2: { x: 10, y: 5  },
+    box3: { x: 10, y: 5  },
+    block: { x: 0, y: 0  }
 }
 
 function createImage(){
@@ -509,6 +513,16 @@ const ImagesInfo = [ //line é a linha onde esta presente os frames em um sprite
         imageInstance: createImage()
     },
     {
+        name: "box1", 
+        state: "hit",
+        frames: 3,
+        line: 0,
+        width: 28,
+        height: 24,
+        image: "../public/assets/images/Items/Boxes/Box1/Hit (28x24).png",
+        imageInstance: createImage()
+    },
+    {
         name: "box2", 
         state: "idle",
         frames: 1,
@@ -519,6 +533,16 @@ const ImagesInfo = [ //line é a linha onde esta presente os frames em um sprite
         imageInstance: createImage()
     },
     {
+        name: "box2", 
+        state: "hit",
+        frames: 4,
+        line: 0,
+        width: 28,
+        height: 24,
+        image: "../public/assets/images/Items/Boxes/Box2/Hit (28x24).png",
+        imageInstance: createImage()
+    },
+    {
         name: "box3", 
         state: "idle",
         frames: 1,
@@ -526,6 +550,16 @@ const ImagesInfo = [ //line é a linha onde esta presente os frames em um sprite
         width: 28,
         height: 24,
         image: "../public/assets/images/Items/Boxes/Box3/Idle.png",
+        imageInstance: createImage()
+    },
+    {
+        name: "box3", 
+        state: "hit",
+        frames: 2,
+        line: 0,
+        width: 28,
+        height: 24,
+        image: "../public/assets/images/Items/Boxes/Box3/Hit (28x24).png",
         imageInstance: createImage()
     },
     {
@@ -570,17 +604,7 @@ const ImagesInfo = [ //line é a linha onde esta presente os frames em um sprite
     },
     {
         name: "block", 
-        state: "hitside",
-        frames: 3,
-        line: 0,
-        width: 22,
-        height: 22,
-        image: "../public/assets/images/Traps/Blocks/HitSide (22x22).png",
-        imageInstance: createImage()
-    },
-    {
-        name: "block", 
-        state: "hittop",
+        state: "hit",
         frames: 3,
         line: 0,
         width: 22,

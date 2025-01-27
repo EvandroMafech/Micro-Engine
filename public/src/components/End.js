@@ -31,7 +31,7 @@ export default class End extends AnimatedImage{
     handleAnimation(position){
         
         this.frameCounter++
-        if(this.frameCounter >= 8){ //roda 8 frames e muda a imagem
+        if(this.frameCounter >= this.spriteFrames){ //roda 8 frames e muda a imagem
             this.image.src = spriteCoordinates["end-idle"].location[0].image 
             this.spriteFrames = spriteCoordinates["end-idle"].location[0].frames
             if(gameState.gameRunning)

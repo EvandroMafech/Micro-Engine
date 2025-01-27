@@ -186,7 +186,7 @@ checkCollisionOnFloor(){
         const tileEdges = this.calculateTileEdges(Tiles);
 
         if(playerEdges.bottom >= tileEdges.top &&
-            playerEdges.bottom <= tileEdges.top + 20 &&
+            playerEdges.bottom <= tileEdges.bottom &&
             playerEdges.right >= tileEdges.left &&
             playerEdges.left <= tileEdges.right &&
             this.phisics.velocityY > 0 &&
@@ -195,7 +195,7 @@ checkCollisionOnFloor(){
         {
             this.playerState.isOnTiles = true
             this.phisics.velocityY = 0
-            this.position.y = Tiles.y - playerEdges.offsetBottom 
+            this.position.y = Tiles.y - this.spriteWidth*this.spriteSize 
             this.playerState.isJumping = false
             this.spriteState = this.selectAvatar() + "-idle"
             return true
