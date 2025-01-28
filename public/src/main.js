@@ -64,6 +64,7 @@ const allSetIdsArray = [] //salva todas as imagens em sequencia para ser usada a
 const tileSize = 64 //tamanho de cada frame do grid
 const imageSizeFactor = 3 //fator para aumentar ou diminuir as dimensões das imagens na tela
 const staggerFrames = 4 //constante usada para mudar a velocidade da animação dos sprites
+let cameraPosition = 0
 
 const activeSelectedImage = { //usada para salvar a ultima imagem selecionada pelo cliente
     imageUrl: "",
@@ -76,6 +77,22 @@ let frames = 0 //contator de frames do loop principal
 let fruitsId = 0 //id de cada fruta plotada na tela 
 
 export {staggerFrames,frames,activeSelectedImage,animatedImagesArray,player,tileArray,tilesWithImages,allSetIdsArray,gameState}
+
+
+function moveCamera(directionFactor) {
+
+const moveSpeed = player.phisics.speed*directionFactor
+
+
+tileSetCanvas.style.left = `${cameraPosition+moveSpeed}px` 
+backgroundCanvas.style.left = `${cameraPosition+moveSpeed}px` 
+gridCanvas.style.left = `${cameraPosition+moveSpeed}px` 
+animationCanvas.style.left = `${cameraPosition+moveSpeed}px`
+
+cameraPosition += moveSpeed
+
+    
+}
 
 function undoImages(){ //apaga imagens da tela pelo atalho CTRL-Z
 
@@ -178,7 +195,7 @@ function clearGrid(){//limpa tela do canvas das animações
     ctxGrid.clearRect(0,0, tileSetCanvas.width,tileSetCanvas.height) 
 }
 
-export {drawGrid,clearGrid}
+export {drawGrid,clearGrid,moveCamera}
 
 function setTileSetImageOnCanvas(TileId){ //posiciona os tilesets de terreno no canvas
 
@@ -330,21 +347,6 @@ function animatePlayer(){ //funções para animar o player
     player.checkCollisionOnFloor()
 }
 
-function moveCamera(){
-
-    animatedImagesArray.forEach(element => {
-        element.x -= tileSize
-    })
-
-    tileArray.forEach(element => {
- 
-        const newPosition = {x: 96, y: 108}
-        element.x -= tileSize
-        element.drawImage(newPosition)
-    })
-    
-}
-
 function animationLoop(){ //loop principal
       
     ctxAnimations.clearRect(0,0, tileSetCanvas.width,tileSetCanvas.height) //limpa tela do canvas das animações
@@ -386,6 +388,7 @@ window.addEventListener("keydown",(event) => {
     if(key == "shift"){keyboardShortcuts.alignItens = true}
     if(event.ctrlKey && key == "z"){undoImages()}
     if(key == "r"){keyboardShortcuts.rotateImage += 90}
+   // if(key == "j"){moveCamera(1)}
 })
 
 window.addEventListener("keyup",(event) => {

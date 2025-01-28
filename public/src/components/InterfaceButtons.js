@@ -11,17 +11,18 @@ const modalInfo = {
 const leftAsideMainButtons = document.querySelectorAll(".main-btn")
 const button = document.querySelectorAll(".dropdown")
 const headerButtons = document.querySelectorAll(".headerButtons")
+const canvasContainer = document.querySelector(".scroll-container")
 
 const header = document.querySelector(".header")
 const leftAside = document.querySelector(".left-aside")
 const rightAside = document.querySelector(".right-aside")
 
 const modal = document.getElementById("customModal");
-const showModalBtn = document.getElementById("showModal");
 const btnYes = modal.querySelector(".btn-yes");
 const btnNo = modal.querySelector(".btn-no");
 const btnOk = modal.querySelector(".btn-ok");
 const modalText = modal.querySelector(".text");
+
 
 
 function cleanCanvas(){
@@ -45,6 +46,7 @@ leftAsideMainButtons.forEach(element => {
         const mainButtonId = element.id
         const dropdown = document.getElementById(`dropdown-${mainButtonId}`)
         dropdown.classList.toggle("show")
+
     })
 })
 
@@ -70,7 +72,12 @@ window.addEventListener("keydown", (event) => {
         header.style.display = "flex"
         leftAside.style.display = "flex"
         rightAside.style.display = "flex"
-        
+        modal.style.display = "none" 
+      
+        if(gameState.gameRunning) {
+            canvasContainer.classList.toggle("canvas-container-centered")
+            gameState.gameRunning = false
+        } 
     } 
 })
 
@@ -121,7 +128,10 @@ headerButtons.forEach(headerButton => {
             case "play":
                 
                 if(animatedImagesArray.some(element => element.name == "start-idle")){
-
+                        gameState.gameRunning = true
+                       
+                        canvasContainer.classList.toggle("canvas-container-centered")
+                        
                         gameState.gameRunning = true
                         const startPosition = animatedImagesArray.find(element =>  element.name === "start-idle")
                         player.phisics.velocityY = 0
@@ -130,13 +140,15 @@ headerButtons.forEach(headerButton => {
                         header.style.display = "none"
                         leftAside.style.display = "none" 
                         rightAside.style.display = "none"
+
+
                
                 }else{
                     modal.style.display = "flex";
                     modalText.innerHTML = "Não é possível iniciar o jogo sem um ponto de Start. Coloque o Start no Mapa"
                     btnNo.style.display = "none"
                     btnYes.style.display = "none"
-                     btnOk.style.display = "inline-block"
+                    btnOk.style.display = "inline-block"
                     modalInfo.font = "play"
                 }
 

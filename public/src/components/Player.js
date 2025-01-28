@@ -1,4 +1,4 @@
-import { frames, staggerFrames,tileArray} from "../main.js"
+import { frames, moveCamera, staggerFrames,tileArray} from "../main.js"
 import { spriteCoordinates } from "../utils/animatedImagesInfo.js"
 
 export default class Player{
@@ -148,10 +148,12 @@ move()
          this.playerState.currentDirection = "left"
          this.position.x -= this.phisics.speed
          this.rightBlocked = false
+         moveCamera(1)
     }else if(this.MoveAction.right && !this.rightBlocked){
          this.playerState.currentDirection = "right"
          this.position.x += this.phisics.speed
          this.leftBlocked = false
+         moveCamera(-1)
     }
 }
 
