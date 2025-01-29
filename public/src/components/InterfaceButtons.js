@@ -1,4 +1,4 @@
-import { activeSelectedImage, allSetIdsArray, animatedImagesArray, clearGrid, drawGrid, gameState, player, tileArray, tilesWithImages } from "../main.js"
+import { activeSelectedImage, allSetIdsArray, animatedImagesArray, cameraPosition, clearGrid, drawGrid, gameState, moveCamera, placeInitialCameraPosition, player, tileArray, tilesWithImages } from "../main.js"
 import Player from "./Player.js"
 
 const modalInfo = {
@@ -129,7 +129,12 @@ headerButtons.forEach(headerButton => {
                 
                 if(animatedImagesArray.some(element => element.name == "start-idle")){
                         gameState.gameRunning = true
-                       
+                        const xPositonStart = animatedImagesArray.find((element) => element.name == "start-idle")
+                        cameraPosition.start = -xPositonStart.x+1000 //mudar essa linha para ficar dinamico
+                        cameraPosition.currentPosition = cameraPosition.start
+                        placeInitialCameraPosition(cameraPosition.start)
+                        
+                        
                         canvasContainer.classList.toggle("canvas-container-centered")
                         
                         gameState.gameRunning = true

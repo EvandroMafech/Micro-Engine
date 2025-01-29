@@ -64,7 +64,10 @@ const allSetIdsArray = [] //salva todas as imagens em sequencia para ser usada a
 const tileSize = 64 //tamanho de cada frame do grid
 const imageSizeFactor = 3 //fator para aumentar ou diminuir as dimensões das imagens na tela
 const staggerFrames = 4 //constante usada para mudar a velocidade da animação dos sprites
-let cameraPosition = 0
+export let cameraPosition = {
+    start: 0,
+    currentPosition: 0
+}
 
 const activeSelectedImage = { //usada para salvar a ultima imagem selecionada pelo cliente
     imageUrl: "",
@@ -76,7 +79,16 @@ const activeSelectedImage = { //usada para salvar a ultima imagem selecionada pe
 let frames = 0 //contator de frames do loop principal
 let fruitsId = 0 //id de cada fruta plotada na tela 
 
-export {staggerFrames,frames,activeSelectedImage,animatedImagesArray,player,tileArray,tilesWithImages,allSetIdsArray,gameState}
+
+
+export function placeInitialCameraPosition(positionX){
+    tileSetCanvas.style.left = `${positionX }px` 
+    backgroundCanvas.style.left = `${positionX }px` 
+    gridCanvas.style.left = `${positionX }px`
+    animationCanvas.style.left = `${positionX }px`
+    console.log("Camera initial position: " + `${positionX}px`)
+
+}
 
 
 function moveCamera(directionFactor) {
@@ -84,15 +96,17 @@ function moveCamera(directionFactor) {
 const moveSpeed = player.phisics.speed*directionFactor
 
 
-tileSetCanvas.style.left = `${cameraPosition+moveSpeed}px` 
-backgroundCanvas.style.left = `${cameraPosition+moveSpeed}px` 
-gridCanvas.style.left = `${cameraPosition+moveSpeed}px` 
-animationCanvas.style.left = `${cameraPosition+moveSpeed}px`
+tileSetCanvas.style.left = `${cameraPosition.currentPosition+moveSpeed}px` 
+backgroundCanvas.style.left = `${cameraPosition.currentPosition+moveSpeed}px` 
+gridCanvas.style.left = `${cameraPosition.currentPosition+moveSpeed}px` 
+animationCanvas.style.left = `${cameraPosition.currentPosition+moveSpeed}px`
 
-cameraPosition += moveSpeed
+cameraPosition.currentPosition += moveSpeed
 
     
 }
+
+export {staggerFrames,frames,activeSelectedImage,animatedImagesArray,player,tileArray,tilesWithImages,allSetIdsArray,gameState}
 
 function undoImages(){ //apaga imagens da tela pelo atalho CTRL-Z
 
@@ -284,7 +298,6 @@ function createAnimatedImage(TileId,event){ //cria uma imagem animada
                     animatedImage = new End(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
                  }else{
                     const placedEndIndex = animatedImagesArray.findIndex((element) => element.name == "end-idle")
-                    console.log(placedEndIndex)
                     animatedImagesArray.splice(placedEndIndex,1)
                     animatedImage = new End(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)    
                  }
@@ -308,7 +321,6 @@ function createAnimatedImage(TileId,event){ //cria uma imagem animada
                     animatedImage = new Start(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)    
                  }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////                
-                 
 
             }else if(activeSelectedImage.imageId.includes("trampoline")){
                  animatedImage = new Trampoline(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
