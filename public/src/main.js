@@ -357,6 +357,7 @@ function animatePlayer(){ //funções para animar o player
     player.animate()
     player.applyGravity()
     player.checkCollisionOnFloor()
+    player.checkCollisionOnTop()
 }
 
 function animationLoop(){ //loop principal
