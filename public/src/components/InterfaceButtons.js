@@ -69,15 +69,7 @@ window.addEventListener("keydown", (event) => {
   
     if(key == "escape") {
       
-        header.style.display = "flex"
-        leftAside.style.display = "flex"
-        rightAside.style.display = "flex"
-        modal.style.display = "none" 
-      
-        if(gameState.gameRunning) {
-            canvasContainer.classList.toggle("canvas-container-centered")
-            gameState.gameRunning = false
-        } 
+        returToEditor()
     } 
 })
 
@@ -87,7 +79,7 @@ button.forEach(element => {
     element.addEventListener("click", (event) => {
         const selectedImageStyle = window.getComputedStyle(event.target) //pega as informações do target
         const selectedImageUrl = "../../../" + selectedImageStyle.backgroundImage.slice(27, -2) //o slice é usado para retirar o http.. e etc na hora do deploy ou teste com servidor local
-        //console.log(event.target.getAttribute("data-type"))
+
         activeSelectedImage.imageId = event.target.id
         activeSelectedImage.imageUrl = selectedImageUrl
 
@@ -127,35 +119,7 @@ headerButtons.forEach(headerButton => {
 
             case "play":
                 
-                if(animatedImagesArray.some(element => element.name == "start-idle")){
-                        gameState.gameRunning = true
-                        const xPositonStart = animatedImagesArray.find((element) => element.name == "start-idle")
-                        cameraPosition.start = -xPositonStart.x+1000 //mudar essa linha para ficar dinamico
-                        cameraPosition.currentPosition = cameraPosition.start
-                        placeInitialCameraPosition(cameraPosition.start)
-                        
-                        
-                        canvasContainer.classList.toggle("canvas-container-centered")
-                        
-                        gameState.gameRunning = true
-                        const startPosition = animatedImagesArray.find(element =>  element.name === "start-idle")
-                        player.phisics.velocityY = 0
-                        player.position.x = startPosition.x + startPosition.width 
-                        player.position.y = startPosition.y + startPosition.height
-                        header.style.display = "none"
-                        leftAside.style.display = "none" 
-                        rightAside.style.display = "none"
-
-
-               
-                }else{
-                    modal.style.display = "flex";
-                    modalText.innerHTML = "Não é possível iniciar o jogo sem um ponto de Start. Coloque o Start no Mapa"
-                    btnNo.style.display = "none"
-                    btnYes.style.display = "none"
-                    btnOk.style.display = "inline-block"
-                    modalInfo.font = "play"
-                }
+            startGame()
 
             break;
 
@@ -220,6 +184,14 @@ headerButtons.forEach(headerButton => {
             case "open":
                 alert("Você ainda não tem fases salvas")
             break
+            case "gameOver":
+                startGame()
+                canvasContainer.classList.toggle("canvas-container-centered") // como ja tem na função, tem q fazer donovo aqui para não repetir
+            break;    
+            case "gameEnd":
+                startGame()
+                canvasContainer.classList.toggle("canvas-container-centered") // como ja tem na função, tem q fazer donovo aqui para não repetir
+            break;    
         }
 
         
@@ -228,9 +200,18 @@ headerButtons.forEach(headerButton => {
 
     // Botão Não
     btnNo.addEventListener("click", () => {
-
-
         modal.style.display = "none";
+      
+        switch(modalInfo.font){
+            case "gameOver":
+                returToEditor()
+            break;
+                
+            case "gameEnd":
+                returToEditor()
+            break;    
+        }
+
     });
     btnOk.addEventListener("click", () => {
         modal.style.display = "none";
@@ -242,3 +223,64 @@ headerButtons.forEach(headerButton => {
         modal.style.display = "none";
       }
     });
+
+
+    export function gameOverModal(){
+        modal.style.display = "flex";
+        modalText.innerHTML = "Ops! Você... Morreu. Trágico. Deseja Jogar Novamente?"
+        btnNo.style.display = "inline-block"
+        btnYes.style.display = "inline-block"
+        btnOk.style.display = "none"
+        modalInfo.font = "gameOver"
+    }
+    export function gameEnd(){
+        modal.style.display = "flex";
+        modalText.innerHTML = "Parabés! Você conseguiu!!! Deseja Jogar Novamente?"
+        btnNo.style.display = "inline-block"
+        btnYes.style.display = "inline-block"
+        btnOk.style.display = "none"
+        modalInfo.font = "gameEnd"
+    }
+
+    function startGame(){
+        if(animatedImagesArray.some(element => element.name == "start-idle")){
+            gameState.gameRunning = true
+            const xPositonStart = animatedImagesArray.find((element) => element.name == "start-idle")
+            cameraPosition.start = -xPositonStart.x+1000 //mudar essa linha para ficar dinamico
+            cameraPosition.currentPosition = cameraPosition.start
+            placeInitialCameraPosition(cameraPosition.start)
+            
+            
+            canvasContainer.classList.toggle("canvas-container-centered")
+            
+            gameState.gameRunning = true
+            const startPosition = animatedImagesArray.find(element =>  element.name === "start-idle")
+            player.phisics.velocityY = 0
+            player.position.x = startPosition.x + startPosition.width 
+            player.position.y = startPosition.y + startPosition.height
+            header.style.display = "none"
+            leftAside.style.display = "none" 
+            rightAside.style.display = "none"
+  
+    }else{
+        modal.style.display = "flex";
+        modalText.innerHTML = "Não é possível iniciar o jogo sem um ponto de Start. Coloque o Start no Mapa"
+        btnNo.style.display = "none"
+        btnYes.style.display = "none"
+        btnOk.style.display = "inline-block"
+        modalInfo.font = "play"
+    }
+    }
+
+
+    function returToEditor(){
+        header.style.display = "flex"
+        leftAside.style.display = "flex"
+        rightAside.style.display = "flex"
+        modal.style.display = "none" 
+      
+        if(gameState.gameRunning) {
+            canvasContainer.classList.toggle("canvas-container-centered")
+            gameState.gameRunning = false
+        }
+    }

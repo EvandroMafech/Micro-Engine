@@ -175,32 +175,8 @@ calculateTileEdges(tile) {
         bottom: tile.y + tile.height
     }
 }
-checkCollisionOnTop(){
-   
-    const playerEdges = this.calculatePlayerEdges();
 
-    tileArray.some(Tiles => {
-        const tileEdges = this.calculateTileEdges(Tiles);
-
-        if(playerEdges.top + this.spriteOffset.top*this.spriteSize<= tileEdges.bottom &&
-            playerEdges.bottom >= tileEdges.bottom &&
-            playerEdges.right >= tileEdges.left &&
-            playerEdges.left <= tileEdges.right &&
-            this.phisics.velocityY < 0 &&
-            Tiles.activeImage != " "
-        )
-        {
-            this.phisics.velocityY = 0
-            this.position.y = Tiles.y + Tiles.width 
-            this.playerState.isJumping = false
-            return true
-        }
-    })
-this.playerState.isOnPlatform = false
-}
-
-
-checkCollisionOnFloor(){
+checkCollisionOnTiles(){
    
     const playerEdges = this.calculatePlayerEdges();
 
@@ -225,6 +201,20 @@ checkCollisionOnFloor(){
             this.playerState.isJumping = false
             this.spriteState = this.selectAvatar() + "-idle"
             return true
+
+
+        }else  if(playerEdges.top + this.spriteOffset.top*this.spriteSize<= tileEdges.bottom &&
+            playerEdges.bottom >= tileEdges.bottom &&
+            playerEdges.right >= tileEdges.left &&
+            playerEdges.left <= tileEdges.right &&
+            this.phisics.velocityY < 0 &&
+            Tiles.activeImage != " "
+        )
+        {
+            this.phisics.velocityY = 0
+            this.position.y = Tiles.y + Tiles.width 
+           // this.playerState.isJumping = false
+            return true
         }
     })
 this.playerState.isOnPlatform = false
@@ -238,18 +228,17 @@ this.rightBlocked = false
 
 tileArray.some(Tiles => {
     const tileEdges = this.calculateTileEdges(Tiles);
-   
-    // Verifica colisão do jogador com a parede
-    const leftCollision = playerEdges.right > tileEdges.right && playerEdges.left < tileEdges.right;
-    const rightCollision = playerEdges.left < tileEdges.left && playerEdges.right > tileEdges.left;
-    const verticalCollision = playerEdges.bottom > tileEdges.top && playerEdges.top < tileEdges.bottom;
-   
+
         // Verifica se está tentando mover para a esquerda
-        if (leftCollision && verticalCollision && Tiles.activeImage !== " ") {
+        if(playerEdges.bottom > tileEdges.top && playerEdges.top < tileEdges.bottom && Tiles.activeImage !== " "){
+        if (playerEdges.right > tileEdges.right && 
+            playerEdges.left < tileEdges.right) {
             this.leftBlocked = true;
-        } else if (rightCollision && verticalCollision && Tiles.activeImage !== " ") {
-            this.rightBlocked = true;
+        } else if (playerEdges.left < tileEdges.left && 
+                   playerEdges.right > tileEdges.left) {
+                   this.rightBlocked = true;
         }
+    }
 })
 
 }

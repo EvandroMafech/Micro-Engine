@@ -32,9 +32,9 @@ const ctxAnimations = animationCanvas.getContext("2d")
 const lines = 15 //linhas do editor
 const columns = 40 // clounas do editor
 
-const player = new Player(ctxAnimations) //(ctx,image,x,y,sheetPosition){
+export const player = new Player(ctxAnimations) //(ctx,image,x,y,sheetPosition){
 
-const gameState = {
+export const gameState = {
     startPointPlaced: false,
     endPointPlaced: false,
     gameRunning: false
@@ -56,27 +56,27 @@ const keyboardShortcuts = {
     rotateImage: 0
 }
 
-const tilesWithImages = [] // salva somente tiles com imagens do tileset
-const tileArray = [] //guarda uma instancia para cada frame do editor
+export const tilesWithImages = [] // salva somente tiles com imagens do tileset
+export const tileArray = [] //guarda uma instancia para cada frame do editor
 const backgroundArray = [] //salva as instancia de cada frame do background
-const animatedImagesArray = [] //salva em sequencia todas as imagens animadas
-const allSetIdsArray = [] //salva todas as imagens em sequencia para ser usada ao apertar a tecla CTRL+Z
+export const animatedImagesArray = [] //salva em sequencia todas as imagens animadas
+export const allSetIdsArray = [] //salva todas as imagens em sequencia para ser usada ao apertar a tecla CTRL+Z
 const tileSize = 64 //tamanho de cada frame do grid
 const imageSizeFactor = 3 //fator para aumentar ou diminuir as dimensões das imagens na tela
-const staggerFrames = 4 //constante usada para mudar a velocidade da animação dos sprites
+export const staggerFrames = 4 //constante usada para mudar a velocidade da animação dos sprites
 export let cameraPosition = {
     start: 0,
     currentPosition: 0
 }
 
-const activeSelectedImage = { //usada para salvar a ultima imagem selecionada pelo cliente
+export const activeSelectedImage = { //usada para salvar a ultima imagem selecionada pelo cliente
     imageUrl: "",
     imageId: "",
     type: "",
     instance: ""
 }
 
-let frames = 0 //contator de frames do loop principal
+export let frames = 0 //contator de frames do loop principal
 let fruitsId = 0 //id de cada fruta plotada na tela 
 
 
@@ -106,7 +106,6 @@ cameraPosition.currentPosition += moveSpeed
     
 }
 
-export {staggerFrames,frames,activeSelectedImage,animatedImagesArray,player,tileArray,tilesWithImages,allSetIdsArray,gameState}
 
 function undoImages(){ //apaga imagens da tela pelo atalho CTRL-Z
 
@@ -356,8 +355,8 @@ function manageImages(event){ //pega a imagem selecionada e joga na função cor
 function animatePlayer(){ //funções para animar o player
     player.animate()
     player.applyGravity()
-    player.checkCollisionOnFloor()
-    player.checkCollisionOnTop()
+    player.checkCollisionOnTiles()
+
 }
 
 function animationLoop(){ //loop principal
@@ -401,7 +400,6 @@ window.addEventListener("keydown",(event) => {
     if(key == "shift"){keyboardShortcuts.alignItens = true}
     if(event.ctrlKey && key == "z"){undoImages()}
     if(key == "r"){keyboardShortcuts.rotateImage += 90}
-   // if(key == "j"){moveCamera(1)}
 })
 
 window.addEventListener("keyup",(event) => {

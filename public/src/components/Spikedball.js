@@ -1,6 +1,7 @@
-import { frames, player, staggerFrames } from "../main.js";
+import { frames, gameState, player, staggerFrames } from "../main.js";
 import { chain } from "../utils/constants.js";
 import AnimatedImage from "./AnimatedImage.js";
+import { gameOverModal } from "./InterfaceButtons.js";
 
 export default class Spikedball extends AnimatedImage{
     constructor(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,id){
@@ -13,7 +14,6 @@ export default class Spikedball extends AnimatedImage{
         this.amplitude = 0.5*Math.PI
         this.phase = 0
         this.gravity = 120
-
     }
 
     originPosition(){
@@ -26,6 +26,7 @@ export default class Spikedball extends AnimatedImage{
               //muda a animação do player
               this.hit = true
               player.spriteState = player.selectAvatar() + "-desappearing"
+              if(gameState.gameRunning == true) gameOverModal()
         }
     }
 

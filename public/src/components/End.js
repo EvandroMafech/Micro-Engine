@@ -1,6 +1,7 @@
 import { gameState } from "../main.js";
 import { spriteCoordinates } from "../utils/animatedImagesInfo.js";
 import AnimatedImage from "./AnimatedImage.js";
+import { gameEnd } from "./InterfaceButtons.js";
 
 export default class End extends AnimatedImage{
     constructor(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,hitbox,offset,id){
@@ -17,6 +18,7 @@ export default class End extends AnimatedImage{
                     this.spriteFrames = spriteCoordinates["end-pressed"].location[0].frames
                     this.CheckpointActivated = true
                     this.frameCounter = 0
+                    if(gameState.gameRunning == true) gameEnd()
 
             }
     }
@@ -35,7 +37,7 @@ export default class End extends AnimatedImage{
             this.image.src = spriteCoordinates["end-idle"].location[0].image 
             this.spriteFrames = spriteCoordinates["end-idle"].location[0].frames
             if(gameState.gameRunning)
-                console.log("end game")
+                this.CheckpointActivated = false
         }
        
     }

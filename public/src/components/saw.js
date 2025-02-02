@@ -1,5 +1,6 @@
-import { player } from "../main.js";
+import { gameState, player } from "../main.js";
 import AnimatedImage from "./AnimatedImage.js";
+import { gameOverModal } from "./InterfaceButtons.js";
 
 export default class Saw extends AnimatedImage{
     constructor(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,id){
@@ -13,6 +14,8 @@ export default class Saw extends AnimatedImage{
               //muda a animação do player
               this.hit = true
               player.spriteState = player.selectAvatar() + "-desappearing"
+              
+              if(gameState.gameRunning == true) gameOverModal()
             }
     }
 
