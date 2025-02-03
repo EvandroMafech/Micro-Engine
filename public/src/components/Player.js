@@ -38,8 +38,8 @@ export default class Player{
         
         this.spriteOffset = {
             bottom: 0,
-            left: 10,
-            right: 10,
+            left: 10, //10
+            right: 10, //10
             top: 10
         }
         this.spriteWidth = spriteCoordinates[this.spriteState].location[0].w
@@ -78,6 +78,16 @@ performJump(jumpType) {
     this.spriteState = this.selectAvatar() + jumpType;
 }
 
+getLettersAfterChar(str, char) {
+    const index = str.indexOf(char);
+    
+    // Verifica se a letra foi encontrada
+    if (index !== -1 && index + 1 < str.length) {
+      return str.substring(index + 1);
+    } else {
+      return ''; // Retorna string vazia se a letra não for encontrada ou for a última
+    }
+  }
 
 jump(){
     
@@ -110,7 +120,7 @@ animate(){
     let frameY = spriteCoordinates[this.spriteState].location[position].y
 
     //retirar comentario para mostrar contorno na imagem
-    //this.showImageBorder()
+    this.showImageBorder()
   
     if (this.MoveAction.left || this.playerState.currentDirection == "left") {
         this.ctx.save(); // Salva o estado original do contexto
@@ -187,6 +197,8 @@ checkCollisionOnTiles(){
     tileArray.some(Tiles => {
         const tileEdges = this.calculateTileEdges(Tiles);
 
+
+
         if(playerEdges.bottom >= tileEdges.top &&
             playerEdges.bottom <= tileEdges.bottom &&
             playerEdges.right >= tileEdges.left &&
@@ -195,14 +207,23 @@ checkCollisionOnTiles(){
             Tiles.activeImage != " "
         )
         {
-            this.playerState.isOnTiles = true
-            this.phisics.velocityY = 0
-            this.position.y = Tiles.y - this.spriteWidth*this.spriteSize 
-            this.playerState.isJumping = false
-            this.spriteState = this.selectAvatar() + "-idle"
-            return true
-
-
+           //rotina que retira o bug das paredes
+            let upperTileLine = +this.getLettersAfterChar(Tiles.id, "c") - 1
+            let upperTileColumn = this.getLettersBeforeChar(Tiles.id, "c")
+            let upperTileId = upperTileColumn + "c" + upperTileLine
+            const UpperTile = tileArray.find(upperTile => upperTile.id === upperTileId )
+            
+            if(UpperTile.activeImage != " ") {
+                console.log("tem coisa em cima")
+            }else {
+                this.playerState.isOnTiles = true
+                this.phisics.velocityY = 0
+                this.position.y = Tiles.y - this.spriteWidth*this.spriteSize 
+                this.playerState.isJumping = false
+                this.spriteState = this.selectAvatar() + "-idle"
+                return true
+            }
+   
         }else  if(playerEdges.top + this.spriteOffset.top*this.spriteSize<= tileEdges.bottom &&
             playerEdges.bottom >= tileEdges.bottom &&
             playerEdges.right >= tileEdges.left &&
@@ -220,6 +241,18 @@ checkCollisionOnTiles(){
 this.playerState.isOnPlatform = false
 }
 
+getLettersBeforeChar(str, char) {
+    const index = str.indexOf(char);
+    
+    // Verifica se a letra foi encontrada
+    if (index !== -1) {
+      return str.substring(0, index);
+    } else {
+      return ''; // Retorna string vazia se a letra não for encontrada
+    }
+  }
+  
+
 checkCollisionOnWalls(){
     const playerEdges = this.calculatePlayerEdges();
     
@@ -230,7 +263,9 @@ tileArray.some(Tiles => {
     const tileEdges = this.calculateTileEdges(Tiles);
 
         // Verifica se está tentando mover para a esquerda
-        if(playerEdges.bottom > tileEdges.top && playerEdges.top < tileEdges.bottom && Tiles.activeImage !== " "){
+        if(playerEdges.bottom > tileEdges.top && 
+            playerEdges.top < tileEdges.bottom && 
+            Tiles.activeImage !== " "){
         if (playerEdges.right > tileEdges.right && 
             playerEdges.left < tileEdges.right) {
             this.leftBlocked = true;
