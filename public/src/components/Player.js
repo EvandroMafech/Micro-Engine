@@ -196,7 +196,10 @@ checkCollisionOnTiles(){
 
     tileArray.some(Tiles => {
         const tileEdges = this.calculateTileEdges(Tiles);
-
+        let upperTileLine = +this.getLettersAfterChar(Tiles.id, "c") - 1
+        let upperTileColumn = this.getLettersBeforeChar(Tiles.id, "c")
+        let upperTileId = upperTileColumn + "c" + upperTileLine
+        const UpperTile = tileArray.find(upperTile => upperTile.id === upperTileId )
 
 
         if(playerEdges.bottom >= tileEdges.top &&
@@ -208,13 +211,10 @@ checkCollisionOnTiles(){
         )
         {
            //rotina que retira o bug das paredes
-            let upperTileLine = +this.getLettersAfterChar(Tiles.id, "c") - 1
-            let upperTileColumn = this.getLettersBeforeChar(Tiles.id, "c")
-            let upperTileId = upperTileColumn + "c" + upperTileLine
-            const UpperTile = tileArray.find(upperTile => upperTile.id === upperTileId )
+
             
             if(UpperTile.activeImage != " ") {
-                console.log("tem coisa em cima")
+
             }else {
                 this.playerState.isOnTiles = true
                 this.phisics.velocityY = 0
@@ -226,16 +226,18 @@ checkCollisionOnTiles(){
    
         }else  if(playerEdges.top + this.spriteOffset.top*this.spriteSize<= tileEdges.bottom &&
             playerEdges.bottom >= tileEdges.bottom &&
-            playerEdges.right >= tileEdges.left &&
-            playerEdges.left <= tileEdges.right &&
+            playerEdges.right >= tileEdges.left + 10 &&
+            playerEdges.left <= tileEdges.right - 10 &&
             this.phisics.velocityY < 0 &&
             Tiles.activeImage != " "
         )
         {
+
+            
             this.phisics.velocityY = 0
             this.position.y = Tiles.y + Tiles.width 
-           // this.playerState.isJumping = false
             return true
+
         }
     })
 this.playerState.isOnPlatform = false
