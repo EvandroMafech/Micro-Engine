@@ -158,12 +158,12 @@ move()
          this.playerState.currentDirection = "left"
          this.position.x -= this.phisics.speed
          this.rightBlocked = false
-         moveCamera(1)
+         moveCamera("left")
     }else if(this.MoveAction.right && !this.rightBlocked){
          this.playerState.currentDirection = "right"
          this.position.x += this.phisics.speed
          this.leftBlocked = false
-         moveCamera(-1)
+         moveCamera("right")
     }
 }
 

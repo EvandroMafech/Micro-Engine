@@ -66,7 +66,8 @@ const imageSizeFactor = 3 //fator para aumentar ou diminuir as dimensões das im
 export const staggerFrames = 4 //constante usada para mudar a velocidade da animação dos sprites
 export let cameraPosition = {
     start: 0,
-    currentPosition: 0
+    currentPositionH: 0,
+    currentPositionV: 0
 }
 
 export const activeSelectedImage = { //usada para salvar a ultima imagem selecionada pelo cliente
@@ -86,22 +87,34 @@ export function placeInitialCameraPosition(positionX){
     backgroundCanvas.style.left = `${positionX }px` 
     gridCanvas.style.left = `${positionX }px`
     animationCanvas.style.left = `${positionX }px`
-    console.log("Camera initial position: " + `${positionX}px`)
+    //console.log("Camera initial position: " + `${positionX}px`)
 
 }
 
 
-function moveCamera(directionFactor) {
+function moveCamera(directionHorizontal,level) {
 
-const moveSpeed = player.phisics.speed*directionFactor
+const dirFactorH = directionHorizontal == "left" ? 1 : directionHorizontal == "right" ? -1 : 0
+//const dirFactorV = directionVertical == "up" ? 1 : directionVertical == "down" ? -1 : 0
+
+const moveSpeedH = player.phisics.speed*dirFactorH
+//const moveSpeedV = player.phisics.speed*dirFactorV
 
 
-tileSetCanvas.style.left = `${cameraPosition.currentPosition+moveSpeed}px` 
-backgroundCanvas.style.left = `${cameraPosition.currentPosition+moveSpeed}px` 
-gridCanvas.style.left = `${cameraPosition.currentPosition+moveSpeed}px` 
-animationCanvas.style.left = `${cameraPosition.currentPosition+moveSpeed}px`
+tileSetCanvas.style.left = `${cameraPosition.currentPositionH+moveSpeedH}px` 
+backgroundCanvas.style.left = `${cameraPosition.currentPositionH+moveSpeedH}px` 
+gridCanvas.style.left = `${cameraPosition.currentPositionH+moveSpeedH}px` 
+animationCanvas.style.left = `${cameraPosition.currentPositionH+moveSpeedH}px`
 
-cameraPosition.currentPosition += moveSpeed
+tileSetCanvas.style.top = `${level}px` 
+backgroundCanvas.style.top = `${level}px` 
+gridCanvas.style.top = `${level}px` 
+animationCanvas.style.top = `${level}px`
+
+
+//console.log(cameraPosition.currentPositionV)
+cameraPosition.currentPositionH += moveSpeedH
+//cameraPosition.currentPositionV += moveSpeedV
 
     
 }
@@ -109,7 +122,7 @@ cameraPosition.currentPosition += moveSpeed
 
 function undoImages(){ //apaga imagens da tela pelo atalho CTRL-Z
 
-console.log(animatedImagesArray)
+
 let lastImage = allSetIdsArray[allSetIdsArray.length-1].type 
     
 if(lastImage == "animated"){
@@ -373,10 +386,18 @@ function animationLoop(){ //loop principal
     if(player.MoveAction.left || player.MoveAction.right) player.move()
     if(player.MoveAction.jump == true) player.jump()
 
+        //if((player.position.y - cameraPosition.currentPositionV) < 200) moveCamera(" ","up")
+           // if(player.position.y < 200) moveCamera(" ","up")
+
+           moveCamera("",-Math.floor(player.position.y/300)*300)
+
     
     frames++
     window.requestAnimationFrame(animationLoop)
 }
+
+
+
 
 createGrid()
 createBackgroundGrid()
