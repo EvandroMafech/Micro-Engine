@@ -51,6 +51,10 @@ ctx.imageSmoothingEnabled = false
 ctxAnimations.imageSmoothingEnabled = false
 ctxBackground.imageSmoothingEnabled = false
 
+export const functionButtons = {
+    selectIntens: false
+}
+
 const keyboardShortcuts = {
     alignItens: false,
     rotateImage: 0
@@ -65,7 +69,8 @@ const tileSize = 64 //tamanho de cada frame do grid
 const imageSizeFactor = 3 //fator para aumentar ou diminuir as dimensões das imagens na tela
 export const staggerFrames = 4 //constante usada para mudar a velocidade da animação dos sprites
 export let cameraPosition = {
-    start: 0,
+    startH: 0,
+    startV: 100,
     currentPositionH: 0,
     currentPositionV: 0
 }
@@ -82,12 +87,17 @@ let fruitsId = 0 //id de cada fruta plotada na tela
 
 
 
-export function placeInitialCameraPosition(positionX){
+export function placeInitialCameraPosition(positionX,positionY){
     tileSetCanvas.style.left = `${positionX }px` 
     backgroundCanvas.style.left = `${positionX }px` 
     gridCanvas.style.left = `${positionX }px`
     animationCanvas.style.left = `${positionX }px`
     //console.log("Camera initial position: " + `${positionX}px`)
+
+    tileSetCanvas.style.top = `${positionY}px` 
+    backgroundCanvas.style.top = `${positionY}px` 
+    gridCanvas.style.top = `${positionY}px` 
+    animationCanvas.style.top = `${positionY}px`
 
 }
 
@@ -341,6 +351,7 @@ function createAnimatedImage(TileId,event){ //cria uma imagem animada
             }
 
             animatedImagesArray.push(animatedImage)
+            console.log(animatedImage.x,animatedImage.y)
             allSetIdsArray.push({id: activeSelectedImage.imageId,type: "animated"})
             
 
@@ -365,6 +376,35 @@ function manageImages(event){ //pega a imagem selecionada e joga na função cor
     }
 }
 
+function selectedImage(clientX, clientY){
+    const rect = tileSetCanvas.getBoundingClientRect(); // usado para referenciar a posição do mouse
+    const positionX = clientX - rect.left
+    const positionY = clientY - rect.top
+    //console.log(positionX, positionY)
+    
+    let range = 30 //range de detecção da imagem mais proxima
+
+    const imageIndex = animatedImagesArray.findIndex(image => {
+        let imageOffsetX = (image.width/2)*image.size 
+        let imageOffsetY = (image.height/2)*image.size  
+        
+        if( image.x + imageOffsetX > positionX - range && 
+            image.x + imageOffsetX < positionX + range &&
+            image.y + imageOffsetY > positionY - range && 
+            image.y + imageOffsetY < positionY + range){
+
+
+               
+               // allSetIdsArray.pop()
+                console.log("image detectada")
+                return true
+            }
+        })
+        if(imageIndex != -1) animatedImagesArray.splice(imageIndex,1)
+        console.log(imageIndex)
+
+}
+
 function animatePlayer(){ //funções para animar o player
     player.animate()
     player.applyGravity()
@@ -385,11 +425,9 @@ function animationLoop(){ //loop principal
 
     if(player.MoveAction.left || player.MoveAction.right) player.move()
     if(player.MoveAction.jump == true) player.jump()
-
-        //if((player.position.y - cameraPosition.currentPositionV) < 200) moveCamera(" ","up")
-           // if(player.position.y < 200) moveCamera(" ","up")
-
-           moveCamera("",-Math.floor(player.position.y/300)*300)
+      
+   // if(Math.floor(player.position.y/300)  != 1 && Math.floor(player.position.y/300  != -1 )) moveCamera("",100 -Math.floor(player.position.y/300)*200)
+         //  console.log(-Math.floor(player.position.y/600))
 
     
     frames++
@@ -405,9 +443,23 @@ drawGrid()
 animationLoop()
 createBaseForTests()
 
-tileSetCanvas.addEventListener("mousedown", (event) => {manageImages(event)})
+// tileSetCanvas.addEventListener("mousedown", (event) => {
+//     if(functionButtons.selectIntens == true){
+//         console.log(event)
+//     }else{
+//     manageImages(event)
+//     }
+// })
 
-animationCanvas.addEventListener("mousedown", (event) => {manageImages(event)})
+animationCanvas.addEventListener("mousedown", (event) => {
+    if(functionButtons.selectIntens == true){
+
+        selectedImage(event.clientX, event.clientY)
+        //console.log(event.clientX, event.clientY)
+    }else{
+    manageImages(event)
+    }
+})
 
 window.addEventListener("keydown",(event) => {
     const key = event.key.toLowerCase() 

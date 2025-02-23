@@ -4,7 +4,7 @@ import AnimatedImage from "./AnimatedImage.js";
 export default class Fan extends AnimatedImage{
     constructor(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,id){
         super(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,id)
-        this.active = false
+        this.active = true
     }
 
     checkCollisionWithPlayer(){
