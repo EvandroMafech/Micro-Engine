@@ -99,7 +99,7 @@ const headerButtonsState = {
 
 headerButtons.forEach(headerButton => {
     headerButton.addEventListener("click", (event) =>{
-      
+      console.log("Opa")
         switch(event.target.id){
           
             case "grid":
