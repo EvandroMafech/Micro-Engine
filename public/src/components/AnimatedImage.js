@@ -29,7 +29,7 @@ export default class AnimatedImage{
         player.playerHitbox = player.calculateHitbox()  
         this.hitbox = this.calculateHitbox() 
 
-        //checa colisão com o player, retorna verdadeiro se4 colidiu
+        //checa colisão com o player, retorna verdadeiro se colidiu
         if( player.playerHitbox.bottom >= this.hitbox.top &&
             player.playerHitbox.top <= this.hitbox.bottom + 20 && // + Tiles.height &&
             player.playerHitbox.right >= this.hitbox.left &&
@@ -103,8 +103,8 @@ export default class AnimatedImage{
         this.ctxAnimations.drawImage(this.image,frameX,frameY, this.width,this.height, this.x, this.y, this.width*this.size , this.height*this.size) 
         
         //retirar comentario para mostrar contorno na imagem e centro da imagem
-        this.showImageBorder()
-        this.showCenterPoint()
+        //this.showImageBorder()
+        //this.showCenterPoint()
 
         return position
     }

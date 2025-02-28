@@ -84,6 +84,7 @@ export const activeSelectedImage = { //usada para salvar a ultima imagem selecio
 
 export let frames = 0 //contator de frames do loop principal
 let fruitsId = 0 //id de cada fruta plotada na tela 
+let boxId = 0 //id de cada fruta plotada na tela 
 
 
 
@@ -289,13 +290,14 @@ function createAnimatedImage(TileId,event){ //cria uma imagem animada
             const sheetImage = new Image()
             sheetImage.src = image
             const fruitImageId = fruitsId++
+            const boxImageId = boxId++
 
 
 
 
             let animatedImage
             if (activeSelectedImage.imageId.includes("fruit")) {
-                animatedImage = new Fruits(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,fruitImageId,id)
+                animatedImage = new Fruits(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,fruitImageId)
             }else if(activeSelectedImage.imageId.includes("saw")){
                  animatedImage = new Saw(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
             }else if(activeSelectedImage.imageId.includes("enemy")){
@@ -303,13 +305,13 @@ function createAnimatedImage(TileId,event){ //cria uma imagem animada
             }else if(activeSelectedImage.imageId.includes("platform")){
                  animatedImage = new Platform(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
             }else if(activeSelectedImage.imageId.includes("block")){
-                 animatedImage = new Box(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
+                 animatedImage = new Box(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id,boxImageId,1) //o ultimo é a vida
             }else if(activeSelectedImage.imageId.includes("box1")){
-                 animatedImage = new Box(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
+                 animatedImage = new Box(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id,boxImageId,2)//o ultimo é a vida
             }else if(activeSelectedImage.imageId.includes("box2")){
-                 animatedImage = new Box(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
+                 animatedImage = new Box(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id,boxImageId,4)//o ultimo é a vida
             }else if(activeSelectedImage.imageId.includes("box3")){
-                 animatedImage = new Box(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
+                 animatedImage = new Box(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id,boxImageId,6)//o ultimo é a vida
             }else if(activeSelectedImage.imageId.includes("checkpoint")){
                  animatedImage = new Checkpoint(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
         
@@ -351,8 +353,9 @@ function createAnimatedImage(TileId,event){ //cria uma imagem animada
             }
 
             animatedImagesArray.push(animatedImage)
-            console.log(animatedImage.x,animatedImage.y)
+
             allSetIdsArray.push({id: activeSelectedImage.imageId,type: "animated"})
+
             
 
         }

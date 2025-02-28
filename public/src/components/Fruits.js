@@ -3,8 +3,8 @@ import { spriteCoordinates } from "../utils/animatedImagesInfo.js";
 import AnimatedImage from "./AnimatedImage.js";
 
 export default class Fruits extends AnimatedImage{
-    constructor(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,hitbox,offset,id){
-            super(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,hitbox,offset,id)
+    constructor(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,id){
+            super(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,id)
             this.collected = false
     }
     

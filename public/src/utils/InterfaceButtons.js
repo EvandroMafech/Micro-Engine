@@ -1,5 +1,5 @@
 import { activeSelectedImage, allSetIdsArray, animatedImagesArray, cameraPosition, clearGrid, drawGrid, functionButtons, gameState, moveCamera, placeInitialCameraPosition, player, tileArray, tilesWithImages } from "../main.js"
-import Player from "./Player.js"
+import Player from "../components/Player.js"
 
 const modalInfo = {
     font: "",

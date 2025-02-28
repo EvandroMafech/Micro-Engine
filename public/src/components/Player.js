@@ -120,7 +120,7 @@ animate(){
     let frameY = spriteCoordinates[this.spriteState].location[position].y
 
     //retirar comentario para mostrar contorno na imagem
-    this.showImageBorder()
+    //this.showImageBorder()
   
     if (this.MoveAction.left || this.playerState.currentDirection == "left") {
         this.ctx.save(); // Salva o estado original do contexto
