@@ -1,19 +1,19 @@
-import {positionAdjust, spriteCoordinates } from "./utils/animatedImagesInfo.js";
-import AnimatedImage from "./components/AnimatedImage.js";
-import Tile from "./components/Tile.js";
-import {tileSetCanvasFrameInfo} from "./components/tilesetCanvas.js";
-import Player from "./components/Player.js";
-import Fruits from "./components/Fruits.js";
-import Saw from "./components/Saw.js";
-import Spykes from "./components/spykes.js";
-import Trampoline from "./components/Trampoline.js";
-import Platform from "./components/Platform.js";
-import Fan from "./components/Fan.js";
-import Spikedball from "./components/Spikedball.js";
-import Checkpoint from "./components/Checkpoint.js";
-import End from "./components/End.js";
-import Start from "./components/Start.js";
-import Box from "./components/Box.js";
+import {positionAdjust, spriteCoordinates } from "./src/utils/animatedImagesInfo.js";
+import AnimatedImage from "./src/components/AnimatedImage.js";
+import Tile from "./src/components/Tile.js";
+import {tileSetCanvasFrameInfo} from "./src/components/tilesetCanvas.js";
+import Player from "./src/components/Player.js";
+import Fruits from "./src/components/Fruits.js";
+import Saw from "./src/components/Saw.js";
+import Spykes from "./src/components/spykes.js";
+import Trampoline from "./src/components/Trampoline.js";
+import Platform from "./src/components/Platform.js";
+import Fan from "./src/components/Fan.js";
+import Spikedball from "./src/components/Spikedball.js";
+import Checkpoint from "./src/components/Checkpoint.js";
+import End from "./src/components/End.js";
+import Start from "./src/components/Start.js";
+import Box from "./src/components/Box.js";
 
 //canvas para os tilesets
 const tileSetCanvas = document.querySelector(".tileset") 
