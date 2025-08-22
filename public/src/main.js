@@ -29,8 +29,8 @@ const ctxGrid = gridCanvas.getContext("2d")
 const animationCanvas = document.querySelector(".animations") 
 const ctxAnimations = animationCanvas.getContext("2d")
 
-const lines = 15 //linhas do editor
-const columns = 40 // clounas do editor
+const lines = 13 //linhas do editor
+const columns = 31 // clounas do editor
 
 export const player = new Player(ctxAnimations) //(ctx,image,x,y,sheetPosition){
 
@@ -39,11 +39,13 @@ export const gameState = {
     endPointPlaced: false,
     gameRunning: false
 }
+
+
 //dimensoes fixas do canvas
 // tileSetCanvas.width = animationCanvas.width = backgroundCanvas.width = window.innerWidth 
 // tileSetCanvas.height = animationCanvas.height = backgroundCanvas.height = window.innerHeight
 
-tileSetCanvas.width = animationCanvas.width = backgroundCanvas.width = 2000 
+tileSetCanvas.width = animationCanvas.width = backgroundCanvas.width = 1984
 tileSetCanvas.height = animationCanvas.height = backgroundCanvas.height = 832
 
 //retira o efeito que deixa a imagem ruim
@@ -70,7 +72,7 @@ export const allSetIdsArray = [] //salva todas as imagens em sequencia para ser 
 const tileSize = 64 //tamanho de cada frame do grid
 const imageSizeFactor = 3 //fator para aumentar ou diminuir as dimensões das imagens na tela
 export const staggerFrames = 4 //constante usada para mudar a velocidade da animação dos sprites
-
+//hello
 export let cameraPosition = {
     startH: 0,
     startV: 0,
@@ -168,24 +170,31 @@ if(lastImage == "animated"){
 
 function createBaseForTests(){ //posiciona os tilesets de terreno no canvas para testes
 
-    const baseTiles = [
-        "l0c12", "l1c12", "l2c12", "l3c12", "l4c12", "l5c12", "l6c12", "l7c12", "l8c12", 
-        "l9c12", "l10c12", "l11c12", "l12c12", "l13c12", "l14c12", "l15c12", "l16c12", 
-        "l17c12", "l18c12", "l19c12", "l20c12", "l21c12", "l22c12", "l23c12", "l24c12",
-        "l25c12", "l26c12", "l27c12", "l28c12", "l29c12", "l30c12","l31c12"
-    ]
+    
+    const baseTiles = []
+    
+    for(let n=0;n <= columns;n++){
+       baseTiles.push(`l${n}c${lines-1}`)
+       baseTiles.push(`l${n}c${0}`)
+    }
+    for(let n=0;n <= lines;n++){
+       baseTiles.push(`l${0}c${n}`)
+       baseTiles.push(`l${columns-1}c${n}`)
+    }
 
     const tileSetInfo = {
         x: 16,
         y: 192,
-        id: "l2c13"
+        id: "l13c2"   
     }
 
     tileArray.forEach(tile => {
        if(baseTiles.includes(tile.id)){
             tile.activeImage = tileSetInfo.id 
             tile.drawImage(tileSetInfo)
+            
         }
+        console.log(tileArray)
 })
 }
 
@@ -422,19 +431,14 @@ function animatePlayer(){ //funções para animar o player
 function animationLoop(){ //loop principal
       
     ctxAnimations.clearRect(0,0, tileSetCanvas.width,tileSetCanvas.height) //limpa tela do canvas das animações
-    
+
 
     animatedImagesArray.forEach(image => {
         image.animate()  //atualiza os quadros de todas as imagens animadas
         image.checkCollisionWithPlayer() //verifica se colidiu com o player
     }) 
    
-     if(baseCreated == false){ 
-        createBaseForTests()
-        console.log("oi")
-        baseCreated = true
-    }   
-    
+  
     animatePlayer() // anima o player na tela
 
     if(player.MoveAction.left || player.MoveAction.right) player.move()
@@ -451,6 +455,7 @@ createGrid()
 createBackgroundGrid()
 drawGrid()
 animationLoop()
+createBaseForTests()
 
 
 animationCanvas.addEventListener("mousedown", (event) => {
