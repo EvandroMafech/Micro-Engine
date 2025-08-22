@@ -69,20 +69,19 @@ main{
 
 .scroll-container {
     position: relative;
-    width: 1800px;
-    height: 800px;
+    width: 1600px;
+    height: 832px;
     overflow: scroll; 
     z-index: 0;
     direction: rtl;
-    margin-top: 20px;
-    
+    margin-top: 20px;  
 }
 
 
 .canvas-container {
     position: relative;
     width: 2000px;
-    height: 1000px;
+    height: 800px;
 }
 
 .canvas-container-centered{

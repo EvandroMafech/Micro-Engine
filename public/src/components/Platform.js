@@ -1,5 +1,5 @@
 import { animatedImagesArray, player } from "../main.js";
-import AnimatedImage from "./AnimatedImage.js";
+import AnimatedImage from "../logic/AnimatedImage.js";
 
 export default class Platform extends AnimatedImage{
     constructor(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,id){

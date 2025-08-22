@@ -1,7 +1,7 @@
-import {positionAdjust, spriteCoordinates } from "./utils/animatedImagesInfo.js";
-import AnimatedImage from "./components/AnimatedImage.js";
+import {positionAdjust, spriteCoordinates } from "./logic/animatedImagesInfo.js";
+import AnimatedImage from "./logic/AnimatedImage.js";
 import Tile from "./components/Tile.js";
-import {tileSetCanvasFrameInfo} from "./components/tilesetCanvas.js";
+import {tileSetCanvasFrameInfo} from "./logic/tilesetCanvas.js";
 import Player from "./components/Player.js";
 import Fruits from "./components/Fruits.js";
 import Saw from "./components/Saw.js";
@@ -44,7 +44,7 @@ export const gameState = {
 // tileSetCanvas.height = animationCanvas.height = backgroundCanvas.height = window.innerHeight
 
 tileSetCanvas.width = animationCanvas.width = backgroundCanvas.width = 2000 
-tileSetCanvas.height = animationCanvas.height = backgroundCanvas.height = 1000
+tileSetCanvas.height = animationCanvas.height = backgroundCanvas.height = 832
 
 //retira o efeito que deixa a imagem ruim
 ctx.imageSmoothingEnabled = false
@@ -60,6 +60,8 @@ const keyboardShortcuts = {
     rotateImage: 0
 }
 
+let baseCreated = false
+
 export const tilesWithImages = [] // salva somente tiles com imagens do tileset
 export const tileArray = [] //guarda uma instancia para cada frame do editor
 const backgroundArray = [] //salva as instancia de cada frame do background
@@ -68,9 +70,10 @@ export const allSetIdsArray = [] //salva todas as imagens em sequencia para ser 
 const tileSize = 64 //tamanho de cada frame do grid
 const imageSizeFactor = 3 //fator para aumentar ou diminuir as dimensões das imagens na tela
 export const staggerFrames = 4 //constante usada para mudar a velocidade da animação dos sprites
+
 export let cameraPosition = {
     startH: 0,
-    startV: 100,
+    startV: 0,
     currentPositionH: 0,
     currentPositionV: 0
 }
@@ -111,12 +114,13 @@ const dirFactorH = directionHorizontal == "left" ? 1 : directionHorizontal == "r
 const moveSpeedH = player.phisics.speed*dirFactorH
 //const moveSpeedV = player.phisics.speed*dirFactorV
 
-
+//move canvas horizontalmente
 tileSetCanvas.style.left = `${cameraPosition.currentPositionH+moveSpeedH}px` 
 backgroundCanvas.style.left = `${cameraPosition.currentPositionH+moveSpeedH}px` 
 gridCanvas.style.left = `${cameraPosition.currentPositionH+moveSpeedH}px` 
 animationCanvas.style.left = `${cameraPosition.currentPositionH+moveSpeedH}px`
 
+//move canvas verticalmente
 tileSetCanvas.style.top = `${level}px` 
 backgroundCanvas.style.top = `${level}px` 
 gridCanvas.style.top = `${level}px` 
@@ -165,16 +169,16 @@ if(lastImage == "animated"){
 function createBaseForTests(){ //posiciona os tilesets de terreno no canvas para testes
 
     const baseTiles = [
-        "l0c11", "l1c11", "l2c11", "l3c11", "l4c11", "l5c11", "l6c11", "l7c11", "l8c11", 
-        "l9c11", "l10c11", "l11c11", "l12c11", "l13c11", "l14c11", "l15c11", "l16c11", 
-        "l17c11", "l18c11", "l19c11", "l20c11", "l21c11", "l22c11", "l23c11", "l24c11",
-        "l25c11", "l26c11", "l27c11", "l28c11", "l29c11", "l30c11"
+        "l0c12", "l1c12", "l2c12", "l3c12", "l4c12", "l5c12", "l6c12", "l7c12", "l8c12", 
+        "l9c12", "l10c12", "l11c12", "l12c12", "l13c12", "l14c12", "l15c12", "l16c12", 
+        "l17c12", "l18c12", "l19c12", "l20c12", "l21c12", "l22c12", "l23c12", "l24c12",
+        "l25c12", "l26c12", "l27c12", "l28c12", "l29c12", "l30c12","l31c12"
     ]
 
     const tileSetInfo = {
         x: 16,
-        y: 208,
-        id: "l1c13"
+        y: 192,
+        id: "l2c13"
     }
 
     tileArray.forEach(tile => {
@@ -232,7 +236,7 @@ function clearGrid(){//limpa tela do canvas das animações
     ctxGrid.clearRect(0,0, tileSetCanvas.width,tileSetCanvas.height) 
 }
 
-export {drawGrid,clearGrid,moveCamera}
+export {drawGrid,clearGrid,moveCamera,createBaseForTests}
 
 function setTileSetImageOnCanvas(TileId){ //posiciona os tilesets de terreno no canvas
 
@@ -418,21 +422,24 @@ function animatePlayer(){ //funções para animar o player
 function animationLoop(){ //loop principal
       
     ctxAnimations.clearRect(0,0, tileSetCanvas.width,tileSetCanvas.height) //limpa tela do canvas das animações
- 
+    
+
     animatedImagesArray.forEach(image => {
         image.animate()  //atualiza os quadros de todas as imagens animadas
         image.checkCollisionWithPlayer() //verifica se colidiu com o player
     }) 
    
+     if(baseCreated == false){ 
+        createBaseForTests()
+        console.log("oi")
+        baseCreated = true
+    }   
+    
     animatePlayer() // anima o player na tela
 
     if(player.MoveAction.left || player.MoveAction.right) player.move()
     if(player.MoveAction.jump == true) player.jump()
-      
-   // if(Math.floor(player.position.y/300)  != 1 && Math.floor(player.position.y/300  != -1 )) moveCamera("",100 -Math.floor(player.position.y/300)*200)
-         //  console.log(-Math.floor(player.position.y/600))
-
-    
+  
     frames++
     window.requestAnimationFrame(animationLoop)
 }
@@ -444,15 +451,7 @@ createGrid()
 createBackgroundGrid()
 drawGrid()
 animationLoop()
-createBaseForTests()
 
-// tileSetCanvas.addEventListener("mousedown", (event) => {
-//     if(functionButtons.selectIntens == true){
-//         console.log(event)
-//     }else{
-//     manageImages(event)
-//     }
-// })
 
 animationCanvas.addEventListener("mousedown", (event) => {
     if(functionButtons.selectIntens == true){

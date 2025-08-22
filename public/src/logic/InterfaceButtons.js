@@ -1,4 +1,4 @@
-import { activeSelectedImage, allSetIdsArray, animatedImagesArray, cameraPosition, clearGrid, drawGrid, functionButtons, gameState, moveCamera, placeInitialCameraPosition, player, tileArray, tilesWithImages } from "../main.js"
+import { activeSelectedImage, allSetIdsArray, animatedImagesArray, cameraPosition, clearGrid, createBaseForTests, drawGrid, functionButtons, gameState, moveCamera, placeInitialCameraPosition, player, tileArray, tilesWithImages } from "../main.js"
 import Player from "../components/Player.js"
 
 const modalInfo = {
@@ -38,6 +38,7 @@ function cleanCanvas(){
         tile.activeImage = " "
         tile.cleanTile() 
     })
+    createBaseForTests()
 }
 
 //botoes principais do menu à esquerda
@@ -97,9 +98,10 @@ const headerButtonsState = {
     displayGrid: true
 }
 
+//botoes do topo
 headerButtons.forEach(headerButton => {
     headerButton.addEventListener("click", (event) =>{
-      console.log("Opa")
+
         switch(event.target.id){
           
             case "grid":
@@ -254,9 +256,8 @@ headerButtons.forEach(headerButton => {
             const xPositonStart = animatedImagesArray.find((element) => element.name == "start-idle")
             cameraPosition.startH = -xPositonStart.x+1000 //mudar essa linha para ficar dinamico
             cameraPosition.currentPositionH = cameraPosition.startH
-            placeInitialCameraPosition(cameraPosition.startH,null)
-            placeInitialCameraPosition(null,cameraPosition.startV)
-            
+            placeInitialCameraPosition(cameraPosition.startH,cameraPosition.startV)
+                       
             
             canvasContainer.classList.toggle("canvas-container-centered")
             
@@ -284,7 +285,8 @@ headerButtons.forEach(headerButton => {
         header.style.display = "flex"
         leftAside.style.display = "flex"
         rightAside.style.display = "flex"
-        modal.style.display = "none" 
+        modal.style.display = "none"
+        placeInitialCameraPosition(0,0) 
       
         if(gameState.gameRunning) {
             canvasContainer.classList.toggle("canvas-container-centered")

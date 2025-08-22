@@ -1,5 +1,5 @@
-import { frames, moveCamera, player, staggerFrames,tileArray} from "../main.js"
-import { spriteCoordinates } from "../utils/animatedImagesInfo.js"
+import { frames, gameState, moveCamera, player, staggerFrames,tileArray} from "../main.js"
+import { spriteCoordinates } from "../logic/animatedImagesInfo.js"
 
 export default class Player{
     constructor(ctx){
@@ -158,12 +158,12 @@ move()
          this.playerState.currentDirection = "left"
          this.position.x -= this.phisics.speed
          this.rightBlocked = false
-         moveCamera("left")
+         if(gameState.gameRunning == true)  moveCamera("left")
     }else if(this.MoveAction.right && !this.rightBlocked){
          this.playerState.currentDirection = "right"
          this.position.x += this.phisics.speed
          this.leftBlocked = false
-         moveCamera("right")
+         if(gameState.gameRunning == true)  moveCamera("right")
     }
 }
 

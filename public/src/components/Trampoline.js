@@ -1,6 +1,6 @@
 import { player } from "../main.js";
-import { spriteCoordinates } from "../utils/animatedImagesInfo.js";
-import AnimatedImage from "./AnimatedImage.js";
+import { spriteCoordinates } from "../logic/animatedImagesInfo.js";
+import AnimatedImage from "../logic/AnimatedImage.js";
 
 export default class Trampoline extends AnimatedImage{
     constructor(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,id){
