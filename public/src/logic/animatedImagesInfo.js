@@ -389,7 +389,7 @@ const ImagesInfo = [ //line é a linha onde esta presente os frames em um sprite
         line: 0,
         width: 32,
         height: 32,
-        image: "../public/assets/images/items/Fruits/Strawberry.png",
+        image: "../public/assets/images/Items/Fruits/Strawberry.png",
         imageInstance: createImage()
     },
     {
@@ -399,7 +399,7 @@ const ImagesInfo = [ //line é a linha onde esta presente os frames em um sprite
         line: 0,
         width: 32,
         height: 32,
-        image: "../public/assets/images/items/Fruits/Pineapple.png",
+        image: "../public/assets/images/Items/Fruits/Pineapple.png",
         imageInstance: createImage()
     },
     {
@@ -409,7 +409,7 @@ const ImagesInfo = [ //line é a linha onde esta presente os frames em um sprite
         line: 0,
         width: 32,
         height: 32,
-        image: "../public/assets/images/items/Fruits/Orange.png",
+        image: "../public/assets/images/Items/Fruits/Orange.png",
         imageInstance: createImage()
     },
     {
@@ -419,7 +419,7 @@ const ImagesInfo = [ //line é a linha onde esta presente os frames em um sprite
         line: 0,
         width: 32,
         height: 32,
-        image: "../public/assets/images/items/Fruits/Apple.png",
+        image: "../public/assets/images/Items/Fruits/Apple.png",
         imageInstance: createImage()
     },
     {
@@ -429,7 +429,7 @@ const ImagesInfo = [ //line é a linha onde esta presente os frames em um sprite
         line: 0,
         width: 32,
         height: 32,
-        image: "../public/assets/images/items/Fruits/Bananas.png",
+        image: "../public/assets/images/Items/Fruits/Bananas.png",
         imageInstance: createImage()
     },
     {
@@ -439,7 +439,7 @@ const ImagesInfo = [ //line é a linha onde esta presente os frames em um sprite
         line: 0,
         width: 32,
         height: 32,
-        image: "../public/assets/images/items/Fruits/Cherries.png",
+        image: "../public/assets/images/Items/Fruits/Cherries.png",
         imageInstance: createImage()
     },
     {
@@ -449,7 +449,7 @@ const ImagesInfo = [ //line é a linha onde esta presente os frames em um sprite
         line: 0,
         width: 32,
         height: 32,
-        image: "../public/assets/images/items/Fruits/Kiwi.png",
+        image: "../public/assets/images/Items/Fruits/Kiwi.png",
         imageInstance: createImage()
     },
     {
@@ -459,7 +459,7 @@ const ImagesInfo = [ //line é a linha onde esta presente os frames em um sprite
         line: 0,
         width: 32,
         height: 32,
-        image: "../public/assets/images/items/Fruits/Melon.png",
+        image: "../public/assets/images/Items/Fruits/Melon.png",
         imageInstance: createImage()
     },
     {
@@ -469,7 +469,7 @@ const ImagesInfo = [ //line é a linha onde esta presente os frames em um sprite
         line: 0,
         width: 32,
         height: 32,
-        image: "../public/assets/images/items/Fruits/Collected.png",
+        image: "../public/assets/images/Items/Fruits/Collected.png",
         imageInstance: createImage()
     },
     {
