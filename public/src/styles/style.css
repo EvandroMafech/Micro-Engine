@@ -272,11 +272,11 @@ background-color: #194f82; /* cor ao passar o mouse */
 #start-idle { background-image: url("../../../public/assets/images/Items/Checkpoints/Start/Start (Idle).png"); }
 
 
-#box1-idle{ background-image: url("../../../public/assets/images/Items/boxes/Box1/Idle.png"); }
-#box2-idle{ background-image: url("../../../public/assets/images/Items/boxes/Box2/Idle.png"); }
-#box3-idle{ background-image: url("../../../public/assets/images/Items/boxes/Box3/Idle.png"); }
+#box1-idle{ background-image: url("../../../public/assets/images/Items/Boxes/Box1/Idle.png"); }
+#box2-idle{ background-image: url("../../../public/assets/images/Items/Boxes/Box2/Idle.png"); }
+#box3-idle{ background-image: url("../../../public/assets/images/Items/Boxes/Box3/Idle.png"); }
 
-#block-idle { background-image: url("../../../public/assets/images/Traps/Blocks/idle.png"); }
+#block-idle { background-image: url("../../../public/assets/images/Traps/Blocks/Idle.png"); }
 
 #platform-on { background-image: url("../../../public/assets/images/Traps/Falling Platforms/Off.png"); }
 
