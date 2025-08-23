@@ -5,7 +5,7 @@ import {tileSetCanvasFrameInfo} from "./logic/tilesetCanvas.js";
 import Player from "./components/Player.js";
 import Fruits from "./components/Fruits.js";
 import Saw from "./components/Saw.js";
-import Spykes from "./components/spykes.js";
+import Spykes from "./components/Spykes.js";
 import Trampoline from "./components/Trampoline.js";
 import Platform from "./components/Platform.js";
 import Fan from "./components/Fan.js";
