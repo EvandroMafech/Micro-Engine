@@ -194,7 +194,7 @@ function createBaseForTests(){ //posiciona os tilesets de terreno no canvas para
             tile.drawImage(tileSetInfo)
             
         }
-        console.log(tileArray)
+
 })
 }
 
