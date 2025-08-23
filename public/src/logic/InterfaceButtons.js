@@ -81,7 +81,7 @@ button.forEach(element => {
 
     element.addEventListener("click", (event) => {
         const selectedImageStyle = window.getComputedStyle(event.target) //pega as informações do target
-        const selectedImageUrl = "../../../" + selectedImageStyle.backgroundImage.slice(27, -2) //o slice é usado para retirar o http.. e etc na hora do deploy ou teste com servidor local
+        const selectedImageUrl = "../../../" + selectedImageStyle.backgroundImage//.slice(27, -2) //o slice é usado para retirar o http.. e etc na hora do deploy ou teste com servidor local
 
         activeSelectedImage.imageId = event.target.id
         activeSelectedImage.imageUrl = selectedImageUrl
