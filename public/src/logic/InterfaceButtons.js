@@ -24,13 +24,14 @@ const btnOk = modal.querySelector(".btn-ok");
 const modalText = modal.querySelector(".text");
 
 
-
+//limpa o canvas
 function cleanCanvas(){
 
     animatedImagesArray.splice(0, animatedImagesArray.length)
     tilesWithImages.splice(0, tilesWithImages.length)
     allSetIdsArray.splice(0, allSetIdsArray.length)
 
+    //reseta os estados dos checkpoints
     gameState.endPointPlaced = false
     gameState.startPointPlaced = false
 
@@ -87,6 +88,7 @@ button.forEach(element => {
 
         if(event.target.getAttribute("data-type") == "background"){
             activeSelectedImage.type = "background"
+            console.log(selectedImageUrl)
         }else{
             activeSelectedImage.type = "animated"
         }
