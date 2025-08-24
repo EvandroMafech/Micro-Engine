@@ -517,7 +517,7 @@ createGrid()
 createBackgroundGrid()
 drawGrid()
 animationLoop()
-//createBaseForTests()
+createBaseForTests()
 
 
 animationCanvas.addEventListener("mousedown", (event) => {
