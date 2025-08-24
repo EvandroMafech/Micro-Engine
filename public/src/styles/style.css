@@ -66,12 +66,12 @@ main{
 
 .scroll-container {
     position: relative;
-    width: 1600px;
+    width: 95%;
     height: 832px;
     overflow: scroll; 
     z-index: 0;
     direction: rtl;
-    margin-top: 20px;  
+    margin: 10px auto;  /* 50px no topo/baixo e centralizado nas laterais */
 }
 
 
