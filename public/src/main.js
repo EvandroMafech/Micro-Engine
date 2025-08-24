@@ -141,9 +141,7 @@ export function loadLevel() {
         if(tile) {
             tile.activeImage = savedTile.activeImage
             tile.tileSetInfo = savedTile.tileSetInfo 
-             
-            console.log(tile.tileSetInfo.x, tile.tileSetInfo.y)
-
+ 
             tile.drawImage({ x: tile.tileSetInfo.x, y: tile.tileSetInfo.y })
             tilesWithImages.push(tile.id)
         }
@@ -517,7 +515,7 @@ createGrid()
 createBackgroundGrid()
 drawGrid()
 animationLoop()
-createBaseForTests()
+//createBaseForTests()
 
 
 animationCanvas.addEventListener("mousedown", (event) => {
