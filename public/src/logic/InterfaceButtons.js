@@ -42,7 +42,6 @@ function cleanCanvas(){
         tile.activeImage = " "
         tile.cleanTile() 
     })
-    createBaseForTests()
 }
 
 //botoes principais do menu à esquerda
@@ -135,7 +134,21 @@ headerButtons.forEach(headerButton => {
 
             case "play":
                 
-            startGame()
+                 if(animatedImagesArray.some(element => element.name == "start-idle")){  
+                modal.style.display = "flex";
+                modalText.innerHTML = "O mapa será salvo automaticamente antes de iniciar o jogo. Deseja continuar?"
+                btnNo.style.display = "inline-block"
+                btnYes.style.display = "inline-block"
+                btnOk.style.display = "none"
+                modalInfo.font = "play"    
+              }else{
+        modal.style.display = "flex";
+        modalText.innerHTML = "Não é possível iniciar o jogo sem um ponto de Start. Coloque o Start no Mapa"
+        btnNo.style.display = "none"
+        btnYes.style.display = "none"
+        btnOk.style.display = "inline-block"
+        modalInfo.font = "play"
+    }
 
             break;
 
@@ -197,6 +210,11 @@ headerButtons.forEach(headerButton => {
 
             case "open":
                  loadLevel()    
+            break
+     
+            case "play":
+                saveLevel()
+                startGame()    
             break
 
             case "gameOver":
@@ -277,13 +295,6 @@ headerButtons.forEach(headerButton => {
             leftAside.style.display = "none" 
             rightAside.style.display = "none"
   
-    }else{
-        modal.style.display = "flex";
-        modalText.innerHTML = "Não é possível iniciar o jogo sem um ponto de Start. Coloque o Start no Mapa"
-        btnNo.style.display = "none"
-        btnYes.style.display = "none"
-        btnOk.style.display = "inline-block"
-        modalInfo.font = "play"
     }
     }
 

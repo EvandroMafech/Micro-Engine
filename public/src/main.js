@@ -118,13 +118,13 @@ export function saveLevel() {
    
 
     localStorage.setItem("savedLevel", JSON.stringify(saveData))
-    //alert("Mapa salvo com sucesso!")
+    alert("Mapa salvo com sucesso!")
 }
 
 export function loadLevel() {
     const saved = localStorage.getItem("savedLevel")
     if(!saved) {
-        //alert("Nenhum save encontrado")
+        alert("Nenhum save encontrado")
         return
     }
 
@@ -157,7 +157,7 @@ export function loadLevel() {
 
         createAnimatedImage(TileId, { clientX: savedImg.x, clientY: savedImg.y})
     })
-    //alert("Mapa carregado com sucesso!")
+    alert("Mapa carregado com sucesso!")
 }
 
 export function placeInitialCameraPosition(positionX,positionY){
@@ -501,7 +501,12 @@ function animationLoop(){ //loop principal
     }) 
    
   
-    animatePlayer() // anima o player na tela
+    if(gameState.gameRunning) {
+        animatePlayer() // anima o player na tela
+            
+    }else{
+        player.position.y = 5000
+    }
 
     if(player.MoveAction.left || player.MoveAction.right) player.move()
     if(player.MoveAction.jump == true) player.jump()
@@ -515,7 +520,6 @@ createGrid()
 createBackgroundGrid()
 drawGrid()
 animationLoop()
-//createBaseForTests()
 
 
 animationCanvas.addEventListener("mousedown", (event) => {
