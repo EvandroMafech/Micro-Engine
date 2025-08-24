@@ -96,7 +96,8 @@ export function saveLevel() {
             .filter(tile => tile.activeImage !== " ") // só pega tiles que receberam imagem
             .map(tile => ({
                 id: tile.id,
-                activeImage: tile.activeImage
+                activeImage: tile.activeImage,
+                tileSetInfo: tile.tileSetInfo
             })),
         animated: animatedImagesArray.map(img => ({
             x: img.x,
@@ -139,9 +140,12 @@ export function loadLevel() {
         const tile = tileArray.find(t => t.id === savedTile.id)
         if(tile) {
             tile.activeImage = savedTile.activeImage
-            tile.drawImage({ x: 0, y: 0 })
+            tile.tileSetInfo = savedTile.tileSetInfo 
+             
+            console.log(tile.tileSetInfo.x, tile.tileSetInfo.y)
+
+            tile.drawImage({ x: tile.tileSetInfo.x, y: tile.tileSetInfo.y })
             tilesWithImages.push(tile.id)
-            console.log(tile.activeImage)
         }
     })
 
@@ -315,6 +319,7 @@ function setTileSetImageOnCanvas(TileId){ //posiciona os tilesets de terreno no 
        if(tile.id == TileId){
             tile.activeImage = tileSetCanvasFrameInfo.id
             tile.drawImage(tileSetCanvasFrameInfo)
+            tile.tileSetInfo = tileSetCanvasFrameInfo
             allSetIdsArray.push({id: tileSetCanvasFrameInfo.id,type: "tileset"})
     }
 })
@@ -512,7 +517,7 @@ createGrid()
 createBackgroundGrid()
 drawGrid()
 animationLoop()
-createBaseForTests()
+//createBaseForTests()
 
 
 animationCanvas.addEventListener("mousedown", (event) => {

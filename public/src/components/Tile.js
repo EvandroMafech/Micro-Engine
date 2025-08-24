@@ -1,7 +1,7 @@
 import { tileSetSpriteheet_image_path } from "../utils/constants.js"
 
 export default class Tile{
-    constructor(x,y,height,width,ctx,id,backgroundImageSource){
+    constructor(x,y,height,width,ctx,id,backgroundImageSource,tileSetInfo){
         this.x = x
         this.y = y
         this.height = height
@@ -10,7 +10,8 @@ export default class Tile{
         this.id = id
         this.color = "#3a3f3d"
         this.activeImage = " "
-        this.backgroundImageSource = backgroundImageSource 
+        this.backgroundImageSource = backgroundImageSource
+        this.tileSetInfo = tileSetInfo 
     }
 
         drawImage({x,y}){
