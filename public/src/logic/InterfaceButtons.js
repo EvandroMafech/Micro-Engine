@@ -60,6 +60,10 @@ document.getElementById("toggle-right-aside").addEventListener("click", () => {
     const rightAside = document.getElementById('right-aside')
     rightAside.classList.toggle('expanded');
 })
+document.getElementById("toggle-left-aside").addEventListener("click", () => {
+    const rightAside = document.getElementById('left-aside')
+    rightAside.classList.toggle('expanded');
+})
 
 //evita redimencionamento da tela
 window.addEventListener("wheel", (event) => {

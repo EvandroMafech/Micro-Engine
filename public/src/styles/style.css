@@ -62,18 +62,7 @@ main{
     align-items: flex-start;
 }
 
-.left-aside{
-    display: flex;
-    width: 100%;
-    max-width: 250px;
-    min-width: 250px;
-    background-color: #2c2c2c;
-    padding: 20px 20px;
-    min-height: calc(100dvh - 55px);
-    flex-direction: column;
-    gap: 30px;
 
-}
 
 .scroll-container {
     position: relative;
@@ -159,12 +148,15 @@ main{
     color: white;
     border: none;
     padding: 10px;
-    margin: 5px 0;
+    margin: 5px;
     border-radius: 5px;
     cursor: pointer;
     text-align: center;
     font-size: 1.2rem;
     transition: background-color 0.3s; /* transição suave */
+        width: 85%;         /* ocupa toda a largura da aba */
+    max-width: 90%;     /* garante que não ultrapasse */
+  
 }
 
 .main-btn:hover{
@@ -176,6 +168,7 @@ background-color: #194f82; /* cor ao passar o mouse */
 
 .dropdown{
     display: none;
+    width: 85%;
 }
 
 .show {
@@ -214,6 +207,61 @@ background-color: #194f82; /* cor ao passar o mouse */
 }
 
 
+.left-aside {
+    position: fixed;
+    top: 55px;
+    left: 0;
+    width: 20px;
+    height: 100vh;
+    background-color: #333;
+    color: #fff;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    transition: width 0.3s ease;
+    gap: 20px;
+    z-index: 10;
+    padding: 20px 0 0 20px; /* 50px do topo e 50px da esquerda */
+}
+
+.left-aside.expanded {
+    width: 400px; /* abre quando recebe a classe expanded */
+}
+
+#toggle-left-aside {
+    background-color: #555;
+    border: none;
+    cursor: pointer;
+    padding: 20px;
+    z-index: 122;
+    top: 0;
+    height: 100vh;
+    color: white;
+    position: absolute; 
+    right: -20px; /* botão fica grudado na borda direita da aba */
+    transition: left 0.3s ease;
+}
+
+#toggle-left-aside:hover {
+    background-color: #777;
+}
+
+#toggle-right-aside:hover {
+    background-color: #777;
+}
+
+#toggle-right-aside {
+    background-color: #555;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 10;
+    top: 0;
+    height: 100vh; 
+    color: white;
+    transition: left 0.3s ease; 
+}
 
 .right-aside {
     position: fixed;
@@ -234,18 +282,6 @@ background-color: #194f82; /* cor ao passar o mouse */
 
 .right-aside.expanded {
     width: 400px; 
-}
-
-#toggle-right-aside {
-    background-color: #555;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    z-index: 10;
-    top: 0;
-    height: 100vh; 
-    color: white;
-    transition: left 0.3s ease; 
 }
 
 .right-aside canvas {
