@@ -32,6 +32,9 @@ const ctxAnimations = animationCanvas.getContext("2d")
 const lines = 13 //linhas do editor
 const columns = 31 // clounas do editor
 
+export let animatedImagesArrayLastSave = [] //usado para salvar o estado anterior do array de imagens animadas
+export let tileArrayLastSave = [] //usado para salvar o estado anterior do array de tiles
+
 export const player = new Player(ctxAnimations) //(ctx,image,x,y,sheetPosition){
 
 export const gameState = {
@@ -39,11 +42,6 @@ export const gameState = {
     endPointPlaced: false,
     gameRunning: false
 }
-
-
-//dimensoes fixas do canvas
-// tileSetCanvas.width = animationCanvas.width = backgroundCanvas.width = window.innerWidth 
-// tileSetCanvas.height = animationCanvas.height = backgroundCanvas.height = window.innerHeight
 
 tileSetCanvas.width = animationCanvas.width = backgroundCanvas.width = 1984
 tileSetCanvas.height = animationCanvas.height = backgroundCanvas.height = 832
@@ -65,9 +63,9 @@ const keyboardShortcuts = {
 let baseCreated = false
 
 export const tilesWithImages = [] // salva somente tiles com imagens do tileset
-export const tileArray = [] //guarda uma instancia para cada frame do editor
+export let tileArray = [] //guarda uma instancia para cada frame do editor
 const backgroundArray = [] //salva as instancia de cada frame do background
-export const animatedImagesArray = [] //salva em sequencia todas as imagens animadas
+export let animatedImagesArray = [] //salva em sequencia todas as imagens animadas
 export const allSetIdsArray = [] //salva todas as imagens em sequencia para ser usada ao apertar a tecla CTRL+Z
 const tileSize = 64 //tamanho de cada frame do grid
 const imageSizeFactor = 3 //fator para aumentar ou diminuir as dimensões das imagens na tela
@@ -92,14 +90,79 @@ let fruitsId = 0 //id de cada fruta plotada na tela
 let boxId = 0 //id de cada fruta plotada na tela 
 
 
+export function saveLevel() {
+    const saveData = {
+        tiles: tileArray
+            .filter(tile => tile.activeImage !== " ") // só pega tiles que receberam imagem
+            .map(tile => ({
+                id: tile.id,
+                activeImage: tile.activeImage
+            })),
+        animated: animatedImagesArray.map(img => ({
+            x: img.x,
+            y: img.y,
+            name: img.name,
+            frames: img.frames,
+            line: img.line,
+            width: img.width,
+            height: img.height,
+            type: img.constructor.name, // identifica a classe (Fruits, Saw, Box, etc.)
+            extra: {
+                id: img.id ?? null,
+                life: img.life ?? null,
+                rotation: img.rotation ?? null
+            }
+        }))
+    }
+   
+
+    localStorage.setItem("savedLevel", JSON.stringify(saveData))
+    //alert("Mapa salvo com sucesso!")
+}
+
+export function loadLevel() {
+    const saved = localStorage.getItem("savedLevel")
+    if(!saved) {
+        //alert("Nenhum save encontrado")
+        return
+    }
+
+    const saveData = JSON.parse(saved)
+
+    // limpar arrays antes de reconstruir
+    animatedImagesArray.length = 0
+    tilesWithImages.length = 0
+    tileArray.forEach(tile => { tile.activeImage = " "; tile.cleanTile() })
+
+    // recriar tiles
+    saveData.tiles.forEach(savedTile => {
+        const tile = tileArray.find(t => t.id === savedTile.id)
+        if(tile) {
+            tile.activeImage = savedTile.activeImage
+            tile.drawImage({ x: 0, y: 0 })
+            tilesWithImages.push(tile.id)
+            console.log(tile.activeImage)
+        }
+    })
+
+    // recriar imagens animadas
+    saveData.animated.forEach(savedImg => {
+        activeSelectedImage.imageId = savedImg.name
+        activeSelectedImage.imageUrl = spriteCoordinates[savedImg.name].location[0].image
+        activeSelectedImage.type = "animated"
+
+    let TileId = `l${Math.floor(savedImg.x/tileSize)+1}` + `c${Math.floor(savedImg.y/tileSize)+1}`
+
+        createAnimatedImage(TileId, { clientX: savedImg.x, clientY: savedImg.y})
+    })
+    //alert("Mapa carregado com sucesso!")
+}
 
 export function placeInitialCameraPosition(positionX,positionY){
     tileSetCanvas.style.left = `${positionX }px` 
     backgroundCanvas.style.left = `${positionX }px` 
     gridCanvas.style.left = `${positionX }px`
     animationCanvas.style.left = `${positionX }px`
-    //console.log("Camera initial position: " + `${positionX}px`)
-
     tileSetCanvas.style.top = `${positionY}px` 
     backgroundCanvas.style.top = `${positionY}px` 
     gridCanvas.style.top = `${positionY}px` 
@@ -128,10 +191,8 @@ backgroundCanvas.style.top = `${level}px`
 gridCanvas.style.top = `${level}px` 
 animationCanvas.style.top = `${level}px`
 
-
-//console.log(cameraPosition.currentPositionV)
 cameraPosition.currentPositionH += moveSpeedH
-//cameraPosition.currentPositionV += moveSpeedV
+
 
     
 }
@@ -264,6 +325,7 @@ function setImageOnBackgroundTiles(){ //posiciona os quadrados de background no 
 }
 
 function createAnimatedImage(TileId,event){ //cria uma imagem animada
+    
     const newImage = new Image()
     let x 
     let y 
@@ -377,7 +439,7 @@ function createAnimatedImage(TileId,event){ //cria uma imagem animada
 }
 
 function manageImages(event){ //pega a imagem selecionada e joga na função correspondente para criar plotar a imagem
-
+ 
     const TileId = createTileId(event)    
 
     if(activeSelectedImage.type === "tileset"){
@@ -396,7 +458,6 @@ function selectedImage(clientX, clientY){
     const rect = tileSetCanvas.getBoundingClientRect(); // usado para referenciar a posição do mouse
     const positionX = clientX - rect.left
     const positionY = clientY - rect.top
-    //console.log(positionX, positionY)
     
     let range = 30 //range de detecção da imagem mais proxima
 
@@ -412,12 +473,10 @@ function selectedImage(clientX, clientY){
 
                
                // allSetIdsArray.pop()
-                console.log("image detectada")
                 return true
             }
         })
         if(imageIndex != -1) animatedImagesArray.splice(imageIndex,1)
-        console.log(imageIndex)
 
 }
 
@@ -449,8 +508,6 @@ function animationLoop(){ //loop principal
 }
 
 
-
-
 createGrid()
 createBackgroundGrid()
 drawGrid()
@@ -460,10 +517,9 @@ createBaseForTests()
 
 animationCanvas.addEventListener("mousedown", (event) => {
     if(functionButtons.selectIntens == true){
-
         selectedImage(event.clientX, event.clientY)
-        //console.log(event.clientX, event.clientY)
     }else{
+  
     manageImages(event)
     }
 })
@@ -494,6 +550,15 @@ window.addEventListener("keyup",(event) => {
         player.playerState.keyJumpIsUp = true
     }
     if(key == "shift"){keyboardShortcuts.alignItens = false}
+})
+
+window.addEventListener("keyup",(event) => { //usado para fazer debugs apertando p para gerar informaçãos no console
+    const key = event.key.toLowerCase() 
+
+    if(key == "p"){
+        console.log(tileArray)
+    }
+
 })
 
 

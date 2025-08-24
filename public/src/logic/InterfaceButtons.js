@@ -1,5 +1,8 @@
-import { activeSelectedImage, allSetIdsArray, animatedImagesArray, cameraPosition, clearGrid, createBaseForTests, drawGrid, functionButtons, gameState, moveCamera, placeInitialCameraPosition, player, tileArray, tilesWithImages } from "../main.js"
+import { activeSelectedImage, allSetIdsArray, animatedImagesArray, animatedImagesArrayLastSave, cameraPosition, clearGrid, 
+    createBaseForTests, drawGrid, functionButtons, gameState, loadLevel, moveCamera, placeInitialCameraPosition, 
+    player, saveLevel, tileArray, tileArrayLastSave, tilesWithImages } from "../main.js"
 import Player from "../components/Player.js"
+import Tile from "../components/Tile.js"
 
 const modalInfo = {
     font: "",
@@ -88,7 +91,6 @@ button.forEach(element => {
 
         if(event.target.getAttribute("data-type") == "background"){
             activeSelectedImage.type = "background"
-            console.log(selectedImageUrl)
         }else{
             activeSelectedImage.type = "animated"
         }
@@ -140,8 +142,6 @@ headerButtons.forEach(headerButton => {
                 btnYes.style.display = "inline-block"
                 btnOk.style.display = "none"
                 modalInfo.font = "clear"
-            
-
 
             break;
 
@@ -188,12 +188,13 @@ headerButtons.forEach(headerButton => {
             break
 
             case "save":
-                alert("jogo salvo")
+                 saveLevel()
             break
 
             case "open":
-                alert("Você ainda não tem fases salvas")
+                 loadLevel()    
             break
+
             case "gameOver":
                 startGame()
                 canvasContainer.classList.toggle("canvas-container-centered") // como ja tem na função, tem q fazer donovo aqui para não repetir

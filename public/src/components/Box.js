@@ -53,14 +53,12 @@ export default class Box extends AnimatedImage{
 
            if (player.position.x + player.spriteWidth*player.spriteSize > this.x + this.width*this.size  &&
                player.position.x  < this.x + this.width*this.size){ 
-                   console.log("oi")
                    player.leftBlocked = true
                    player.position.x += player.phisics.speed
 
            }else if (player.position.x < this.x && 
                      player.position.x + player.spriteWidth*player.spriteSize > this.x) {
                        player.rightBlocked = true
-                       console.log("oi")
                        player.position.x -= player.phisics.speed
 
            }
