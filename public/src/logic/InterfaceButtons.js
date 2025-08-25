@@ -92,6 +92,9 @@ button.forEach(element => {
         activeSelectedImage.imageId = event.target.id
         activeSelectedImage.imageUrl = selectedImageUrl
 
+        console.log("Computed Style:  " + selectedImageStyle.backgroundImage)    
+        console.log("Url pronta: " + selectedImageUrl)
+
         if(event.target.getAttribute("data-type") == "background"){
             activeSelectedImage.type = "background"
         }else{

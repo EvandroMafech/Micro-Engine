@@ -283,7 +283,7 @@ function createGrid(){ //cria todas as instancias do grid principal do editor
     }
 }
 
-function createBackgroundGrid(){ //cria os blocos so background (instancias)
+function createBackgroundGrid(){ //cria os blocos do background (instancias)
 const tileSize = 64*3
     for(let c = 0; c < lines; c++){
         for(let l = 0; l <columns ; l++){
