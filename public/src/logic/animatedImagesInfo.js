@@ -619,7 +619,7 @@ const ImagesInfo = [ //line é a linha onde esta presente os frames em um sprite
         line: 0,
         width: 22,
         height: 22,
-        image: "../public/assets/images/Traps/Blocks/idle.png",
+        image: "../public/assets/images/Traps/Blocks/Idle.png",
         imageInstance: createImage()
     },
     {
