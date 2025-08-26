@@ -177,38 +177,38 @@ main{
 .sub-btn {
     border: none;
     cursor: pointer;
-    width: 50px;
-    height: 50px;
-    background-color: #2c2c2c;
+    width: 60px;
+    height: 60px;
+    background-color: #232931;
     background-position: center;
     background-size: cover;
     border-radius: 8px;
     margin: 4px;
     transition: transform .12s ease, box-shadow .2s ease;
-    box-shadow: 0 2px 0 rgba(0,0,0,.35);
+    box-shadow: 3px 3px 0 rgba(0,0,0,.35);
 }
 
 .sub-btn:hover { transform: scale(1.08); }
 
 #dropdown-2 button{
-    width: 90px;
-    height: 90px;
+    width: 64px;
+    height: 64px;
 }
 
 #dropdown-3 button{
-    width: 100px;
-    height: 100px;
-    background-size: 140px;
+    width: 64px;
+    height: 64px;
+
 }
 
 #dropdown-4 button{
-    width: 100px;
-    height: 100px;
-    background-size: 140px;
+    width: 64px;
+    height: 64px;
+
 }
 #dropdown-5 button{
-    width: 100px;
-    height: 100px;
+    width: 64px;
+    height: 64px;
 }
 
 
@@ -296,17 +296,17 @@ main{
 
 /* #ninjafrog-run{background-image: url("../../../public/assets/images/Main Characters/Ninja Frog/Jump (32x32).png");} */
 
-#fruit-apple { background-image: url("../../../public/assets/images/Items/Fruits/Apple.png"); }
-#fruit-bananas { background-image: url("../../../public/assets/images/Items/Fruits/Bananas.png"); }
-#fruit-cherries { background-image: url("../../../public/assets/images/Items/Fruits/Cherries.png"); }
-#fruit-kiwi { background-image: url("../../../public/assets/images/Items/Fruits/Kiwi.png"); }
-#fruit-melon { background-image: url("../../../public/assets/images/Items/Fruits/Melon.png"); }
-#fruit-orange { background-image: url("../../../public/assets/images/Items/Fruits/Orange.png"); }
-#fruit-pineapple { background-image: url("../../../public/assets/images/Items/Fruits/Pineapple.png"); }
-#fruit-strawberry { background-image: url("../../../public/assets/images/Items/Fruits/Strawberry.png"); }
+#fruit-apple { background-image: url("../../../public/assets/images/Items/Fruits/Apple(64x64).png"); }
+#fruit-bananas { background-image: url("../../../public/assets/images/Items/Fruits/Bananas(64x64).png"); }
+#fruit-cherries { background-image: url("../../../public/assets/images/Items/Fruits/Cherries(64x64).png"); }
+#fruit-kiwi { background-image: url("../../../public/assets/images/Items/Fruits/Kiwi(64x64).png"); }
+#fruit-melon { background-image: url("../../../public/assets/images/Items/Fruits/Melon(64x64).png"); }
+#fruit-orange { background-image: url("../../../public/assets/images/Items/Fruits/Orange(64x64).png"); }
+#fruit-pineapple { background-image: url("../../../public/assets/images/Items/Fruits/Pineapple(64x64).png"); }
+#fruit-strawberry { background-image: url("../../../public/assets/images/Items/Fruits/Strawberry(64x64).png"); }
 
-/* #checkpoint-idle { background-image: url("../../../public/assets/images/Items/Checkpoints/Checkpoint/Checkpoint (Flag Idle)(64x64).png"); } */
-#checkpoint-noflag { background-image: url("../../../public/assets/images/Items/Checkpoints/Checkpoint/Checkpoint (No Flag).png"); }
+
+#checkpoint-noflag { background-image: url("../../../public/assets/images/Items/Checkpoints/Checkpoint/Checkpoint(64x64).png"); }
 
 #end-idle{ background-image: url("../../../public/assets/images/Items/Checkpoints/End/End (Idle).png"); }
 #start-idle { background-image: url("../../../public/assets/images/Items/Checkpoints/Start/Start (Idle).png"); }
@@ -321,17 +321,17 @@ main{
                                   
 
 
-#platform-on { background-image: url("../../../public/assets/images/Traps/Falling Platforms/Off.png"); }
+#platform-on { background-image: url("../../../public/assets/images/Traps/Falling Platforms/Off(64x64).png"); }
 
-#fan-on { background-image: url("../../../public/assets/images/Traps/Fan/Off.png"); }
+#fan-on { background-image: url("../../../public/assets/images/Traps/Fan/Off(64x64).png"); }
 
-#saw-on { background-image: url("../../../public/assets/images/Traps/Saw/Off.png"); }
+#saw-on { background-image: url("../../../public/assets/images/Traps/Saw/Off(64x64).png"); }
 
-#spykes-idle { background-image: url("../../../public/assets/images/Traps/Spikes/Idle.png"); }
+#spykes-idle { background-image: url("../../../public/assets/images/Traps/Spikes/Idle(64x64).png"); }
 
-#trampoline-idle { background-image: url("../../../public/assets/images/Traps/Trampoline/Idle.png"); }
+#trampoline-idle { background-image: url("../../../public/assets/images/Traps/Trampoline/Idle(64x64).png"); }
 
-#spikedball-chained { background-image: url("../../../public/assets/images/Traps/Spiked Ball/Spiked Ball.png"); }
+#spikedball-chained { background-image: url("../../../public/assets/images/Traps/Spiked Ball/Spiked Ball(64x64).png"); }
 
 
 
