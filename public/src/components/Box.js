@@ -2,97 +2,96 @@ import { animatedImagesArray, player } from "../main.js";
 import { spriteCoordinates } from "../logic/animatedImagesInfo.js";
 import AnimatedImage from "../logic/AnimatedImage.js";
 
-export default class Box extends AnimatedImage{
-    constructor(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,id,boxImageId,life){
-        super(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,id,boxImageId,life)
-        this.activated = false
-        this.life = life
-        this.boxImageId = boxImageId
-        
+export default class Box extends AnimatedImage {
+    constructor(image, x, y, name, spriteFrames, line, w, h, canvas, imageSizeFactor, id, boxImageId, life) {
+        super(image, x, y, name, spriteFrames, line, w, h, canvas, imageSizeFactor, id, boxImageId, life);
+        this.activated = false;
+        this.life = life;
+        this.boxImageId = boxImageId;
     }
 
-    checkCollisionWithPlayer(){
-        //checa colisão com o player
-        if(!this.activated && super.checkCollisionWithPlayer()){ // chama a função de colisão da classe super
-              //muda a animação do player
+    checkCollisionWithPlayer() {
+        if (this.activated || !super.checkCollisionWithPlayer()) return;
 
-              
+        const playerBottom = player.position.y + player.spriteHeight * player.spriteSize;
+        const playerTop = player.position.y;
+        const playerRight = player.position.x + player.spriteWidth * player.spriteSize;
+        const playerLeft = player.position.x;
 
-              
-              
-              
-            if( player.phisics.velocityY < 0 && 
-                player.position.y <= this.y + this.height*this.size &&
-                player.position.y + player.spriteHeight*player.spriteSize >= this.y + this.height*this.size) 
-                {
-             
-                    player.phisics.velocityY = 10
-                    player.playerState.isJumping = false
+        const boxTop = this.y;
+        const boxBottom = this.y + this.height * this.size;
+        const boxRight = this.x + this.width * this.size;
+        const boxLeft = this.x;
 
-                    this.image.src = spriteCoordinates[`${this.id}-hit`].location[0].image 
-                    this.spriteFrames = spriteCoordinates[`${this.id}-hit`].location[0].frames
-                    this.activated = true
-                    this.life--
-                    this.frameCounter = 0
-
-            }else if(player.phisics.velocityY > 0 &&
-                     player.position.y + player.spriteHeight*player.spriteSize >= this.y  &&
-                     player.position.y  <= this.y               
-            ){
-                player.phisics.velocityY = -10
-                player.playerState.isJumping = false
-
-                this.image.src = spriteCoordinates[`${this.id}-hit`].location[0].image 
-                this.spriteFrames = spriteCoordinates[`${this.id}-hit`].location[0].frames
-                this.activated = true
-                this.life--
-                this.frameCounter = 0
-            }else if(player.position.y + player.spriteHeight*player.spriteSize > this.y && 
-                player.position.y < this.y + this.height*this.size){     
-
-
-           if (player.position.x + player.spriteWidth*player.spriteSize > this.x + this.width*this.size  &&
-               player.position.x  < this.x + this.width*this.size){ 
-                   player.leftBlocked = true
-                   player.position.x += player.phisics.speed
-
-           }else if (player.position.x < this.x && 
-                     player.position.x + player.spriteWidth*player.spriteSize > this.x) {
-                       player.rightBlocked = true
-                       player.position.x -= player.phisics.speed
-
-           }
-       }
-
-         }
-    }
-
-    animate(){
-        const position = super.animate() //pega a posição do position na superclasse 
-        
-        if(this.life == 0) {
-
-            animatedImagesArray.forEach((image,index) => {
-                if(image.boxImageId == this.boxImageId){
-                    animatedImagesArray.splice(index,1) //deleta o objeto de imagem inteiro
-                }
-            })
-            
+        // --- Colisão por baixo (player bate a cabeça) ---
+        if (player.phisics.velocityY < 0 &&
+            playerTop <= boxBottom &&
+            playerBottom >= boxBottom
+        ) {
+            this.triggerHit();
+            player.phisics.velocityY = 10;
+            player.playerState.isJumping = false;
+            return;
         }
-        if(this.activated){this.handleAnimation(position)}
+
+        // --- Colisão por cima (player pisa no box) ---
+        if (player.phisics.velocityY > 0 &&
+            playerBottom >= boxTop &&
+            playerTop <= boxTop
+        ) {
+            this.triggerHit();
+            player.phisics.velocityY = -10;
+            player.playerState.isJumping = false;
+            return;
+        }
+
+        // --- Colisão lateral ---
+        if (playerBottom > boxTop && playerTop < boxBottom) {
+            if (playerRight > boxRight && playerLeft < boxRight) {
+                player.leftBlocked = true;
+                player.position.x += player.phisics.speed;
+            } else if (playerLeft < boxLeft && playerRight > boxLeft) {
+                player.rightBlocked = true;
+                player.position.x -= player.phisics.speed;
+            }
+        }
     }
 
+    triggerHit() {
+        this.image.src = spriteCoordinates[`${this.id}-hit`].location[0].image;
+        this.spriteFrames = spriteCoordinates[`${this.id}-hit`].location[0].frames;
+        this.activated = true;
+        this.life--;
+        this.frameCounter = 0;
+    }
 
-    handleAnimation(position){
-        
-        this.frameCounter++
-        if(this.frameCounter == this.spriteFrames){
-            this.image.src = spriteCoordinates[`${this.id}-idle`].location[0].image 
-            this.spriteFrames = spriteCoordinates[`${this.id}-idle`].location[0].frames
-            this.activated = false
+    animate() {
+        const position = super.animate();
+
+        if (this.life <= 0) {
+            this.destroy();
+        }
+
+        if (this.activated) {
+            this.handleAnimation();
+        }
+
+        return position;
+    }
+
+    handleAnimation() {
+        this.frameCounter++;
+        if (this.frameCounter >= this.spriteFrames) {
+            this.image.src = spriteCoordinates[`${this.id}-idle`].location[0].image;
+            this.spriteFrames = spriteCoordinates[`${this.id}-idle`].location[0].frames;
+            this.activated = false;
+        }
+    }
+
+    destroy() {
+        const index = animatedImagesArray.findIndex(img => img.boxImageId === this.boxImageId);
+        if (index !== -1) {
+            animatedImagesArray.splice(index, 1);
         }
     }
 }
-
-
-

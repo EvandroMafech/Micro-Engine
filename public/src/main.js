@@ -43,6 +43,17 @@ export const gameState = {
     gameRunning: false
 }
 
+export const specialTilesIds = [ //ids de tiles que são como plataformas (o player pode pular por baixo deles)
+  "l6c20",
+  "l7c20",
+  "l8c20",
+  "l6c21",
+  "l7c21",
+  "l8c21",
+  "l6c22",
+  "l7c22",
+  "l8c22"
+];
 
 
 tileSetCanvas.width = animationCanvas.width = backgroundCanvas.width = 1984

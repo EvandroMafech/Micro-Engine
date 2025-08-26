@@ -1,4 +1,4 @@
-import { frames, gameState, moveCamera, player, staggerFrames,tileArray} from "../main.js"
+import { frames, gameState, moveCamera, player, specialTilesIds, staggerFrames,tileArray} from "../main.js"
 import { spriteCoordinates } from "../logic/animatedImagesInfo.js"
 
 export default class Player{
@@ -186,61 +186,81 @@ calculateTileEdges(tile) {
     }
 }
 
-checkCollisionOnTiles(){
-   
+checkCollisionOnTiles() {
     const playerEdges = this.calculatePlayerEdges();
 
-    if(this.playerState.isJumping && this.phisics.velocityY > 0){
-        this.spriteState = this.selectAvatar() + "-fall"
+    // Se o player está caindo
+    if (this.playerState.isJumping && this.phisics.velocityY > 0) {
+        this.spriteState = this.selectAvatar() + "-fall";
     }
 
-    tileArray.some(Tiles => {
-        const tileEdges = this.calculateTileEdges(Tiles);
-        let upperTileLine = +this.getLettersAfterChar(Tiles.id, "c") - 1
-        let upperTileColumn = this.getLettersBeforeChar(Tiles.id, "c")
-        let upperTileId = upperTileColumn + "c" + upperTileLine
-        const UpperTile = tileArray.find(upperTile => upperTile.id === upperTileId )
+    const collided = tileArray.some(tile => {
+        if (tile.activeImage === " ") return false; // ignora tiles vazios
 
+        const tileEdges = this.calculateTileEdges(tile);
 
-        if(playerEdges.bottom >= tileEdges.top &&
+        // --- Colisão vindo de cima (aterrissagem) ---
+        const landing =
+            playerEdges.bottom >= tileEdges.top &&
             playerEdges.bottom <= tileEdges.bottom &&
             playerEdges.right >= tileEdges.left &&
             playerEdges.left <= tileEdges.right &&
-            this.phisics.velocityY > 0 &&
-            Tiles.activeImage != " "
-        )
-        {
-           //rotina que retira o bug das paredes
+            this.phisics.velocityY > 0;
 
-            
-            if(UpperTile.activeImage != " ") {
+        if (landing) {
+            const upperTileId = this.getUpperTileId(tile.id);
+            const upperTile = tileArray.find(t => t.id === upperTileId);
 
-            }else {
-                this.playerState.isOnTiles = true
-                this.phisics.velocityY = 0
-                this.position.y = Tiles.y - this.spriteWidth*this.spriteSize 
-                this.playerState.isJumping = false
-                this.spriteState = this.selectAvatar() + "-idle"
-                return true
+            // Evita bug de parede
+            if (upperTile && upperTile.activeImage !== " ") {
+                return false;
             }
-   
-        }else  if(playerEdges.top + this.spriteOffset.top*this.spriteSize<= tileEdges.bottom &&
+
+            this.landOnTile(tile);
+            return true;
+        }
+
+        // --- Colisão vindo de baixo (batendo a cabeça) ---
+        const hittingHead =
+            playerEdges.top + this.spriteOffset.top * this.spriteSize <= tileEdges.bottom &&
             playerEdges.bottom >= tileEdges.bottom &&
             playerEdges.right >= tileEdges.left + 10 &&
             playerEdges.left <= tileEdges.right - 10 &&
-            this.phisics.velocityY < 0 &&
-            Tiles.activeImage != " "
-        )
-        {
+            this.phisics.velocityY < 0;
 
-            
-            this.phisics.velocityY = 0
-            this.position.y = Tiles.y + Tiles.width 
-            return true
-
+        if (hittingHead) {
+            if (!specialTilesIds.includes(tile.activeImage)) {
+                this.bumpHeadOnTile(tile);
+            }
+            return true;
         }
-    })
-this.playerState.isOnPlatform = false
+
+        return false;
+    });
+
+    if (!collided) {
+        this.playerState.isOnPlatform = false;
+    }
+}
+
+// --- Funções auxiliares ---
+getUpperTileId(tileId) {
+    const col = this.getLettersBeforeChar(tileId, "c");
+    const row = +this.getLettersAfterChar(tileId, "c") - 1;
+    return col + "c" + row;
+}
+
+landOnTile(tile) {
+    this.playerState.isOnTiles = true;
+    this.phisics.velocityY = 0;
+    this.position.y = tile.y - this.spriteWidth * this.spriteSize;
+    this.playerState.isJumping = false;
+    this.spriteState = this.selectAvatar() + "-idle";
+}
+
+bumpHeadOnTile(tile) {
+    this.phisics.velocityY = 0;
+    this.position.y = tile.y + tile.width;
 }
 
 getLettersBeforeChar(str, char) {
@@ -255,7 +275,7 @@ getLettersBeforeChar(str, char) {
   }
   
 
-checkCollisionOnWalls(){
+checkCollisionOnWalls(){ //verifica se o player está colidindo com as paredes laterais
     const playerEdges = this.calculatePlayerEdges();
     
 this.leftBlocked = false
@@ -273,7 +293,7 @@ tileArray.some(Tiles => {
             this.leftBlocked = true;
         } else if (playerEdges.left < tileEdges.left && 
                    playerEdges.right > tileEdges.left) {
-                   this.rightBlocked = true;
+                  this.rightBlocked = true;
         }
     }
 })
