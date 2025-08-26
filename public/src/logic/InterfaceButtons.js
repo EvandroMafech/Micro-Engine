@@ -89,11 +89,11 @@ button.forEach(element => {
     const selectedImageStyle = window.getComputedStyle(event.target) //pega as informações do target
     let match = selectedImageStyle.backgroundImage.match(/public.*?\.png/); //pega tudo que começa com public e termina com .png. operador lazy (.*?)
   
-    console.log("String crua:  " + match[0]); 
+    //console.log("String crua:  " + match[0]); 
    
         let selectedImageUrl = "../../../" + match[0] //o slice é usado para retirar o http.. e etc na hora do deploy ou teste com servidor local
  
-        console.log("String certa: " + selectedImageUrl)  
+        //console.log("String certa: " + selectedImageUrl)  
      
         activeSelectedImage.imageId = event.target.id
         activeSelectedImage.imageUrl = selectedImageUrl
