@@ -25,8 +25,8 @@ export default class Player{
         this.ctx = ctx
        
         this.phisics = {
-        gravity: 1,
-        velocityY: 0,
+        gravity: 1.3,
+        velocityY: 0,   
         speed: 8,
         jumpStrength: -18
         }

@@ -25,7 +25,7 @@ function selectTilesetImageFromGrid(event){
     const column = Math.floor(positionY/tileSizeTilesetCanvas)    
     const id = `l${line}` + `c${column}`
     tileSetCanvasFrameInfo = {x: line*tileSizeTilesetCanvas, y: column*tileSizeTilesetCanvas, id: id}
-    console.log(tileSetCanvasFrameInfo)
+
     activeSelectedImage.type = "tileset"     
 }
 

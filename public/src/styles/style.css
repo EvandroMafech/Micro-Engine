@@ -97,7 +97,7 @@ main{
     direction: rtl;
     margin: 10px auto;  /* 50px no topo/baixo e centralizado nas laterais */
     background: var(--panel);
-    border: 2px solid var(--stroke);
+    /* border: 2px solid var(--stroke); */
     box-shadow: var(--shadow);
     border-radius: 12px;
 }

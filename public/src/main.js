@@ -15,11 +15,11 @@ import End from "./components/End.js";
 import Start from "./components/Start.js";
 import Box from "./components/Box.js";
 
-//canvas para os tilesets
+//canvas para os tilesets   
 const tileSetCanvas = document.querySelector(".tileset") 
 const ctx = tileSetCanvas.getContext("2d")
 
-const backgroundCanvas = document.querySelector(".background") 
+const backgroundCanvas = document.querySelector(".background") //
 const ctxBackground = backgroundCanvas.getContext("2d")
 
 const gridCanvas = document.querySelector(".grid") 
@@ -42,6 +42,8 @@ export const gameState = {
     endPointPlaced: false,
     gameRunning: false
 }
+
+
 
 tileSetCanvas.width = animationCanvas.width = backgroundCanvas.width = 1984
 tileSetCanvas.height = animationCanvas.height = backgroundCanvas.height = 832
@@ -232,7 +234,6 @@ if(lastImage == "animated"){
 }
 
 function createBaseForTests(){ //posiciona os tilesets de terreno no canvas para testes
-
     
     const baseTiles = []
     
@@ -245,15 +246,17 @@ function createBaseForTests(){ //posiciona os tilesets de terreno no canvas para
        baseTiles.push(`l${columns-1}c${n}`)
     }
 
-    const tileSetInfo = {
+    const tileSetInfo = { //
         x: 16,
-        y: 192,
-        id: "l13c2"   
+        y: 272,
+        id: "l1c17",
+        info: {x: 16, y: 272, id: 'l1c17'}   
     }
 
     tileArray.forEach(tile => {
        if(baseTiles.includes(tile.id)){
-            tile.activeImage = tileSetInfo.id 
+            tile.activeImage = tileSetInfo.id
+            tile.tileSetInfo = tileSetInfo.info 
             tile.drawImage(tileSetInfo)
             
         }
@@ -503,6 +506,11 @@ function animationLoop(){ //loop principal
   
     if(gameState.gameRunning) {
         animatePlayer() // anima o player na tela
+        //         if(!baseCreated){
+        //  createBaseForTests()
+        //  console.log("Base criada")
+        //  baseCreated = true
+        // }
             
     }else{
         player.position.y = 5000
@@ -513,20 +521,22 @@ function animationLoop(){ //loop principal
   
     frames++
     window.requestAnimationFrame(animationLoop)
+
 }
 
 
 createGrid()
 createBackgroundGrid()
 drawGrid()
+setTimeout(createBaseForTests, 10); //por algum motivo se eu chamar direto na sequencia de funções acima nao funciona
 animationLoop()
 
 
 animationCanvas.addEventListener("mousedown", (event) => {
     if(functionButtons.selectIntens == true){
         selectedImage(event.clientX, event.clientY)
-    }else{
-  
+    }else if(gameState.gameRunning == false){ // so pode adicionar imagens se o jogo não estiver rodando
+
     manageImages(event)
     }
 })
@@ -563,7 +573,8 @@ window.addEventListener("keyup",(event) => { //usado para fazer debugs apertando
     const key = event.key.toLowerCase() 
 
     if(key == "p"){
-        console.log(tileArray)
+        createBaseForTests()
+        console.log(tileSetCanvasFrameInfo)
     }
 
 })

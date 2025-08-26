@@ -220,6 +220,8 @@ headerButtons.forEach(headerButton => {
      
             case "play":
                 saveLevel()
+                clearGrid()
+                headerButtonsState.displayGrid = false
                 startGame()    
             break
 
