@@ -133,8 +133,8 @@ export default class AnimatedImage {
     );
 
     //retirar comentario para mostrar contorno na imagem e centro da imagem
-    //this.showImageBorder()
-    //this.showCenterPoint()
+    this.showImageBorder()
+    this.showCenterPoint()
 
     return position;
   }

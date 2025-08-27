@@ -3,7 +3,7 @@ import AnimatedImage from "./logic/AnimatedImage.js";
 import Tile from "./components/Tile.js";
 import {tileSetCanvasFrameInfo} from "./logic/tilesetCanvas.js";
 import Player from "./components/Player.js";
-import Fruits from "./components/Fruits.js";
+import Fruit from "./components/Fruit.js";
 import Saw from "./components/Saw.js";
 import Spykes from "./components/Spykes.js";
 import Trampoline from "./components/Trampoline.js";
@@ -120,7 +120,7 @@ export function saveLevel() {
             line: img.line,
             width: img.width,
             height: img.height,
-            type: img.constructor.name, // identifica a classe (Fruits, Saw, Box, etc.)
+            type: img.constructor.name, // identifica a classe (Fruit, Saw, Box, etc.)
             extra: {
                 id: img.id ?? null,
                 life: img.life ?? null,
@@ -128,7 +128,7 @@ export function saveLevel() {
             }
         }))
     }
-   
+   //console.log(saveData)
 
     localStorage.setItem("savedLevel", JSON.stringify(saveData))
     alert("Mapa salvo com sucesso!")
@@ -166,8 +166,17 @@ export function loadLevel() {
         activeSelectedImage.imageUrl = spriteCoordinates[savedImg.name].location[0].image
         activeSelectedImage.type = "animated"
 
-    let TileId = `l${Math.floor(savedImg.x/tileSize)+1}` + `c${Math.floor(savedImg.y/tileSize)+1}`
+    let type = savedImg.type.toLowerCase(); // sem aspas artificiais
+    let adjustX = positionAdjust[type]?.x ?? 0
+    let adjustY = positionAdjust[type]?.y ?? 0
 
+    //console.log(adjustX, adjustY)
+
+
+    let TileId = `l${Math.floor((savedImg.x+adjustX)/tileSize)}` + 
+                 `c${Math.floor((savedImg.y+adjustY)/tileSize)}`
+
+       // console.log({ clientX: savedImg.x, clientY: savedImg.y},TileId)
         createAnimatedImage(TileId, { clientX: savedImg.x, clientY: savedImg.y})
     })
     alert("Mapa carregado com sucesso!")
@@ -389,7 +398,7 @@ function createAnimatedImage(TileId,event){ //cria uma imagem animada
 
             let animatedImage
             if (activeSelectedImage.imageId.includes("fruit")) {
-                animatedImage = new Fruits(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,fruitImageId)
+                animatedImage = new Fruit(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,fruitImageId)
             }else if(activeSelectedImage.imageId.includes("saw")){
                  animatedImage = new Saw(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
             }else if(activeSelectedImage.imageId.includes("enemy")){
@@ -584,8 +593,16 @@ window.addEventListener("keyup",(event) => { //usado para fazer debugs apertando
     const key = event.key.toLowerCase() 
 
     if(key == "p"){
-        createBaseForTests()
-        console.log(tileSetCanvasFrameInfo)
+     
+        // createBaseForTests()
+        // console.log(animatedImagesArray)
+        let a = "Fruit"
+        let type = `"${a.toLowerCase()}"`
+        let adjustX = positionAdjust["fruit"]
+        
+        console.log(positionAdjust[a.toLowerCase()])
+        console.log(type)
+
     }
 
 })

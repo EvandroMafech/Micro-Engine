@@ -1,3 +1,5 @@
+
+
 const spriteCoordinates = []
 
 const positionAdjust = { //objeto com as informação de ajuste offset
@@ -11,7 +13,11 @@ const positionAdjust = { //objeto com as informação de ajuste offset
     box1: { x: 10, y: 5  },
     box2: { x: 10, y: 5  },
     box3: { x: 10, y: 5  },
-    block: { x: 0, y: 0  }
+    box: { x: 10, y: 5  },
+    block: { x: 0, y: 0  },
+    end: { x: 0, y: 0  },
+    checkpoint: { x: 0, y: 0 },
+    start: { x: 0, y: 0  }
 }
 
 function createImage(){
