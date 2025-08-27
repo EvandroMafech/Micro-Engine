@@ -157,6 +157,9 @@ UI.dropdownButtons.forEach(btn => {
 
     activeSelectedImage.imageId = e.target.id;
     activeSelectedImage.imageUrl = "../../../" + match[0];
+
+    console.log(match)
+    console.log(activeSelectedImage.imageUrl)
     activeSelectedImage.type = e.target.getAttribute("data-type") === "background" ? "background" : "animated";
   });
 });
