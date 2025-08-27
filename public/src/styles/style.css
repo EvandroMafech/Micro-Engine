@@ -296,7 +296,7 @@ main{
 
 /* #ninjafrog-run{background-image: url("../../../public/assets/images/Main Characters/Ninja Frog/Jump (32x32).png");} */
 
-#fruit-apple { background-image: url("../../../public/assets/images/Items/Fruits/Apple64x64.png"); }
+#fruit-apple { background-image: url("/public/assets/images/Items/Fruits/Apple64x64.png"); }
 
 #fruit-bananas { background-image: url("../../../public/assets/images/Items/Fruits/Bananas(64x64).png"); }
 #fruit-cherries { background-image: url("../../../public/assets/images/Items/Fruits/Cherries(64x64).png"); }
