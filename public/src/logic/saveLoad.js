@@ -31,13 +31,13 @@ export function saveLevel() {
    //console.log(saveData)
 
     localStorage.setItem("savedLevel", JSON.stringify(saveData))
-    alert("Mapa salvo com sucesso!")
+    //alert("Mapa salvo com sucesso!")
 }
 
 export function loadLevel() {
     const saved = localStorage.getItem("savedLevel")
     if(!saved) {
-        alert("Nenhum save encontrado")
+        //alert("Nenhum save encontrado")
         return
     }
 
@@ -79,5 +79,5 @@ export function loadLevel() {
        // console.log({ clientX: savedImg.x, clientY: savedImg.y},TileId)
         createAnimatedImage(TileId, { clientX: savedImg.x, clientY: savedImg.y})
     })
-    alert("Mapa carregado com sucesso!")
+    //alert("Mapa carregado com sucesso!")
 }

@@ -351,6 +351,11 @@ function animatePlayer(){ //funções para animar o player
 
 }
 
+export function hidePlayer(){
+    player.position.y = 5000
+    player.position.x = 5000
+}
+
 function animationLoop(){ //loop principal
       
     ctxAnimations.clearRect(0,0, tileSetCanvas.width,tileSetCanvas.height) //limpa tela do canvas das animações
@@ -367,6 +372,7 @@ function animationLoop(){ //loop principal
             
     }else{
         player.position.y = 5000
+        player.position.x = 5000
     }
 
     if(player.MoveAction.left || player.MoveAction.right) player.move()
@@ -386,7 +392,7 @@ animationLoop()
 
 
 animationCanvas.addEventListener("mousedown", (event) => {
-    if(functionButtons.selectIntens == true){
+    if(functionButtons.selectItens == true){
         selectedImage(event.clientX, event.clientY)
     }else if(gameState.gameRunning == false){ // so pode adicionar imagens se o jogo não estiver rodando
 
@@ -426,6 +432,8 @@ window.addEventListener("keyup",(event) => { //usado para fazer debugs apertando
     const key = event.key.toLowerCase() 
 
     if(key == "p"){
+
+        console.log(player.position.x,player.position.y)
      
     }
 

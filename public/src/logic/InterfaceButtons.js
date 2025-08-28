@@ -1,7 +1,7 @@
 import { 
   activeSelectedImage, allSetIdsArray, animatedImagesArray, clearGrid,
   createMapBoundaries,
-  drawGrid, player, tileArray, tilesWithImages 
+  drawGrid, hidePlayer, player, tileArray, tilesWithImages 
 } from "../main.js";
 
 import Player from "../components/Player.js";
@@ -89,6 +89,9 @@ function startGame() {
   player.position.x = start.x + start.width;
   player.position.y = start.y + start.height;
 
+  cameraPosition.initPlayerPositionX = player.position.x
+  cameraPosition.initPlayerPositionY = player.position.y
+
   UI.header.style.display = "none";
   UI.leftAside.style.display = "none";
   UI.rightAside.style.display = "none";
@@ -116,14 +119,29 @@ function handleModalYes() {
     case "save": saveLevel(); break;
     case "open": loadLevel(); break;
     case "play": saveLevel(); clearGrid(); startGame(); break;
-    case "gameOver": case "gameEnd": startGame(); UI.canvasContainer.classList.toggle("canvas-container-centered"); break;
+    case "gameOver": case "gameEnd": 
+    hidePlayer()
+    cleanCanvas();
+    loadLevel();
+    startGame(); 
+    UI.canvasContainer.classList.toggle("canvas-container-centered"); break;
+    case "exit": 
+    cleanCanvas();
+    hidePlayer()
+    loadLevel();
+    returToEditor(); 
+    break;
   }
   hideModal();
 }
 
 function handleModalNo() {
   hideModal();
-  if (["gameOver", "gameEnd"].includes(modalInfo.type)) returToEditor();
+  if (["gameOver", "gameEnd"].includes(modalInfo.type)) 
+    cleanCanvas();
+    hidePlayer()
+    loadLevel();
+    returToEditor(); 
 }
 
 // ======================
@@ -150,7 +168,16 @@ window.addEventListener("wheel", e => { if (e.ctrlKey) e.preventDefault(); }, { 
 window.addEventListener("keydown", e => {
   const key = e.key.toLowerCase();
   if ((e.ctrlKey || e.metaKey) && (key === "+" || key === "-")) e.preventDefault();
-  if (key === "escape") { functionButtons.selectIntens = false; returToEditor(); }
+ 
+  if (key === "escape") { 
+    
+    functionButtons.selectItens = false; 
+    
+    if (gameState.gameRunning){
+      showModal("Deseja voltar para o editor? O progresso no jogo será perdido.", "exit", { yes: true, no: true });
+    }
+     
+  }
 });
 
 // Image selection
@@ -175,7 +202,7 @@ UI.headerButtons.forEach(btn => {
         headerButtonsState.displayGrid ? clearGrid() : drawGrid();
         headerButtonsState.displayGrid = !headerButtonsState.displayGrid;
         break;
-      case "eraser": functionButtons.selectIntens = !functionButtons.selectIntens; break;
+      case "eraser": functionButtons.selectItens = !functionButtons.selectItens; break;
       case "player": player.playerState.avatarNumber = (player.playerState.avatarNumber + 1) % 4; break;
       case "play":
         if (animatedImagesArray.some(el => el.name === "start-idle"))
@@ -205,5 +232,6 @@ export function gameOverModal() {
   showModal("Ops! Você... Morreu. Trágico. Deseja jogar novamente?", "gameOver", { yes: true, no: true });
 }
 export function gameEnd() {
+  hidePlayer()
   showModal("Parabéns! Você conseguiu!!! Deseja jogar novamente?", "gameEnd", { yes: true, no: true });
 }

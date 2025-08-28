@@ -1,6 +1,6 @@
 import { frames, player,tileArray} from "../main.js"
 import { spriteCoordinates } from "../logic/animatedImagesInfo.js"
-import { gameState } from "../state/gameState.js"
+import { cameraPosition, gameState } from "../state/gameState.js"
 import { moveCamera } from "../logic/camera.js"
 import { specialTilesIds } from "../utils/constants.js"
 
@@ -161,12 +161,24 @@ move()
          this.playerState.currentDirection = "left"
          this.position.x -= this.phisics.speed
          this.rightBlocked = false
-         if(gameState.gameRunning == true)  moveCamera("left")
+         if(gameState.gameRunning == true)  {
+            
+            if(-this.position.x + cameraPosition.initPlayerPositionX > cameraPosition.delta){
+            moveCamera("left",0,cameraPosition.delta)
+            cameraPosition.initPlayerPositionX = this.position.x 
+            }
+        }
     }else if(this.MoveAction.right && !this.rightBlocked){
          this.playerState.currentDirection = "right"
          this.position.x += this.phisics.speed
          this.leftBlocked = false
-         if(gameState.gameRunning == true)  moveCamera("right")
+         if(gameState.gameRunning == true)  {
+            if(this.position.x - cameraPosition.initPlayerPositionX > cameraPosition.delta){
+            moveCamera("right",0,cameraPosition.delta)
+            cameraPosition.initPlayerPositionX = this.position.x 
+            }
+            
+        }
     }
 }
 
