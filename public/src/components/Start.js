@@ -1,5 +1,5 @@
 import { spriteCoordinates } from "../logic/animatedImagesInfo.js";
-import AnimatedImage from "../logic/AnimatedImage.js";
+import AnimatedImage from "./AnimatedImage.js";
 
 export default class Start extends AnimatedImage{
     constructor(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,hitbox,offset,id){

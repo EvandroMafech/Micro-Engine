@@ -1,5 +1,5 @@
 import { player } from "../main.js";
-import AnimatedImage from "../logic/AnimatedImage.js";
+import AnimatedImage from "./AnimatedImage.js";
 
 export default class Fan extends AnimatedImage{
     constructor(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,id){

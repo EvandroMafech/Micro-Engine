@@ -1,5 +1,5 @@
 import {positionAdjust, spriteCoordinates } from "./logic/animatedImagesInfo.js";
-import AnimatedImage from "./logic/AnimatedImage.js";
+import AnimatedImage from "./components/AnimatedImage.js";
 import Tile from "./components/Tile.js";
 import {tileSetCanvasFrameInfo} from "./logic/tilesetCanvas.js";
 import Player from "./components/Player.js";
@@ -14,82 +14,41 @@ import Checkpoint from "./components/Checkpoint.js";
 import End from "./components/End.js";
 import Start from "./components/Start.js";
 import Box from "./components/Box.js";
+import { functionButtons, gameState, keyboardShortcuts } from "./state/gameState.js";
+import { columns, imageSizeFactor, lines, tileSize } from "./utils/constants.js";
 
 //canvas para os tilesets   
-const tileSetCanvas = document.querySelector(".tileset") 
+export const tileSetCanvas = document.querySelector(".tileset") 
 const ctx = tileSetCanvas.getContext("2d")
 
-const backgroundCanvas = document.querySelector(".background") //
+export const backgroundCanvas = document.querySelector(".background") //
 const ctxBackground = backgroundCanvas.getContext("2d")
 
-const gridCanvas = document.querySelector(".grid") 
+export const gridCanvas = document.querySelector(".grid") 
 const ctxGrid = gridCanvas.getContext("2d")
 
 // canvas para imagens animadas
-const animationCanvas = document.querySelector(".animations") 
+export const animationCanvas = document.querySelector(".animations") 
 const ctxAnimations = animationCanvas.getContext("2d")
 
-const lines = 13 //linhas do editor
-const columns = 31 // clounas do editor
+tileSetCanvas.width = animationCanvas.width = backgroundCanvas.width = 1984
+tileSetCanvas.height = animationCanvas.height = backgroundCanvas.height = 832
 
 export let animatedImagesArrayLastSave = [] //usado para salvar o estado anterior do array de imagens animadas
 export let tileArrayLastSave = [] //usado para salvar o estado anterior do array de tiles
 
 export const player = new Player(ctxAnimations) //(ctx,image,x,y,sheetPosition){
 
-export const gameState = {
-    startPointPlaced: false,
-    endPointPlaced: false,
-    gameRunning: false
-}
-
-export const specialTilesIds = [ //ids de tiles que são como plataformas (o player pode pular por baixo deles)
-  "l6c20",
-  "l7c20",
-  "l8c20",
-  "l6c21",
-  "l7c21",
-  "l8c21",
-  "l6c22",
-  "l7c22",
-  "l8c22"
-];
-
-
-tileSetCanvas.width = animationCanvas.width = backgroundCanvas.width = 1984
-tileSetCanvas.height = animationCanvas.height = backgroundCanvas.height = 832
-
 //retira o efeito que deixa a imagem ruim
 ctx.imageSmoothingEnabled = false
 ctxAnimations.imageSmoothingEnabled = false
 ctxBackground.imageSmoothingEnabled = false
 
-export const functionButtons = {
-    selectIntens: false
-}
-
-const keyboardShortcuts = {
-    alignItens: false,
-    rotateImage: 0
-}
-
-let baseCreated = false
-
 export const tilesWithImages = [] // salva somente tiles com imagens do tileset
-export let tileArray = [] //guarda uma instancia para cada frame do editor
+export const tileArray = [] //guarda uma instancia para cada frame do editor
 const backgroundArray = [] //salva as instancia de cada frame do background
-export let animatedImagesArray = [] //salva em sequencia todas as imagens animadas
+export const animatedImagesArray = [] //salva em sequencia todas as imagens animadas
 export const allSetIdsArray = [] //salva todas as imagens em sequencia para ser usada ao apertar a tecla CTRL+Z
-const tileSize = 64 //tamanho de cada frame do grid
-const imageSizeFactor = 3 //fator para aumentar ou diminuir as dimensões das imagens na tela
-export const staggerFrames = 4 //constante usada para mudar a velocidade da animação dos sprites
-//hello
-export let cameraPosition = {
-    startH: 0,
-    startV: 0,
-    currentPositionH: 0,
-    currentPositionV: 0
-}
 
 export const activeSelectedImage = { //usada para salvar a ultima imagem selecionada pelo cliente
     imageUrl: "",
@@ -101,125 +60,6 @@ export const activeSelectedImage = { //usada para salvar a ultima imagem selecio
 export let frames = 0 //contator de frames do loop principal
 let fruitsId = 0 //id de cada fruta plotada na tela 
 let boxId = 0 //id de cada fruta plotada na tela 
-
-
-export function saveLevel() {
-    const saveData = {
-        tiles: tileArray
-            .filter(tile => tile.activeImage !== " ") // só pega tiles que receberam imagem
-            .map(tile => ({
-                id: tile.id,
-                activeImage: tile.activeImage,
-                tileSetInfo: tile.tileSetInfo
-            })),
-        animated: animatedImagesArray.map(img => ({
-            x: img.x,
-            y: img.y,
-            name: img.name,
-            frames: img.frames,
-            line: img.line,
-            width: img.width,
-            height: img.height,
-            type: img.constructor.name, // identifica a classe (Fruit, Saw, Box, etc.)
-            extra: {
-                id: img.id ?? null,
-                life: img.life ?? null,
-                rotation: img.rotation ?? null
-            }
-        }))
-    }
-   //console.log(saveData)
-
-    localStorage.setItem("savedLevel", JSON.stringify(saveData))
-    alert("Mapa salvo com sucesso!")
-}
-
-export function loadLevel() {
-    const saved = localStorage.getItem("savedLevel")
-    if(!saved) {
-        alert("Nenhum save encontrado")
-        return
-    }
-
-    const saveData = JSON.parse(saved)
-
-    // limpar arrays antes de reconstruir
-    animatedImagesArray.length = 0
-    tilesWithImages.length = 0
-    tileArray.forEach(tile => { tile.activeImage = " "; tile.cleanTile() })
-
-    // recriar tiles
-    saveData.tiles.forEach(savedTile => {
-        const tile = tileArray.find(t => t.id === savedTile.id)
-        if(tile) {
-            tile.activeImage = savedTile.activeImage
-            tile.tileSetInfo = savedTile.tileSetInfo 
- 
-            tile.drawImage({ x: tile.tileSetInfo.x, y: tile.tileSetInfo.y })
-            tilesWithImages.push(tile.id)
-        }
-    })
-
-    // recriar imagens animadas
-    saveData.animated.forEach(savedImg => {
-        activeSelectedImage.imageId = savedImg.name
-        activeSelectedImage.imageUrl = spriteCoordinates[savedImg.name].location[0].image
-        activeSelectedImage.type = "animated"
-
-    let type = savedImg.type.toLowerCase(); // sem aspas artificiais
-    let adjustX = positionAdjust[type]?.x ?? 0
-    let adjustY = positionAdjust[type]?.y ?? 0
-
-    //console.log(adjustX, adjustY)
-
-
-    let TileId = `l${Math.floor((savedImg.x+adjustX)/tileSize)}` + 
-                 `c${Math.floor((savedImg.y+adjustY)/tileSize)}`
-
-       // console.log({ clientX: savedImg.x, clientY: savedImg.y},TileId)
-        createAnimatedImage(TileId, { clientX: savedImg.x, clientY: savedImg.y})
-    })
-    alert("Mapa carregado com sucesso!")
-}
-
-export function placeInitialCameraPosition(positionX,positionY){
-    tileSetCanvas.style.left = `${positionX }px` 
-    backgroundCanvas.style.left = `${positionX }px` 
-    gridCanvas.style.left = `${positionX }px`
-    animationCanvas.style.left = `${positionX }px`
-    tileSetCanvas.style.top = `${positionY}px` 
-    backgroundCanvas.style.top = `${positionY}px` 
-    gridCanvas.style.top = `${positionY}px` 
-    animationCanvas.style.top = `${positionY}px`
-
-}
-
-
-function moveCamera(directionHorizontal,level) {
-
-const dirFactorH = directionHorizontal == "left" ? 1 : directionHorizontal == "right" ? -1 : 0
-//const dirFactorV = directionVertical == "up" ? 1 : directionVertical == "down" ? -1 : 0
-
-const moveSpeedH = player.phisics.speed*dirFactorH
-//const moveSpeedV = player.phisics.speed*dirFactorV
-
-//move canvas horizontalmente
-tileSetCanvas.style.left = `${cameraPosition.currentPositionH+moveSpeedH}px` 
-backgroundCanvas.style.left = `${cameraPosition.currentPositionH+moveSpeedH}px` 
-gridCanvas.style.left = `${cameraPosition.currentPositionH+moveSpeedH}px` 
-animationCanvas.style.left = `${cameraPosition.currentPositionH+moveSpeedH}px`
-
-//move canvas verticalmente
-tileSetCanvas.style.top = `${level}px` 
-backgroundCanvas.style.top = `${level}px` 
-gridCanvas.style.top = `${level}px` 
-animationCanvas.style.top = `${level}px`
-
-cameraPosition.currentPositionH += moveSpeedH
-
-
-    
-}
 
 
 function undoImages(){ //apaga imagens da tela pelo atalho CTRL-Z
@@ -253,7 +93,7 @@ if(lastImage == "animated"){
     }
 }
 
-function createBaseForTests(){ //posiciona os tilesets de terreno no canvas para testes
+export function createMapBoundaries(){ //posiciona os tilesets de terreno no canvas para testes
     
     const baseTiles = []
     
@@ -323,15 +163,13 @@ const tileSize = 64*3
 
 }
 
-function drawGrid(){// desenha o grid do editor
+export function drawGrid(){// desenha o grid do editor
     tileArray.forEach(tile => tile.draw(ctxGrid)) 
 }
 
-function clearGrid(){//limpa tela do canvas das animações
+export function clearGrid(){//limpa tela do canvas das animações
     ctxGrid.clearRect(0,0, tileSetCanvas.width,tileSetCanvas.height) 
 }
-
-export {drawGrid,clearGrid,moveCamera,createBaseForTests}
 
 function setTileSetImageOnCanvas(TileId){ //posiciona os tilesets de terreno no canvas
 
@@ -350,7 +188,7 @@ function setImageOnBackgroundTiles(){ //posiciona os quadrados de background no 
     backgroundArray.forEach(tile => {tile.drawBackground(activeSelectedImage.imageUrl)})
 }
 
-function createAnimatedImage(TileId,event){ //cria uma imagem animada
+export function createAnimatedImage(TileId,event){ //cria uma imagem animada
     
     const newImage = new Image()
     let x 
@@ -526,11 +364,6 @@ function animationLoop(){ //loop principal
   
     if(gameState.gameRunning) {
         animatePlayer() // anima o player na tela
-        //         if(!baseCreated){
-        //  createBaseForTests()
-        //  console.log("Base criada")
-        //  baseCreated = true
-        // }
             
     }else{
         player.position.y = 5000
@@ -548,7 +381,7 @@ function animationLoop(){ //loop principal
 createGrid()
 createBackgroundGrid()
 drawGrid()
-setTimeout(createBaseForTests, 10); //por algum motivo se eu chamar direto na sequencia de funções acima nao funciona
+setTimeout(createMapBoundaries, 10); //por algum motivo se eu chamar direto na sequencia de funções acima nao funciona
 animationLoop()
 
 
@@ -594,15 +427,6 @@ window.addEventListener("keyup",(event) => { //usado para fazer debugs apertando
 
     if(key == "p"){
      
-        // createBaseForTests()
-        // console.log(animatedImagesArray)
-        let a = "Fruit"
-        let type = `"${a.toLowerCase()}"`
-        let adjustX = positionAdjust["fruit"]
-        
-        console.log(positionAdjust[a.toLowerCase()])
-        console.log(type)
-
     }
 
 })

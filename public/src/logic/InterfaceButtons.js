@@ -1,11 +1,14 @@
 import { 
-  activeSelectedImage, allSetIdsArray, animatedImagesArray, cameraPosition, clearGrid,
-  drawGrid, functionButtons, gameState, loadLevel, placeInitialCameraPosition, 
-  player, saveLevel, tileArray, tilesWithImages 
+  activeSelectedImage, allSetIdsArray, animatedImagesArray, clearGrid,
+  createMapBoundaries,
+  drawGrid, player, tileArray, tilesWithImages 
 } from "../main.js";
 
 import Player from "../components/Player.js";
 import Tile from "../components/Tile.js";
+import { cameraPosition, functionButtons, gameState } from "../state/gameState.js";
+import { placeInitialCameraPosition } from "./camera.js";
+import { loadLevel, saveLevel } from "./saveLoad.js";
 
 // ======================
 // UI Elements
@@ -46,6 +49,8 @@ function cleanCanvas() {
     tile.activeImage = " ";
     tile.cleanTile();
   });
+
+  createMapBoundaries()
 }
 
 // ======================

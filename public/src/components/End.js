@@ -1,7 +1,9 @@
-import { gameState } from "../main.js";
+
 import { spriteCoordinates } from "../logic/animatedImagesInfo.js";
-import AnimatedImage from "../logic/AnimatedImage.js";
+import AnimatedImage from "./AnimatedImage.js";
 import { gameEnd } from "../logic/InterfaceButtons.js";
+import { gameState } from "../state/gameState.js";
+
 
 export default class End extends AnimatedImage{
     constructor(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,hitbox,offset,id){

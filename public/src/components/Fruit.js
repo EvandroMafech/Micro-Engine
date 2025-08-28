@@ -1,6 +1,6 @@
 import { animatedImagesArray, player } from "../main.js";
 import { spriteCoordinates } from "../logic/animatedImagesInfo.js";
-import AnimatedImage from "../logic/AnimatedImage.js";
+import AnimatedImage from "./AnimatedImage.js";
 
 export default class Fruit extends AnimatedImage{
     constructor(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,id){

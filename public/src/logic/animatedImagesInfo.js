@@ -1,8 +1,6 @@
+export const spriteCoordinates = []
 
-
-const spriteCoordinates = []
-
-const positionAdjust = { //objeto com as informação de ajuste offset
+export const positionAdjust = { //objeto com as informação de ajuste offset
     spykes: { x: 0, y: 0  },
     trampoline: { x: 10, y: 20  },
     fan: { x: 5, y: -40  },
@@ -746,4 +744,3 @@ ImagesInfo.forEach((content,index) => { //função que cria um array contendo um
    
     spriteCoordinates[`${content.name}-${content.state}`] = frames
 })
-export {spriteCoordinates,positionAdjust}

@@ -1,5 +1,8 @@
-import { frames, gameState, moveCamera, player, specialTilesIds, staggerFrames,tileArray} from "../main.js"
+import { frames, player,tileArray} from "../main.js"
 import { spriteCoordinates } from "../logic/animatedImagesInfo.js"
+import { gameState } from "../state/gameState.js"
+import { moveCamera } from "../logic/camera.js"
+import { specialTilesIds } from "../utils/constants.js"
 
 export default class Player{
     constructor(ctx){
@@ -111,7 +114,7 @@ showImageBorder(){//mostra contorno na imagem
 
 animate(){
   
-    let position = Math.floor(frames/staggerFrames)%spriteCoordinates[this.spriteState].location.length
+    let position = Math.floor(frames/this.staggerFrames)%spriteCoordinates[this.spriteState].location.length
 
     const image = spriteCoordinates[this.spriteState].location[0].imageInstance
     image.src = spriteCoordinates[this.spriteState].location[0].image
