@@ -1,0 +1,92 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root{
+    --primary-color: #3bbd91; /* verde */
+    --secondary-color: #FFD700; /* amarelo */
+    --accent-color: #FF5722; /* laranja */
+    --background-color: #1e1e2f; /* cinza claro */
+    --text-color: #222; /* cinza escuro */
+}
+
+
+body {
+  font-family: "Bungee", sans-serif;
+  color: #ffffff;
+  line-height: 1.5;
+  text-align: center;
+  background-color: var(--background-color);
+}
+
+/* HERO */
+.call {
+  padding: 80px 20px;
+  background-color: var(--background-color);
+  color: #fff;
+}
+
+.call-text {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+/* Botão estilo pixel */
+.btn {
+  display: inline-block;
+  padding: 15px 25px;
+  background: var(--primary-color);
+  color: #000;
+  text-decoration: none;
+  border: 4px solid #000;
+  font-size: 0.8rem;
+  transition: transform 0.1s ease-in-out;
+  border-radius: 16px;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+  background: #4ccda2;
+}
+
+/* PREVIEW */
+.preview {
+  padding: 10px 20px;
+  background:   var(--background-color);
+
+}
+
+.preview-box {
+  border: 3px solid #000;
+  background-size: contain   ;     /* faz a imagem cobrir toda a caixa */
+  background-position: center; /* centraliza a imagem */
+  background-repeat: no-repeat; /* evita repetição */
+  background-image: url(/public/assets/images/Landingpage/banner.png);
+  padding: 250px;
+  margin-top: 20px;
+  border-radius: 12px;
+}
+
+.bottom-text{
+    font-size: 0.8rem;
+}
+
+.btn-git, .btn-youtube {
+  display: inline-block;
+  padding: 5px 15px;
+  color: #892f91;
+  text-decoration: none;
+  font-size: 0.7rem;
+  margin: 5px;
+}
+
+.btn-git:hover {
+  color: #b356b3;
+}
+.btn-youtube:hover {
+  color: #b356b3;
+}
+

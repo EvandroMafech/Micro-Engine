@@ -22,17 +22,13 @@ export function placeInitialCameraPosition(positionX,positionY){
 export function moveCamera(directionHorizontal,level,distance) {
 
 const dirFactorH = directionHorizontal == "left" ? 1 : directionHorizontal == "right" ? -1 : 0
-//const moveSpeedH = player.phisics.speed*dirFactorH
 
 //move canvas horizontalmente
 tileSetCanvas.style.left = `${cameraPosition.currentPositionH+distance*dirFactorH}px` 
 backgroundCanvas.style.left = `${cameraPosition.currentPositionH+distance*dirFactorH}px` 
 gridCanvas.style.left = `${cameraPosition.currentPositionH+distance*dirFactorH}px` 
 animationCanvas.style.left = `${cameraPosition.currentPositionH+distance*dirFactorH}px`
-// tileSetCanvas.style.left = `${cameraPosition.currentPositionH+moveSpeedH}px` 
-// backgroundCanvas.style.left = `${cameraPosition.currentPositionH+moveSpeedH}px` 
-// gridCanvas.style.left = `${cameraPosition.currentPositionH+moveSpeedH}px` 
-// animationCanvas.style.left = `${cameraPosition.currentPositionH+moveSpeedH}px`
+
 
 //move canvas verticalmente
 // tileSetCanvas.style.top = `${level}px` 
@@ -40,7 +36,6 @@ animationCanvas.style.left = `${cameraPosition.currentPositionH+distance*dirFact
 // gridCanvas.style.top = `${level}px` 
 // animationCanvas.style.top = `${level}px`
 
-//cameraPosition.currentPositionH += moveSpeedH
 cameraPosition.currentPositionH += distance*dirFactorH
 
 

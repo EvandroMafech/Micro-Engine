@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="./src/styles/editor.css">
+   
+    <script type="module" src="./src/logic/InterfaceButtons.js" defer></script>
+    <script type="module" src="./src/logic/tilesetCanvas.js" defer></script>
+    <script type="module" src="./src/logic/animatedImagesInfo.js" defer></script>
+
+  
+    <script type="module" src="./src/main.js" defer ></script>
+    <title>Level Editor</title>
+
+</head>
+
+<body>
+
+    <div id="customModal" class="modal">
+
+        <div class="modal-content">
+          <p class="text">Você quer continuar?</p>
+          <button class="btn-yes">Sim</button>
+          <button class="btn-no">Não</button>
+          <button class="btn-ok">Ok</button>
+        </div>
+
+    </div>
+
+
+
+    <header class="header">
+        <h1>Level Editor</h1>
+       
+       <div>
+        <button class="headerButtons" id="player">Jogador</button>
+        <button class="headerButtons" id="play">Jogar</button>
+        <!-- <button class="headerButtons" id="restart">Reiniciar</button> -->
+        <button class="headerButtons" id="save">Salvar</button>
+        <button class="headerButtons" id="open">Abrir Save</button>
+        <button class="headerButtons" id="clear">Limpar</button>
+        <button class="headerButtons" id="grid">Grade</button>
+        <button class="headerButtons" id="eraser">Apagador</button>
+       </div>
+
+    </header>
+
+    <main>
+
+        <aside class="left-aside" id="left-aside">
+
+                <button id="toggle-left-aside"></button>
+
+                <button class="main-btn" id="1">Frutas</button>
+               
+                    <div class="dropdown" id="dropdown-1">
+                       <button class="sub-btn" id="fruit-apple"></button>
+                       <button class="sub-btn" id="fruit-bananas"></button>
+                       <button class="sub-btn" id="fruit-cherries"></button>
+                       <button class="sub-btn" id="fruit-kiwi"></button>
+                       <button class="sub-btn" id="fruit-melon"></button>
+                       <button class="sub-btn" id="fruit-orange"></button>
+                       <button class="sub-btn" id="fruit-pineapple"></button>
+                       <button class="sub-btn" id="fruit-strawberry"></button>
+
+                    </div>
+            
+                <!-- <button class="main-btn" id="2">Inimigos</button> -->
+               
+                    <div class="dropdown" id="dropdown-2">
+                       <!-- <button class="sub-btn" id="ninjafrog-run"></button> -->
+                    </div>
+              
+                <button class="main-btn" id="3">Plano de Fundo</button>
+               
+                    <div class="dropdown" id="dropdown-3">
+                       <button class="sub-btn" id="Blue" data-type="background"></button>
+                       <button class="sub-btn" id="Brown" data-type="background"></button>
+                       <button class="sub-btn" id="Gray" data-type="background"></button>
+                       <button class="sub-btn" id="Green" data-type="background"></button>
+                       <button class="sub-btn" id="Pink" data-type="background"></button>
+                       <button class="sub-btn" id="Purple" data-type="background"></button>
+                       <button class="sub-btn" id="Yellow" data-type="background"></button>
+
+                    </div>
+                <!-- <button class="main-btn" id="4">Itens</button> -->
+               
+                    <div class="dropdown" id="dropdown-4">
+                       <button class="sub-btn" id="g1"></button>
+                    </div>
+            
+                <button class="main-btn" id="5">Armadilhas</button>
+               
+                    <div class="dropdown" id="dropdown-5">
+                        <button class="sub-btn" id="platform-on"></button>
+                        <button class="sub-btn" id="fan-on"></button>
+                        <button class="sub-btn" id="saw-on"></button>
+                        <button class="sub-btn" id="spykes-idle"></button>
+                        <button class="sub-btn" id="trampoline-idle"></button>
+                        <button class="sub-btn" id="spikedball-chained"></button>
+
+                    </div>
+             
+                <button class="main-btn" id="6">Objetos</button>
+               
+                   <div class="dropdown" id="dropdown-6">
+                    <!-- <button class="sub-btn" id="checkpoint-idle"></button> -->
+                    <button class="sub-btn" id="checkpoint-noflag"></button>
+
+                    <button class="sub-btn" id="box1-idle"></button>
+                    <button class="sub-btn" id="box2-idle"></button>
+                    <button class="sub-btn" id="box3-idle"></button>
+
+                    <button class="sub-btn" id="end-idle"></button>
+                    <button class="sub-btn" id="start-idle"></button>
+
+                    <button class="sub-btn" id="block-idle"></button>
+
+
+                </div>
+
+        </aside>
+        
+        <div class="scroll-container">
+            <section class="canvas-container">
+            
+                <canvas class="background"  width="1984" height="832"></canvas>
+                <canvas class="tileset"  width="1984" height="832"></canvas>
+                <canvas class="grid"  width="1984" height="832"></canvas>
+                <canvas class="animations"  width="1984" height="832"></canvas>
+     
+            </section>
+        </div>
+        
+        <aside class="right-aside" id="right-aside">
+            <button id="toggle-right-aside"></button>
+            <canvas class="tileSet-canvas"id="right-canvas"></canvas>
+        </aside>
+
+   
+    </main>
+
+
+</body>
+
+</html>
