@@ -2,7 +2,6 @@ import { tileArray, tilesWithImages, animatedImagesArray, activeSelectedImage, c
 import { tileSize } from "../utils/constants.js";
 import { spriteCoordinates, positionAdjust } from "./animatedImagesInfo.js";
 
-
 export function saveLevel() {
     const saveData = {
         tiles: tileArray
@@ -30,12 +29,18 @@ export function saveLevel() {
     }
    //console.log(saveData)
 
-    localStorage.setItem("savedLevel", JSON.stringify(saveData))
-    //alert("Mapa salvo com sucesso!")
+    //localStorage.setItem("savedLevel", JSON.stringify(saveData)) // salvar no localStorage
+    sendToServer(saveData)
+        //alert("Mapa salvo com sucesso!")
 }
 
-export function loadLevel() {
-    const saved = localStorage.getItem("savedLevel")
+export async function loadLevel() {
+  
+  const savedOnServer = await getSaveOnServer(1)
+  console.log("Fase recuperada: ",savedOnServer)
+
+   // const saved = localStorage.getItem("savedLevel") // pegar do localStorage
+   const saved = JSON.stringify(savedOnServer) // pegar do servidor
     if(!saved) {
         //alert("Nenhum save encontrado")
         return
@@ -86,7 +91,7 @@ export function loadLevel() {
 
 
 // Exemplo: enviando uma fase para o servidor
-async function salvarFase(fase) {
+async function sendToServer(fase) {
   try {
     const response = await fetch("http://localhost:3000/fase", {
       method: "POST",
@@ -109,9 +114,17 @@ async function salvarFase(fase) {
   }
 }
 
-// Exemplo de uso:
-export const minhaFase = { nome: "João" }
-
-export { salvarFase }
-// Chama a função para salvar
-//salvarFase(minhaFase);
+async function getSaveOnServer(id) {
+  try {
+    const response = await fetch(`http://localhost:3000/fases/${id}`);
+  
+    if (!response.ok) {throw new Error("Fase não encontrada");}
+   
+    const fase = await response.json();
+   
+    //console.log("Fase encontrada:", fase);
+    return fase;
+  } catch (error) {
+    console.error("Erro:", error);
+  }
+}

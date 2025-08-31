@@ -14,9 +14,6 @@ export function placeInitialCameraPosition(positionX,positionY){
     cameraPosition.initPositionX = positionX
     cameraPosition.initPositionY = positionY
 
-
-    console.log(cameraPosition)
-
 }
 
 export function moveCamera(directionHorizontal,level,distance) {

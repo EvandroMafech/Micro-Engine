@@ -16,7 +16,7 @@ import Start from "./components/Start.js";
 import Box from "./components/Box.js";
 import { functionButtons, gameState, keyboardShortcuts } from "./state/gameState.js";
 import { columns, imageSizeFactor, lines, tileSize } from "./utils/constants.js";
-import { minhaFase, salvarFase } from "./logic/saveLoad.js";
+
 
 //canvas para os tilesets   
 export const tileSetCanvas = document.querySelector(".tileset") 
@@ -434,9 +434,6 @@ window.addEventListener("keyup",(event) => { //usado para fazer debugs apertando
 
     if(key == "p"){
 
-
-         salvarFase(minhaFase)
-     
     }
 
 })
