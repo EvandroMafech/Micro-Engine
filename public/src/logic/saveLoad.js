@@ -81,3 +81,37 @@ export function loadLevel() {
     })
     //alert("Mapa carregado com sucesso!")
 }
+
+
+
+
+// Exemplo: enviando uma fase para o servidor
+async function salvarFase(fase) {
+  try {
+    const response = await fetch("http://localhost:3000/fase", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(fase)
+    });
+    
+
+    if (!response.ok) {
+      throw new Error("Erro ao salvar fase");
+    }
+
+    const result = await response.json();
+    console.log("Link da fase:", result.link);
+    return result.link; // você pode mostrar para o usuário ou salvar
+  } catch (error) {
+    console.error("Erro:", error);
+  }
+}
+
+// Exemplo de uso:
+export const minhaFase = { nome: "João" }
+
+export { salvarFase }
+// Chama a função para salvar
+//salvarFase(minhaFase);
