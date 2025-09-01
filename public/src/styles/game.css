@@ -35,7 +35,7 @@ header{
     background: linear-gradient(90deg, #232931, #393e46);
     padding: 0 15px;
     height:  55px;
-    display: flex;
+    display: none;
     align-items: center;
     /* box-shadow: 0 2px rgba(0,0,0,0.3); */
     position: relative;
@@ -92,7 +92,7 @@ main{
     position: relative;
     width: 95%;
     height: 832px;
-    overflow: scroll; 
+    overflow: hidden; 
     z-index: 0;
     direction: rtl;
     margin: 10px auto;  /* 50px no topo/baixo e centralizado nas laterais */
@@ -124,6 +124,7 @@ main{
     z-index: 0;
     direction: rtl;
     margin-top: 20px;
+        background-color: var(--bg);
 }
 
 .tileset, .animations, .background, .grid {
@@ -134,6 +135,7 @@ main{
     height: 100%; 
     display: block; 
     border-radius: 10px;
+    
 }
 
 .background {
@@ -221,7 +223,7 @@ main{
     background-color: var(--panel);
     color: #fff;
     overflow: hidden;
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: baseline;
     transition: width 0.3s ease;
@@ -276,7 +278,7 @@ main{
     background-color: var(--panel);
     color: #fff;
     overflow: hidden;
-    display: flex;
+    display: none;
     flex-direction: row;
     align-items: center;
     transition: width 0.3s ease;

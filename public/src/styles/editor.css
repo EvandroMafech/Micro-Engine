@@ -124,6 +124,7 @@ main{
     z-index: 0;
     direction: rtl;
     margin-top: 20px;
+        background-color: var(--bg);
 }
 
 .tileset, .animations, .background, .grid {
