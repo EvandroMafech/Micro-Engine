@@ -34,12 +34,15 @@ export function saveLevel() {
         //alert("Mapa salvo com sucesso!")
 }
 
-export async function loadLevel() {
-  
-  const savedOnServer = await getSaveOnServer(1)
-  console.log("Fase recuperada: ",savedOnServer)
-
-   // const saved = localStorage.getItem("savedLevel") // pegar do localStorage
+export async function loadLevel(save){
+  let savedOnServer
+  if(save === undefined){
+   savedOnServer = await getSaveOnServer(1)
+  console.log("Fase recuperada do servidor: ",savedOnServer)
+  } else{
+   savedOnServer = save
+  }
+     // const saved = localStorage.getItem("savedLevel") // pegar do localStorage
    const saved = JSON.stringify(savedOnServer) // pegar do servidor
     if(!saved) {
         //alert("Nenhum save encontrado")
@@ -107,7 +110,8 @@ async function sendToServer(fase) {
     }
 
     const result = await response.json();
-    console.log("Link da fase:", result.link);
+    console.log("Fase salva em: ", result.link);
+    console.log("Link para jogar: ", result.gameLink);
     return result.link; // você pode mostrar para o usuário ou salvar
   } catch (error) {
     console.error("Erro:", error);
@@ -128,3 +132,5 @@ async function getSaveOnServer(id) {
     console.error("Erro:", error);
   }
 }
+
+

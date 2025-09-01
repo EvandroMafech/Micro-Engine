@@ -4,8 +4,6 @@ import {
   drawGrid, hidePlayer, player, tileArray, tilesWithImages 
 } from "../main.js";
 
-import Player from "../components/Player.js";
-import Tile from "../components/Tile.js";
 import { cameraPosition, functionButtons, gameState } from "../state/gameState.js";
 import { placeInitialCameraPosition } from "./camera.js";
 import { loadLevel, saveLevel } from "./saveLoad.js";
@@ -73,7 +71,7 @@ function hideModal() {
 // ======================
 // Game Flow
 // ======================
-function startGame() {
+export function startGame() {
   const start = animatedImagesArray.find(e => e.name === "start-idle");
   if (!start) return;
 

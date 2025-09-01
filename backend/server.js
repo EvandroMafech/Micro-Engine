@@ -36,10 +36,15 @@ const novaFase = { id: fases.length+1, ...req.body }; // cria uma nova fase com 
   fases.push(novaFase);
 
   res.json({
-    message: "Fase salva com sucesso!",
-    link: `http://localhost:${port}/fases/${novaFase.id}`,
+    message: `Fase salva com sucesso! Jogue em: http://127.0.0.1:5500/public/game.html?id=${novaFase.id}`,
+       link: `http://localhost:${port}/fases/${novaFase.id}`,
+       gameLink: `http://127.0.0.1:5500/public/game.html?id=${novaFase.id}`
+     //link: `http://127.0.0.1:5500/public/game.html?id=${novaFase.id}`
 });
 });
+
+
+
 
 // // [PUT] Atualizar usuário
 // app.put("/usuarios/:id", (req, res) => {
