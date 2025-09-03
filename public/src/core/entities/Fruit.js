@@ -1,5 +1,5 @@
-import { animatedImagesArray, player } from "../main.js";
-import { spriteCoordinates } from "../logic/animatedImagesInfo.js";
+import { animatedImagesArray, player } from "../engine/main.js";
+import { spriteCoordinates } from "../utils/imageData.js";
 import AnimatedImage from "./AnimatedImage.js";
 
 export default class Fruit extends AnimatedImage{

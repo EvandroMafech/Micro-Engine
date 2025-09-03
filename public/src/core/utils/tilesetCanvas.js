@@ -1,5 +1,6 @@
-import { activeSelectedImage } from "../main.js"
-import { tileSetSpriteheet_image_path } from "../utils/constants.js"
+
+import { activeSelectedImage } from "../engine/main.js"
+import { tileSetSpriteheet_image_path } from "./constants.js"
 
 let tileSetCanvasFrameInfo = {}
 const tileSizeTilesetCanvas = 16

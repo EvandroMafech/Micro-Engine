@@ -1,4 +1,4 @@
-import { spriteCoordinates } from "../logic/animatedImagesInfo.js";
+import { spriteCoordinates } from "../utils/imageData.js";
 import AnimatedImage from "./AnimatedImage.js";
 
 export default class Checkpoint extends AnimatedImage{

@@ -1,21 +1,21 @@
-import {positionAdjust, spriteCoordinates } from "./logic/animatedImagesInfo.js";
-import AnimatedImage from "./components/AnimatedImage.js";
-import Tile from "./components/Tile.js";
-import {tileSetCanvasFrameInfo} from "./logic/tilesetCanvas.js";
-import Player from "./components/Player.js";
-import Fruit from "./components/Fruit.js";
-import Saw from "./components/Saw.js";
-import Spykes from "./components/Spykes.js";
-import Trampoline from "./components/Trampoline.js";
-import Platform from "./components/Platform.js";
-import Fan from "./components/Fan.js";
-import Spikedball from "./components/Spikedball.js";
-import Checkpoint from "./components/Checkpoint.js";
-import End from "./components/End.js";
-import Start from "./components/Start.js";
-import Box from "./components/Box.js";
-import { functionButtons, gameState, keyboardShortcuts } from "./state/gameState.js";
-import { columns, imageSizeFactor, lines, tileSize } from "./utils/constants.js";
+import { positionAdjust, spriteCoordinates } from "../utils/imageData.js";
+import AnimatedImage from "../entities/AnimatedImage.js";
+import Tile from "../entities/Tile.js";
+import { tileSetCanvasFrameInfo } from "../utils/tilesetCanvas.js";
+import Player from "../entities/Player.js";
+import Fruit from "../entities/Fruit.js";
+import Saw from "../entities/Saw.js";
+import Spykes from "../entities/Spykes.js";
+import Trampoline from "../entities/Trampoline.js";
+import Platform from "../entities/Platform.js";
+import Fan from "../entities/Fan.js";
+import Spikedball from "../entities/Spikedball.js";
+import Checkpoint from "../entities/Checkpoint.js";
+import End from "../entities/End.js";
+import Start from "../entities/Start.js";
+import Box from "../entities/Box.js";
+import { functionButtons, gameState, keyboardShortcuts } from "../../game/ui/gameState.js";
+import { columns, imageSizeFactor, lines, tileSize } from "../utils/constants.js";
 
 
 //canvas para os tilesets   
@@ -47,7 +47,7 @@ ctxBackground.imageSmoothingEnabled = false
 
 export const tilesWithImages = [] // salva somente tiles com imagens do tileset
 export const tileArray = [] //guarda uma instancia para cada frame do editor
-const backgroundArray = [] //salva as instancia de cada frame do background
+export const backgroundArray = [] //salva as instancia de cada frame do background
 export const animatedImagesArray = [] //salva em sequencia todas as imagens animadas
 export const allSetIdsArray = [] //salva todas as imagens em sequencia para ser usada ao apertar a tecla CTRL+Z
 
@@ -185,8 +185,11 @@ function setTileSetImageOnCanvas(TileId){ //posiciona os tilesets de terreno no 
 })
 }
 
-function setImageOnBackgroundTiles(){ //posiciona os quadrados de background no canvas
-    backgroundArray.forEach(tile => {tile.drawBackground(activeSelectedImage.imageUrl)})
+export function setImageOnBackgroundTiles(image){ //posiciona os quadrados de background no canvas
+    const bgImage = image ?? activeSelectedImage.imageUrl;
+
+    backgroundArray.forEach(tile => {tile.drawBackground(bgImage)})
+    //console.log("Background setado:", bgImage)
 }
 
 export function createAnimatedImage(TileId,event){ //cria uma imagem animada

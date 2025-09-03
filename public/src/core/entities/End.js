@@ -1,8 +1,8 @@
 
-import { spriteCoordinates } from "../logic/animatedImagesInfo.js";
+import { spriteCoordinates } from "../utils/imageData.js";
 import AnimatedImage from "./AnimatedImage.js";
-import { gameEnd } from "../logic/InterfaceButtons.js";
-import { gameState } from "../state/gameState.js";
+import { gameEnd } from "../../editor/ui/interfaceButtons.js";
+import { gameState } from "../../game/ui/gameState.js";
 
 
 export default class End extends AnimatedImage{

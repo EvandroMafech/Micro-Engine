@@ -1,7 +1,7 @@
-import { player } from "../main.js";
+import { player } from "../engine/main.js";
 import AnimatedImage from "./AnimatedImage.js";
-import { gameOverModal } from "../logic/InterfaceButtons.js";
-import { gameState } from "../state/gameState.js";
+import { gameOverModal } from "../../editor/ui/interfaceButtons.js";
+import { gameState } from "../../game/ui/gameState.js";
 
 export default class Saw extends AnimatedImage{
     constructor(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,id){

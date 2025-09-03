@@ -1,5 +1,5 @@
-import { animationCanvas, backgroundCanvas, gridCanvas, player, tileSetCanvas } from "../main.js";
-import { cameraPosition } from "../state/gameState.js";
+import { animationCanvas, backgroundCanvas, gridCanvas, player, tileSetCanvas } from "../../core/engine/main.js";
+import { cameraPosition } from "./gameState.js";
 
 export function placeInitialCameraPosition(positionX,positionY){
     tileSetCanvas.style.left = `${positionX }px` 

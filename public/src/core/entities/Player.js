@@ -1,8 +1,8 @@
-import { frames, player,tileArray} from "../main.js"
-import { spriteCoordinates } from "../logic/animatedImagesInfo.js"
-import { cameraPosition, gameState } from "../state/gameState.js"
-import { moveCamera } from "../logic/camera.js"
-import { specialTilesIds } from "../utils/constants.js"
+import { frames, player, tileArray } from "../engine/main.js";
+import { spriteCoordinates } from "../utils/imageData.js";
+import { cameraPosition, gameState } from "../../game/ui/gameState.js";
+import { moveCamera } from "../../game/ui/camera.js";
+import { specialTilesIds } from "../utils/constants.js";
 
 export default class Player{
     constructor(ctx){

@@ -1,8 +1,8 @@
-import { frames, player} from "../main.js";
+import { frames, player } from "../engine/main.js";
 import { chain, staggerFrames } from "../utils/constants.js";
 import AnimatedImage from "./AnimatedImage.js";
-import { gameOverModal } from "../logic/InterfaceButtons.js";
-import { gameState } from "../state/gameState.js";
+import { gameOverModal } from "../../editor/ui/interfaceButtons.js";
+import { gameState } from "../../game/ui/gameState.js";
 
 export default class Spikedball extends AnimatedImage{
     constructor(image,x,y,name,spriteFrames,line,w,h,canvas,imageSizeFactor,id){

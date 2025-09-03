@@ -2,10 +2,10 @@ import {
   activeSelectedImage, allSetIdsArray, animatedImagesArray, clearGrid,
   createMapBoundaries,
   drawGrid, hidePlayer, player, tileArray, tilesWithImages 
-} from "../main.js";
+} from "../../core/engine/main.js";
 
-import { cameraPosition, functionButtons, gameState } from "../state/gameState.js";
-import { placeInitialCameraPosition } from "./camera.js";
+import { cameraPosition, functionButtons, gameState } from "../../game/ui/gameState.js";
+import { placeInitialCameraPosition } from "../../game/ui/camera.js";
 import { loadLevel, saveLevel } from "./saveLoad.js";
 
 // ======================
@@ -154,8 +154,9 @@ UI.leftAsideMainButtons.forEach(btn =>
 );
 
 // Side panels toggle
-document.getElementById("toggle-right-aside").addEventListener("click", () =>
+document.getElementById("toggle-right-aside").addEventListener("click", () => {
   document.getElementById("right-aside").classList.toggle("expanded")
+}
 );
 document.getElementById("toggle-left-aside").addEventListener("click", () =>
   document.getElementById("left-aside").classList.toggle("expanded")
