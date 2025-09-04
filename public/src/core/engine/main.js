@@ -263,12 +263,12 @@ export function createAnimatedImage(TileId,event){ //cria uma imagem animada
                 if(!gameState.endPointPlaced){   
                     gameState.endPointPlaced = true
                     animatedImage = new End(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
-                 }else{
+                }else{
                     const placedEndIndex = animatedImagesArray.findIndex((element) => element.name == "end-idle")
                     animatedImagesArray.splice(placedEndIndex,1)
                     animatedImage = new End(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)    
                  }
-                 animatedImage = new End(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
+                // animatedImage = new End(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
          
  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
             }else if(activeSelectedImage.imageId.includes("fan")){
@@ -282,7 +282,7 @@ export function createAnimatedImage(TileId,event){ //cria uma imagem animada
                  if(!gameState.startPointPlaced){   
                     gameState.startPointPlaced = true
                     animatedImage = new Start(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
-                 }else{
+                }else{
                     const placedStartIndex = animatedImagesArray.findIndex((element) => element.name == "start-idle")
                     animatedImagesArray.splice(placedStartIndex,1)
                     animatedImage = new Start(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)    
@@ -340,7 +340,6 @@ function selectedImage(clientX, clientY){
 
 
                
-               // allSetIdsArray.pop()
                 return true
             }
         })
@@ -436,7 +435,7 @@ window.addEventListener("keyup",(event) => { //usado para fazer debugs apertando
     const key = event.key.toLowerCase() 
 
     if(key == "p"){
-
+console.log("Array de imagens animadas: ", animatedImagesArray)
     }
 
 })

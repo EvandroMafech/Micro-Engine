@@ -1,6 +1,7 @@
 import { tileArray, tilesWithImages, animatedImagesArray, activeSelectedImage, createAnimatedImage, backgroundArray, setImageOnBackgroundTiles } from "../../core/engine/main.js";
 import { tileSize } from "../../core/utils/constants.js";
 import { spriteCoordinates, positionAdjust } from "../../core/utils/imageData.js";
+import { gameState } from "../../game/ui/gameState.js";
 
 export function saveLevel() {
     const saveData = {
@@ -29,21 +30,25 @@ export function saveLevel() {
         background: backgroundArray[0].backgroundImageSource
     }
 
-    localStorage.setItem("savedLevel", JSON.stringify(saveData)) // salvar no localStorage
-    //sendToServer(saveData) // salvar no servidor
+    //localStorage.setItem("savedLevel", JSON.stringify(saveData)) // salvar no localStorage
+    sendToServer(saveData) // salvar no servidor
         //alert("Mapa salvo com sucesso!")
 }
 
 export async function loadLevel(save){
+
+  gameState.startPointPlaced = false
+  gameState.endPointPlaced = false
+
   let savedOnServer
   if(save === undefined){
    savedOnServer = await getSaveOnServer(1)
-  //console.log("Fase recuperada do servidor: ",savedOnServer)
+  console.log("Fase recuperada do servidor: ",savedOnServer)
   } else{
    savedOnServer = save
   }
-      const saved = localStorage.getItem("savedLevel") // pegar do localStorage
-   //const saved = JSON.stringify(savedOnServer) // pegar do servidor
+      //const saved = localStorage.getItem("savedLevel") // pegar do localStorage
+   const saved = JSON.stringify(savedOnServer) // pegar do servidor
     if(!saved) {
         //alert("Nenhum save encontrado")
         return
@@ -90,6 +95,7 @@ export async function loadLevel(save){
 
        // console.log({ clientX: savedImg.x, clientY: savedImg.y},TileId)
         createAnimatedImage(TileId, { clientX: savedImg.x, clientY: savedImg.y})
+
     })
         
     //alert("Mapa carregado com sucesso!")

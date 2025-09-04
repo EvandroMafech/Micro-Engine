@@ -1,5 +1,5 @@
 import { 
-  activeSelectedImage, allSetIdsArray, animatedImagesArray, clearGrid,
+  activeSelectedImage, allSetIdsArray, animatedImagesArray, backgroundArray, clearGrid,
   createMapBoundaries,
   drawGrid, hidePlayer, player, tileArray, tilesWithImages 
 } from "../../core/engine/main.js";
@@ -48,6 +48,13 @@ function cleanCanvas() {
     tile.cleanTile();
   });
 
+  backgroundArray.forEach(bg => {
+    bg.backgroundImageSource = "";
+    bg.cleanTile();
+  })
+
+  activeSelectedImage.imageId = null;
+
   createMapBoundaries()
 }
 
@@ -73,7 +80,9 @@ function hideModal() {
 // ======================
 export function startGame() {
   const start = animatedImagesArray.find(e => e.name === "start-idle");
-  if (!start) return;
+  const end = animatedImagesArray.find(e => e.name === "end-idle");
+
+  if (!start || !end) return;
 
   gameState.gameRunning = true;
 
@@ -204,10 +213,11 @@ UI.headerButtons.forEach(btn => {
       case "eraser": functionButtons.selectItens = !functionButtons.selectItens; break;
       case "player": player.playerState.avatarNumber = (player.playerState.avatarNumber + 1) % 4; break;
       case "play":
-        if (animatedImagesArray.some(el => el.name === "start-idle"))
+        if (animatedImagesArray.some(el => el.name === "start-idle") &&
+            animatedImagesArray.some(el => el.name === "end-idle"))
           showModal("O mapa será salvo automaticamente antes de iniciar o jogo. Deseja continuar?", "play", { yes: true, no: true });
         else
-          showModal("Não é possível iniciar sem um ponto de Start. Coloque o Start no mapa.", "play", { ok: true });
+          showModal("Não é possível iniciar sem um ponto de Start E Fim.", "play", { ok: true });
         break;
       case "clear": showModal("Excluir todos os elementos? Alterações não salvas serão perdidas.", "clear", { yes: true, no: true }); break;
       case "save": showModal("Deseja salvar?", "save", { yes: true, no: true }); break;
