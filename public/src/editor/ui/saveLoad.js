@@ -1,5 +1,6 @@
-import { tileArray, tilesWithImages, animatedImagesArray, activeSelectedImage, createAnimatedImage, backgroundArray, setImageOnBackgroundTiles } from "../../core/engine/main.js";
-import { tileSize } from "../../core/utils/constants.js";
+import { setImageOnBackgroundTiles } from "../../core/engine/engine.js";
+import {  activeSelectedImage, createAnimatedImage} from "../../core/engine/main.js";
+import { animatedImagesArray, backgroundArray, tileArray, tileSize, tilesWithImages } from "../../core/utils/constants.js";
 import { spriteCoordinates, positionAdjust } from "../../core/utils/imageData.js";
 import { gameState } from "../../game/ui/gameState.js";
 

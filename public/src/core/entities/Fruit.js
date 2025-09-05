@@ -1,4 +1,5 @@
-import { animatedImagesArray, player } from "../engine/main.js";
+import {  player } from "../engine/main.js";
+import { animatedImagesArray } from "../utils/constants.js";
 import { spriteCoordinates } from "../utils/imageData.js";
 import AnimatedImage from "./AnimatedImage.js";
 

@@ -1,4 +1,4 @@
-import { frames, player } from "../engine/main.js";
+import { player } from "../engine/main.js";
 import { chain, staggerFrames } from "../utils/constants.js";
 import AnimatedImage from "./AnimatedImage.js";
 import { gameOverModal } from "../../editor/ui/interfaceButtons.js";

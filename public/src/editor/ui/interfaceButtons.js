@@ -1,12 +1,13 @@
 import { 
-  activeSelectedImage, allSetIdsArray, animatedImagesArray, backgroundArray, clearGrid,
-  createMapBoundaries,
-  drawGrid, hidePlayer, player, tileArray, tilesWithImages 
+  activeSelectedImage,  clearGrid,
+  drawGrid,  player,  
 } from "../../core/engine/main.js";
 
 import { cameraPosition, functionButtons, gameState } from "../../game/ui/gameState.js";
 import { placeInitialCameraPosition } from "../../game/ui/camera.js";
 import { loadLevel, saveLevel } from "./saveLoad.js";
+import { tilesWithImages, allSetIdsArray, animatedImagesArray, backgroundArray, tileArray } from "../../core/utils/constants.js";
+import { createMapBoundaries, hidePlayer } from "../../core/engine/engine.js";
 
 // ======================
 // UI Elements

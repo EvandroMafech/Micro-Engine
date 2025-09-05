@@ -1,4 +1,5 @@
-import { animatedImagesArray, player } from "../engine/main.js";
+import {  player } from "../engine/main.js";
+import { animatedImagesArray } from "../utils/constants.js";
 import AnimatedImage from "./AnimatedImage.js";
 
 export default class Platform extends AnimatedImage{
@@ -62,7 +63,7 @@ export default class Platform extends AnimatedImage{
         //fazer com que a plataforma desapareça
         
             // if(this.y >= 5000){
-        //     animatedImagesArray.forEach((image,index) => {
+         //    animatedImagesArray.forEach((image,index) => {
         //         if(image.id == this.id){
         //             animatedImagesArray.splice(index,1) //deleta o objeto de imagem inteiro
         //         }

@@ -15,8 +15,8 @@ import End from "../entities/End.js";
 import Start from "../entities/Start.js";
 import Box from "../entities/Box.js";
 import { functionButtons, gameState, keyboardShortcuts } from "../../game/ui/gameState.js";
-import { columns, imageSizeFactor, lines, tileSize } from "../utils/constants.js";
-
+import { allSetIdsArray, animatedImagesArray, backgroundArray, columns, imageSizeFactor, lines, tileArray, tileSize } from "../utils/constants.js";
+import { animatePlayer, createBackgroundGrid, createGrid, createMapBoundaries, setImageOnBackgroundTiles } from "./engine.js";
 
 //canvas para os tilesets   
 export const tileSetCanvas = document.querySelector(".tileset") 
@@ -37,19 +37,13 @@ tileSetCanvas.height = animationCanvas.height = backgroundCanvas.height = 832
 
 export let animatedImagesArrayLastSave = [] //usado para salvar o estado anterior do array de imagens animadas
 export let tileArrayLastSave = [] //usado para salvar o estado anterior do array de tiles
-
+export let frames = 0 //usado para salvar os frames de cada animação
 export const player = new Player(ctxAnimations) //(ctx,image,x,y,sheetPosition){
 
 //retira o efeito que deixa a imagem ruim
 ctx.imageSmoothingEnabled = false
 ctxAnimations.imageSmoothingEnabled = false
 ctxBackground.imageSmoothingEnabled = false
-
-export const tilesWithImages = [] // salva somente tiles com imagens do tileset
-export const tileArray = [] //guarda uma instancia para cada frame do editor
-export const backgroundArray = [] //salva as instancia de cada frame do background
-export const animatedImagesArray = [] //salva em sequencia todas as imagens animadas
-export const allSetIdsArray = [] //salva todas as imagens em sequencia para ser usada ao apertar a tecla CTRL+Z
 
 export const activeSelectedImage = { //usada para salvar a ultima imagem selecionada pelo cliente
     imageUrl: "",
@@ -58,10 +52,8 @@ export const activeSelectedImage = { //usada para salvar a ultima imagem selecio
     instance: ""
 }
 
-export let frames = 0 //contator de frames do loop principal
 let fruitsId = 0 //id de cada fruta plotada na tela 
 let boxId = 0 //id de cada fruta plotada na tela 
-
 
 function undoImages(){ //apaga imagens da tela pelo atalho CTRL-Z
 
@@ -94,74 +86,13 @@ if(lastImage == "animated"){
     }
 }
 
-export function createMapBoundaries(){ //posiciona os tilesets de terreno no canvas para testes
-    
-    const baseTiles = []
-    
-    for(let n=0;n <= columns;n++){
-       baseTiles.push(`l${n}c${lines-1}`)
-       baseTiles.push(`l${n}c${0}`)
-    }
-    for(let n=0;n <= lines;n++){
-       baseTiles.push(`l${0}c${n}`)
-       baseTiles.push(`l${columns-1}c${n}`)
-    }
-
-    const tileSetInfo = { //
-        x: 16,
-        y: 272,
-        id: "l1c17",
-        info: {x: 16, y: 272, id: 'l1c17'}   
-    }
-
-    tileArray.forEach(tile => {
-       if(baseTiles.includes(tile.id)){
-            tile.activeImage = tileSetInfo.id
-            tile.tileSetInfo = tileSetInfo.info 
-            tile.drawImage(tileSetInfo)
-            
-        }
-
-})
-}
-
-function createTileId(event){ //cria um Id para cada tile do canvas principal
+export function createTileId(event){ //cria um Id para cada tile do canvas principal
     const rect = tileSetCanvas.getBoundingClientRect(); // usado para referenciar a posição do mouse
     const {clientX , clientY} = event
     const positionX = clientX - rect.left
     const positionY = clientY - rect.top
     const id = `l${Math.floor(positionX/tileSize)}` + `c${Math.floor(positionY/tileSize)}`
     return id
-}
-
-function createGrid(){ //cria todas as instancias do grid principal do editor
-
-    for(let c = 0; c < lines; c++){
-        for(let l = 0; l <columns ; l++){
-            let x = tileSize*l
-            let y = tileSize*c
-            let id = `l${x/tileSize}` + `c${y/tileSize}` //adiciona um id único para cada um
-            const tile = new Tile(x,y,tileSize,tileSize,ctx,id)
-            tileArray.push(tile)
-        }
-    }
-}
-
-function createBackgroundGrid(){ //cria os blocos do background (instancias)
-const tileSize = 64*3
-    for(let c = 0; c < lines; c++){
-        for(let l = 0; l <columns ; l++){
-            let x = tileSize*l
-            let y = tileSize*c
-            let id = `l${x/tileSize}` + `c${y/tileSize}` //adiciona um id único para cada um
-            const imagePath = "../public/assets/images/Background/Blue.png"
-            const tile = new Tile(x,y,tileSize,tileSize,ctxBackground,id,imagePath)
-            backgroundArray.push(tile)
-            
-            
-        }
-    }
-
 }
 
 export function drawGrid(){// desenha o grid do editor
@@ -172,7 +103,7 @@ export function clearGrid(){//limpa tela do canvas das animações
     ctxGrid.clearRect(0,0, tileSetCanvas.width,tileSetCanvas.height) 
 }
 
-function setTileSetImageOnCanvas(TileId){ //posiciona os tilesets de terreno no canvas
+export function setTileSetImageOnCanvas(TileId){ //posiciona os tilesets de terreno no canvas
 
     tileArray.forEach(tile => {
     
@@ -183,13 +114,6 @@ function setTileSetImageOnCanvas(TileId){ //posiciona os tilesets de terreno no 
             allSetIdsArray.push({id: tileSetCanvasFrameInfo.id,type: "tileset"})
     }
 })
-}
-
-export function setImageOnBackgroundTiles(image){ //posiciona os quadrados de background no canvas
-    const bgImage = image ?? activeSelectedImage.imageUrl;
-
-    backgroundArray.forEach(tile => {tile.drawBackground(bgImage)})
-    //console.log("Background setado:", bgImage)
 }
 
 export function createAnimatedImage(TileId,event){ //cria uma imagem animada
@@ -306,7 +230,7 @@ export function createAnimatedImage(TileId,event){ //cria uma imagem animada
     
 }
 
-function manageImages(event){ //pega a imagem selecionada e joga na função correspondente para criar plotar a imagem
+export function manageImages(event){ //pega a imagem selecionada e joga na função correspondente para criar plotar a imagem
  
     const TileId = createTileId(event)    
 
@@ -322,7 +246,7 @@ function manageImages(event){ //pega a imagem selecionada e joga na função cor
     }
 }
 
-function selectedImage(clientX, clientY){
+export function selectedImage(clientX, clientY){
     const rect = tileSetCanvas.getBoundingClientRect(); // usado para referenciar a posição do mouse
     const positionX = clientX - rect.left
     const positionY = clientY - rect.top
@@ -347,19 +271,7 @@ function selectedImage(clientX, clientY){
 
 }
 
-function animatePlayer(){ //funções para animar o player
-    player.animate()
-    player.applyGravity()
-    player.checkCollisionOnTiles()
-
-}
-
-export function hidePlayer(){
-    player.position.y = 5000
-    player.position.x = 5000
-}
-
-function animationLoop(){ //loop principal
+export function animationLoop(){ //loop principal
       
     ctxAnimations.clearRect(0,0, tileSetCanvas.width,tileSetCanvas.height) //limpa tela do canvas das animações
 
@@ -387,8 +299,8 @@ function animationLoop(){ //loop principal
 }
 
 
-createGrid()
-createBackgroundGrid()
+createGrid(ctx)
+createBackgroundGrid(ctxBackground)
 drawGrid()
 setTimeout(createMapBoundaries, 10); //por algum motivo se eu chamar direto na sequencia de funções acima nao funciona
 animationLoop()
