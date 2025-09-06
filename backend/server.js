@@ -11,16 +11,21 @@ let fases = [] // objeto para armazenar fases
 
 // Rota inicial - http://localhost:3000/
 app.get("/", (req, res) => {
-  res.send("API para Salvar/Carregar Rodando! 🚀");
+  res.send("Servidor rodando! 🚀");
 });
 
-// [GET] Listar usuários - http://localhost:3000/fases
-app.get("/fases", (req, res) => {
+// [GET] Listar usuários - http://localhost:3000/saved-levels
+app.get("/saved-levels", (req, res) => {
   res.json(fases);
 });
 
+//
+app.get("/saved-levels/lastsave",(req,res) => {
+  res.json(fases[fases.length - 1].id) // retorna a última fase salva
+})
+
 // [GET] Buscar usuário por ID - http://localhost:3000/fases/1
-app.get("/fases/:id", (req, res) => {
+app.get("/saved-levels/:id", (req, res) => {
   const id = parseInt(req.params.id);
 
   const fase = fases.find(f => f.id === id);
@@ -30,16 +35,15 @@ app.get("/fases/:id", (req, res) => {
   res.json(fase);
 });
 
-// [POST] Criar novo usuário - http://localhost:3000/fase
-app.post("/fase", (req, res) => {
+// [POST] Criar novo usuário - http://localhost:3000/save-level
+app.post("/save-level", (req, res) => {
 const novaFase = { id: fases.length+1, ...req.body }; // cria uma nova fase com ID único
   fases.push(novaFase);
 
   res.json({
     message: `Fase salva com sucesso! Jogue em: http://127.0.0.1:5500/public/game.html?id=${novaFase.id}`,
-       link: `http://localhost:${port}/fases/${novaFase.id}`,
+       link: `http://localhost:${port}/saved-levels/${novaFase.id}`,
        gameLink: `http://127.0.0.1:5500/public/game.html?id=${novaFase.id}`
-     //link: `http://127.0.0.1:5500/public/game.html?id=${novaFase.id}`
 });
 });
 
