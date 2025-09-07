@@ -1,4 +1,4 @@
-import { player } from "../engine/main.js";
+import { player } from "../engine/editor.js";
 import AnimatedImage from "./AnimatedImage.js";
 import { gameState } from "../../game/ui/gameState.js";
 import { gameOverModal } from "../../editor/ui/interfaceButtons.js";

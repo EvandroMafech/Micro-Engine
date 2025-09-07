@@ -1,10 +1,9 @@
 import Tile from "../entities/Tile.js"
 import { backgroundArray, columns, lines, tileArray, tileSize } from "../utils/constants.js"
-import { activeSelectedImage, player } from "./main.js"
+import { activeSelectedImage, player } from "./editor.js"
 
 export function createGrid(ctx){ //cria todas as instancias do grid principal do editor
 
-    console.log("criando grid")
     for(let c = 0; c < lines; c++){
         for(let l = 0; l <columns ; l++){
             let x = tileSize*l

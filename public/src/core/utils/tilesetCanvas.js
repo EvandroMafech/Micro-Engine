@@ -1,5 +1,5 @@
 
-import { activeSelectedImage } from "../engine/main.js"
+import { activeSelectedImage } from "../engine/editor.js"
 import { tileSetSpriteheet_image_path } from "./constants.js"
 
 let tileSetCanvasFrameInfo = {}

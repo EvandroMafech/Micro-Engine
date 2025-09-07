@@ -3,7 +3,7 @@ import { spriteCoordinates } from "../utils/imageData.js";
 import { cameraPosition, gameState } from "../../game/ui/gameState.js";
 import { moveCamera } from "../../game/ui/camera.js";
 import { specialTilesIds, tileArray } from "../utils/constants.js";
-import { frames } from "../engine/main.js";
+import { frames } from "../engine/editor.js";
 
 export default class Player{
     constructor(ctx){

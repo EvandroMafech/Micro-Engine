@@ -1,5 +1,5 @@
 import { setImageOnBackgroundTiles } from "../../core/engine/engine.js";
-import {  activeSelectedImage, createAnimatedImage} from "../../core/engine/main.js";
+import {  activeSelectedImage, createAnimatedImage} from "../../core/engine/editor.js";
 import { animatedImagesArray, backgroundArray, tileArray, tileSize, tilesWithImages } from "../../core/utils/constants.js";
 import { spriteCoordinates, positionAdjust } from "../../core/utils/imageData.js";
 import { gameState } from "../../game/ui/gameState.js";
@@ -43,8 +43,22 @@ export async function loadLevel(save){
 
   let savedOnServer
   if(save === undefined){
-   savedOnServer = await getSaveOnServer(1)
-  console.log("Fase recuperada do servidor: ",savedOnServer)
+try{
+    const savedId = await fetch("http://localhost:3000/saved-levels/lastsave")
+
+    if(!savedId.ok) {
+      throw new Error("Save não encontrado!")
+      return
+    }
+
+    const responseId = await savedId.json()
+    savedOnServer = await getSaveOnServer(responseId)
+}catch{
+
+  console.log("Error",Error)
+}
+    
+  //console.log("Fase recuperada do servidor: ",savedOnServer)
   } else{
    savedOnServer = save
   }
@@ -108,7 +122,7 @@ export async function loadLevel(save){
 // Exemplo: enviando uma fase para o servidor
 async function sendToServer(fase) {
   try {
-    const response = await fetch("http://localhost:3000/fase", {
+    const response = await fetch("http://localhost:3000/save-level", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -132,7 +146,7 @@ async function sendToServer(fase) {
 
 async function getSaveOnServer(id) {
   try {
-    const response = await fetch(`http://localhost:3000/fases/${id}`);
+    const response = await fetch(`http://localhost:3000/saved-levels/${id}`);
   
     if (!response.ok) {throw new Error("Fase não encontrada");}
    

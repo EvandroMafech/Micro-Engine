@@ -35,7 +35,7 @@ header{
     background: linear-gradient(90deg, #232931, #393e46);
     padding: 0 15px;
     height:  55px;
-    display: none;
+    display: flex;
     align-items: center;
     /* box-shadow: 0 2px rgba(0,0,0,0.3); */
     position: relative;
@@ -88,11 +88,11 @@ main{
 
 
 
-.game-scroll-container {
+.scroll-container {
     position: relative;
     width: 95%;
     height: 832px;
-    overflow: hidden; 
+    overflow: scroll; 
     z-index: 0;
     direction: rtl;
     margin: 10px auto;  /* 50px no topo/baixo e centralizado nas laterais */
@@ -103,18 +103,18 @@ main{
 }
 
 /* Scrollbar */
-.game-scroll-container::-webkit-scrollbar { width: 10px; height: 10px; }
-.game-scroll-container::-webkit-scrollbar-track { background-color: #2a2e35; border-radius: 10px; }
-.game-scroll-container::-webkit-scrollbar-thumb { background-color: var(--primary); border-radius: 10px; }
-.game-scroll-container::-webkit-scrollbar-thumb:hover { background-color: var(--primary-600); }
+.scroll-container::-webkit-scrollbar { width: 10px; height: 10px; }
+.scroll-container::-webkit-scrollbar-track { background-color: #2a2e35; border-radius: 10px; }
+.scroll-container::-webkit-scrollbar-thumb { background-color: var(--primary); border-radius: 10px; }
+.scroll-container::-webkit-scrollbar-thumb:hover { background-color: var(--primary-600); }
 
-.game-canvas-container {
+.canvas-container {
     position: relative;
     width: 1984px;
     height: 832px;
 }
 
-.game-canvas-container-centered{
+.canvas-container-centered{
     position: fixed;
     top: 50px;
     left: 50px;
@@ -127,7 +127,7 @@ main{
         background-color: var(--bg);
 }
 
-.game-tileset, .game-animations, .game-background, .game-grid {
+.tileset, .animations, .background, .grid {
     position: absolute; 
     top: 0px;
     left: 0px;
@@ -135,23 +135,222 @@ main{
     height: 100%; 
     display: block; 
     border-radius: 10px;
-    
 }
 
-.game-background {
+.background {
     z-index:  0;
     background-color:  #30353e; 
 }  
 
-.game-tileset {z-index: 1;}
-.game-grid { z-index:  2;}
-.game-animations {z-index:  3;}
+.tileset {z-index: 1;}
+.grid { z-index:  2;}
+.animations {z-index:  3;}
+
+
+.main-btn {
+    background-color: #3a444e;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 12px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1.2rem;
+    transition: background-color 0.3s; /* transição suave */
+    width: 85%;         /* ocupa toda a largura da aba */
+    max-width: 90%;     /* garante que não ultrapasse */
+  
+}
+
+.main-btn:hover { background-color: #4e5b67; }
+.main-btn:active { transform: scale(0.99); }
+
+.dropdown{
+    display: none;
+    width: 85%;
+}
+
+.show {
+    display: table-column;
+}
+
+.sub-btn {
+    border: none;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    background-color: #232931;
+    background-position: center;
+    background-size: cover;
+    border-radius: 8px;
+    margin: 4px;
+    transition: transform .12s ease, box-shadow .2s ease;
+    box-shadow: 3px 3px 0 rgba(0,0,0,.35);
+}
+
+.sub-btn:hover { transform: scale(1.08); }
+
+#dropdown-2 button{
+    width: 64px;
+    height: 64px;
+}
+
+#dropdown-3 button{
+    width: 64px;
+    height: 64px;
+
+}
+
+#dropdown-4 button{
+    width: 64px;
+    height: 64px;
+
+}
+#dropdown-5 button{
+    width: 64px;
+    height: 64px;
+}
+
+
+.left-aside {
+    position: fixed;
+    top: 55px;
+    left: 0;
+    width: 20px;
+    height: 100vh;
+    background-color: var(--panel);
+    color: #fff;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    transition: width 0.3s ease;
+    gap: 20px;
+    z-index: 10;
+    padding: 20px 0 0 20px; /* 50px do topo e 50px da esquerda */
+}
+
+.left-aside.expanded {
+    width: 400px; /* abre quando recebe a classe expanded */
+}
+
+#toggle-left-aside {
+    background-color: var(--primary);
+    border: none;
+    cursor: pointer;
+    padding: 20px;
+    z-index: 10;
+    top: 0;
+    height: 100vh;
+    color: #12221c;
+    position: absolute; 
+    right: -20px; /* botão fica grudado na borda direita da aba */
+    transition: left 0.3s ease;
+}
+
+#toggle-left-aside:hover {
+    background-color: #777;
+}
+
+#toggle-right-aside:hover { background-color: var(--primary-600); }
+#toggle-left-aside:hover { background-color: var(--primary-600); }
+
+#toggle-right-aside {
+    background-color: var(--primary);
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 10;
+    top: 0;
+    height: 100vh; 
+    color: white;
+    transition: left 0.3s ease; 
+}
+
+.right-aside {
+    position: fixed;
+    top: 55px;
+    right: 0;
+    width: 20px;
+    height: 100vh;
+    background-color: var(--panel);
+    color: #fff;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    transition: width 0.3s ease;
+    gap: 20px;
+}
+
+
+.right-aside.expanded {
+    width: 400px; 
+}
+
+.right-aside canvas {
+    margin-top: -55px;
+}
 
 
 
-/* MODAL */
+/* #ninjafrog-run{background-image: url("../../../public/assets/images/Main Characters/Ninja Frog/Jump (32x32).png");} */
 
-.game-modal {
+#fruit-apple { background-image: url("../../../public/assets/images/Items/Fruits/Apple(64x64).png"); }
+#fruit-bananas { background-image: url("../../../public/assets/images/Items/Fruits/Bananas(64x64).png"); }
+#fruit-cherries { background-image: url("../../../public/assets/images/Items/Fruits/Cherries(64x64).png"); }
+#fruit-kiwi { background-image: url("../../../public/assets/images/Items/Fruits/Kiwi(64x64).png"); }
+#fruit-melon { background-image: url("../../../public/assets/images/Items/Fruits/Melon(64x64).png"); }
+#fruit-orange { background-image: url("../../../public/assets/images/Items/Fruits/Orange(64x64).png"); }
+#fruit-pineapple { background-image: url("../../../public/assets/images/Items/Fruits/Pineapple(64x64).png"); }
+#fruit-strawberry { background-image: url("../../../public/assets/images/Items/Fruits/Strawberry(64x64).png"); }
+
+
+#checkpoint-noflag { background-image: url("../../../public/assets/images/Items/Checkpoints/Checkpoint/Checkpoint(64x64).png"); }
+
+#end-idle{ background-image: url("../../../public/assets/images/Items/Checkpoints/End/End (Idle).png"); }
+#start-idle { background-image: url("../../../public/assets/images/Items/Checkpoints/Start/Start (Idle).png"); }
+
+
+#box1-idle{ background-image: url("../../../public/assets/images/Items/Boxes/Box1/Idle.png"); }
+#box2-idle{ background-image: url("../../../public/assets/images/Items/Boxes/Box2/Idle.png"); }
+#box3-idle{ background-image: url("../../../public/assets/images/Items/Boxes/Box3/Idle.png"); }
+
+#block-idle { background-image: url("../../../public/assets/images/Traps/Blocks/Idle.png"); }
+                                           
+                                  
+
+
+#platform-on { background-image: url("../../../public/assets/images/Traps/Falling Platforms/Off(64x64).png"); }
+
+#fan-on { background-image: url("../../../public/assets/images/Traps/Fan/Off(64x64).png"); }
+
+#saw-on { background-image: url("../../../public/assets/images/Traps/Saw/Off(64x64).png"); }
+
+#spykes-idle { background-image: url("../../../public/assets/images/Traps/Spikes/Idle(64x64).png"); }
+
+#trampoline-idle { background-image: url("../../../public/assets/images/Traps/Trampoline/Idle(64x64).png"); }
+
+#spikedball-chained { background-image: url("../../../public/assets/images/Traps/Spiked Ball/Spiked Ball(64x64).png"); }
+
+
+
+#Blue { background-image: url("../../../public/assets/images/Background/Blue.png"); }
+#Brown { background-image: url("../../../public/assets/images/Background/Brown.png"); }
+#Gray { background-image: url("../../../public/assets/images/Background/Gray.png"); }
+#Green { background-image: url("../../../public/assets/images/Background/Green.png"); }
+#Pink { background-image: url("../../../public/assets/images/Background/Pink.png"); }
+#Purple { background-image: url("../../../public/assets/images/Background/Purple.png"); }
+#Yellow { background-image: url("../../../public/assets/images/Background/Yellow.png"); }
+
+
+
+
+
+
+
+.modal {
     display: none;
     position: fixed;
     top: 0;
@@ -164,7 +363,7 @@ main{
     z-index: 100;
     backdrop-filter: blur(4px);
   }
-  .game-modal-content {
+  .modal-content {
     background: var(--panel-2);
     padding: 22px;
     border-radius: 12px;
@@ -172,7 +371,7 @@ main{
     box-shadow: var(--shadow);
     color: var(--text);
   }
-  .game-modal-content button {
+  .modal-content button {
     margin: 10px;
     padding: 10px 20px;
     border: none;
@@ -180,9 +379,9 @@ main{
     cursor: pointer;
     font-weight: 800;
   }
-.game-btn-yes { background-color: var(--primary); color: #12221c; }
-.game-btn-no  { background-color: var(--danger);  color: #fff; }
-.game-btn-ok  { background-color: var(--accent);  color: #fff; }
-.game-btn-yes:hover { background-color: var(--primary-600); }
-.game-btn-no:hover  { filter: brightness(0.95); }
-.game-btn-ok:hover  { filter: brightness(0.95); }
+.btn-yes { background-color: var(--primary); color: #12221c; }
+.btn-no  { background-color: var(--danger);  color: #fff; }
+.btn-ok  { background-color: var(--accent);  color: #fff; }
+.btn-yes:hover { background-color: var(--primary-600); }
+.btn-no:hover  { filter: brightness(0.95); }
+.btn-ok:hover  { filter: brightness(0.95); }

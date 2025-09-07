@@ -1,7 +1,7 @@
 import { 
   activeSelectedImage,  clearGrid,
   drawGrid,  player,  
-} from "../../core/engine/main.js";
+} from "../../core/engine/editor.js";
 
 import { cameraPosition, functionButtons, gameState } from "../../game/ui/gameState.js";
 import { placeInitialCameraPosition } from "../../game/ui/camera.js";
@@ -130,14 +130,18 @@ function handleModalYes() {
     case "gameOver": case "gameEnd": 
     hidePlayer()
     cleanCanvas();
-    loadLevel();
+    loadLevel().then(() => {
     startGame(); 
+    })
+
     UI.canvasContainer.classList.toggle("canvas-container-centered"); break;
     case "exit": 
     cleanCanvas();
     hidePlayer()
-    loadLevel();
-    returToEditor(); 
+    loadLevel().then(() => {
+    returToEditor();
+    })
+ 
     break;
   }
   hideModal();
@@ -145,11 +149,14 @@ function handleModalYes() {
 
 function handleModalNo() {
   hideModal();
-  if (["gameOver", "gameEnd"].includes(modalInfo.type)) 
+  switch(modalInfo.type){
+    case "gameOver": case "gameEnd": 
     cleanCanvas();
     hidePlayer()
     loadLevel();
-    returToEditor(); 
+    returToEditor();
+    break 
+}
 }
 
 // ======================

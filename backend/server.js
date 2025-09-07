@@ -21,7 +21,7 @@ app.get("/saved-levels", (req, res) => {
 
 //
 app.get("/saved-levels/lastsave",(req,res) => {
-  res.json(fases[fases.length - 1].id) // retorna a última fase salva
+  res.json(fases.length) // retorna a última fase salva
 })
 
 // [GET] Buscar usuário por ID - http://localhost:3000/fases/1
@@ -47,7 +47,10 @@ const novaFase = { id: fases.length+1, ...req.body }; // cria uma nova fase com 
 });
 });
 
-
+// Iniciar servidor
+app.listen(port, () => {
+  console.log(`🚀 Servidor rodando em http://localhost:${port}\n💾 http://localhost:${port}/saved-levels`);
+});
 
 
 // // [PUT] Atualizar usuário
@@ -69,7 +72,3 @@ const novaFase = { id: fases.length+1, ...req.body }; // cria uma nova fase com 
 //   res.json({ mensagem: "Usuário deletado com sucesso" });
 // });
 
-// Iniciar servidor
-app.listen(port, () => {
-  console.log(`🚀 Servidor rodando em http://localhost:${port}`);
-});
