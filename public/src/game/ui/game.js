@@ -1,5 +1,6 @@
 import { startGame } from "../../editor/ui/interfaceButtons.js";
 import { loadLevel } from "../../editor/ui/saveLoad.js";
+import { gameState } from "./gameState.js";
 
 window.addEventListener("DOMContentLoaded", async () => { // espera o HTML carregar
   const url = new URL(window.location.href);// cria um objeto URL
@@ -10,6 +11,7 @@ window.addEventListener("DOMContentLoaded", async () => { // espera o HTML carre
     const response = await fetch(`http://localhost:3000/saved-levels/${faseId}`);
     const fase = await response.json();
 
+    gameState.onGamePage = true
     //console.log("Fase carregada do servidor:", fase);
     loadLevel(fase).then(() =>{
     startGame()

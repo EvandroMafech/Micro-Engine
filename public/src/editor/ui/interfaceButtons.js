@@ -189,8 +189,10 @@ window.addEventListener("keydown", e => {
     
     functionButtons.selectItens = false; 
     
-    if (gameState.gameRunning){
+    if (gameState.gameRunning & !gameState.onGamePage){
       showModal("Deseja voltar para o editor? O progresso no jogo será perdido.", "exit", { yes: true, no: true });
+    }else if(gameState.onGamePage) {
+      showModal("Deseja voltar para o editor? O progresso no jogo será perdido.", "exit", { yes: true, no: false });
     }
      
   }
