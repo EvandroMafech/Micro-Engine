@@ -1,5 +1,5 @@
 import { 
-  activeSelectedImage,  clearGrid,
+  activeSelectedImage,  animationLoop,  clearGrid,
   drawGrid,  player,  
 } from "../../core/engine/editor.js";
 
@@ -33,8 +33,10 @@ UI.modal.text = UI.modal.querySelector(".text");
 // ======================
 const modalInfo = { type: "", yes: false, no: false };
 
-// ======================
-// Canvas Helpers
+export function goToPage(page) {
+  window.location.href = page;
+}
+
 // ======================
 function cleanCanvas() {
   animatedImagesArray.length = 0;
@@ -63,6 +65,7 @@ function cleanCanvas() {
 // Modal Helpers
 // ======================
 function showModal(message, type, buttons = { yes: true, no: true, ok: false }) {
+  gameState.pause = true
   UI.modal.style.display = "flex";
   UI.modal.text.innerHTML = message;
   modalInfo.type = type;
@@ -73,6 +76,7 @@ function showModal(message, type, buttons = { yes: true, no: true, ok: false }) 
 }
 
 function hideModal() {
+  gameState.pause = false
   UI.modal.style.display = "none";
 }
 
@@ -134,28 +138,49 @@ function handleModalYes() {
     startGame(); 
     })
 
-    UI.canvasContainer.classList.toggle("canvas-container-centered"); break;
+    UI.canvasContainer.classList.toggle("canvas-container-centered"); 
+    break;
+    case "gameOver-game": case "gameEnd-game": 
+    hidePlayer()
+    cleanCanvas();
+    loadLevel().then(() => {
+    startGame(); 
+    })
+
+    UI.canvasContainer.classList.toggle("canvas-container-centered"); 
+    break;
     case "exit": 
     cleanCanvas();
     hidePlayer()
     loadLevel().then(() => {
     returToEditor();
-    })
- 
+    }) 
     break;
+    case "exit-game":
+      hideModal();
+    break  
   }
   hideModal();
 }
 
 function handleModalNo() {
   hideModal();
+
   switch(modalInfo.type){
     case "gameOver": case "gameEnd": 
     cleanCanvas();
     hidePlayer()
     loadLevel();
     returToEditor();
-    break 
+    break
+    case "gameOver-game": case "gameEnd-game": 
+      hideModal();
+      goToPage("http://127.0.0.1:5500/public/index.html")
+    break
+    case "exit-game":
+      hideModal();
+      goToPage("http://127.0.0.1:5500/public/index.html")
+    break   
 }
 }
 
@@ -192,7 +217,7 @@ window.addEventListener("keydown", e => {
     if (gameState.gameRunning & !gameState.onGamePage){
       showModal("Deseja voltar para o editor? O progresso no jogo será perdido.", "exit", { yes: true, no: true });
     }else if(gameState.onGamePage) {
-      showModal("Deseja voltar para o editor? O progresso no jogo será perdido.", "exit", { yes: true, no: false });
+      showModal("Jogo pausado, deseja continuar", "exit-game", { yes: true, no: true });
     }
      
   }
@@ -248,9 +273,17 @@ window.addEventListener("click", e => { if (e.target === UI.modal) hideModal(); 
 // External Exports
 // ======================
 export function gameOverModal() {
-  showModal("Ops! Você... Morreu. Trágico. Deseja jogar novamente?", "gameOver", { yes: true, no: true });
+  if(gameState.onGamePage){
+  showModal("Ops! Você... Morreu. Trágico. Deseja jogar novamente?", "gameOver-game", { yes: true, no: true });
+  }else {
+    showModal("Ops! Você... Morreu. Trágico. Deseja jogar novamente?", "gameOver", { yes: true, no: true });
+  }
 }
 export function gameEnd() {
   hidePlayer()
+    if(gameState.onGamePage){
+  showModal("Parabéns! Você conseguiu!!! Deseja jogar novamente?", "gameEnd-game", { yes: true, no: true });
+    }else{
   showModal("Parabéns! Você conseguiu!!! Deseja jogar novamente?", "gameEnd", { yes: true, no: true });
+    }
 }

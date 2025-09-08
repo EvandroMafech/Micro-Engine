@@ -272,7 +272,8 @@ export function selectedImage(clientX, clientY){
 }
 
 export function animationLoop(){ //loop principal
-      
+    
+    if(gameState.pause == false){  
     ctxAnimations.clearRect(0,0, tileSetCanvas.width,tileSetCanvas.height) //limpa tela do canvas das animações
 
 
@@ -294,7 +295,9 @@ export function animationLoop(){ //loop principal
     if(player.MoveAction.jump == true) player.jump()
   
     frames++
+}
     window.requestAnimationFrame(animationLoop)
+
 
 }
 

@@ -2,7 +2,8 @@ export const gameState = {
   startPointPlaced: false,
   endPointPlaced: false,
   gameRunning: false,
-  onGamePage: false
+  onGamePage: false,
+  pause: false
 };
 
 export const cameraPosition = {
