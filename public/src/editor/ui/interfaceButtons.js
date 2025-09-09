@@ -31,10 +31,30 @@ UI.modal.text = UI.modal.querySelector(".text");
 // ======================
 // Modal State
 // ======================
-const modalInfo = { type: "", yes: false, no: false };
+const modalInfo = { 
+  type: "", 
+  yes: false, 
+  no: false 
+};
 
-export function goToPage(page) {
+async function checkIfSaved() {
+
+  const checkSave = await fetch("http://localhost:3000/saved-levels/lastsave")
+  const result = await checkSave.json()
+  
+  return result === 0 ? false : true 
+
+}
+
+
+export function goToPage(page,newPage = false) {
+
+  if(!newPage){
   window.location.href = page;
+  }else{
+    console.log(page)
+    window.open(page,"_blank")
+  }
 }
 
 // ======================
@@ -159,6 +179,19 @@ function handleModalYes() {
     case "exit-game":
       hideModal();
     break  
+    case "link":
+      checkIfSaved().then(save => {
+      const isSaved = save
+      if(isSaved) {
+        goToPage(`${gameState.link}`,true)
+      }else{
+        hideModal()
+        alert("Não há fases salvas!")
+      } 
+
+      })
+
+    break  
   }
   hideModal();
 }
@@ -206,6 +239,7 @@ document.getElementById("toggle-left-aside").addEventListener("click", () =>
 
 // Prevent zoom shortcuts
 window.addEventListener("wheel", e => { if (e.ctrlKey) e.preventDefault(); }, { passive: false });
+
 window.addEventListener("keydown", e => {
   const key = e.key.toLowerCase();
   if ((e.ctrlKey || e.metaKey) && (key === "+" || key === "-")) e.preventDefault();
@@ -237,7 +271,9 @@ UI.dropdownButtons.forEach(btn => {
 });
 
 // Header buttons
-const headerButtonsState = { displayGrid: true };
+const headerButtonsState = { 
+  displayGrid: true 
+};
 UI.headerButtons.forEach(btn => {
   btn.addEventListener("click", e => {
     switch (e.target.id) {
@@ -245,8 +281,28 @@ UI.headerButtons.forEach(btn => {
         headerButtonsState.displayGrid ? clearGrid() : drawGrid();
         headerButtonsState.displayGrid = !headerButtonsState.displayGrid;
         break;
-      case "eraser": functionButtons.selectItens = !functionButtons.selectItens; break;
-      case "player": player.playerState.avatarNumber = (player.playerState.avatarNumber + 1) % 4; break;
+      case "eraser": 
+      functionButtons.selectItens = !functionButtons.selectItens; 
+      break;
+      case "player": 
+      player.playerState.avatarNumber = (player.playerState.avatarNumber + 1) % 4; 
+      const playBtn = document.getElementById("player")  
+      switch(player.playerState.avatarNumber){
+       
+          case 0:
+            playBtn.innerHTML = "Ninjafrog"
+          break
+          case 1:
+            playBtn.innerHTML = "Pinkman"
+          break
+          case 2:
+            playBtn.innerHTML = "Maskdude"
+          break
+          case 3:
+            playBtn.innerHTML = "Virtualguy"
+          break
+        }
+      break;
       case "play":
         if (animatedImagesArray.some(el => el.name === "start-idle") &&
             animatedImagesArray.some(el => el.name === "end-idle"))
@@ -257,6 +313,7 @@ UI.headerButtons.forEach(btn => {
       case "clear": showModal("Excluir todos os elementos? Alterações não salvas serão perdidas.", "clear", { yes: true, no: true }); break;
       case "save": showModal("Deseja salvar?", "save", { yes: true, no: true }); break;
       case "open": showModal("Abrir outro save? Alterações não salvas serão perdidas.", "open", { yes: true, no: true }); break;
+      case "link": showModal(`Acesse sua fase pelo link: ${gameState.link} Deseja acessar agora?`, "link", { yes: true, no: true }); break;
     }
   });
 });
