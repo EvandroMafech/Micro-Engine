@@ -15,7 +15,7 @@ import End from "../entities/End.js";
 import Start from "../entities/Start.js";
 import Box from "../entities/Box.js";
 import { functionButtons, gameState, keyboardShortcuts } from "../../game/ui/gameState.js";
-import { allSetIdsArray, animatedImagesArray, backgroundArray, columns, imageSizeFactor, lines, tileArray, tileSize } from "../utils/constants.js";
+import { allSetIdsArray, animatedImagesArray, backgroundArray, columns, imageSizeFactor, lines, tileArray, tileSize, tilesWithImages } from "../utils/constants.js";
 import { animatePlayer, createBackgroundGrid, createGrid, createMapBoundaries, setImageOnBackgroundTiles } from "./engine.js";
 
 //canvas para os tilesets   
@@ -27,6 +27,9 @@ const ctxBackground = backgroundCanvas.getContext("2d")
 
 export const gridCanvas = document.querySelector(".grid") 
 const ctxGrid = gridCanvas.getContext("2d")
+
+export const editorCanvas = document.querySelector(".editor")
+const ctxEditor = editorCanvas.getContext("2d")
 
 // canvas para imagens animadas
 export const animationCanvas = document.querySelector(".animations") 
@@ -273,6 +276,8 @@ export function selectedImage(clientX, clientY){
 
 export function animationLoop(){ //loop principal
     
+    
+
     if(gameState.pause == false){  
     ctxAnimations.clearRect(0,0, tileSetCanvas.width,tileSetCanvas.height) //limpa tela do canvas das animações
 
@@ -309,7 +314,7 @@ setTimeout(createMapBoundaries, 10); //por algum motivo se eu chamar direto na s
 animationLoop()
 
 
-animationCanvas.addEventListener("mousedown", (event) => {
+editorCanvas.addEventListener("mousedown", (event) => {
     if(functionButtons.selectItens == true){
         selectedImage(event.clientX, event.clientY)
     }else if(gameState.gameRunning == false){ // so pode adicionar imagens se o jogo não estiver rodando
@@ -355,6 +360,14 @@ console.log(gameState.onGamePage)
 
 })
 
-
+   
+editorCanvas.addEventListener("mousemove",event => {
+        const image = new Image()
+        image.src = "../../../public/assets/images/icons/cut.png"
+        const origin = tileSetCanvas.getBoundingClientRect()
+        console.log("oi")
+        ctxEditor.clearRect(0,0,2000,2000)
+        ctxEditor.drawImage(image,event.clientX-origin.left-image.height/2,event.clientY-origin.top-image.height/2)
+ })
 
 

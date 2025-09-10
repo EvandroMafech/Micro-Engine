@@ -128,7 +128,7 @@ main{
         background-color: var(--bg);
 }
 
-.tileset, .animations, .background, .grid {
+.tileset, .animations, .background, .grid, .editor {
     position: absolute; 
     top: 0px;
     left: 0px;
@@ -144,10 +144,11 @@ main{
 }  
 
 .tileset {z-index: 1;}
-.grid { 
-    z-index:  2;
-    display: none;}
+.grid { z-index:  2;
+display: none}
 .animations {z-index:  3;}
+.editor {z-index:  4;
+display: none}
 
 
 .main-btn {
