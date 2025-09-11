@@ -5,7 +5,7 @@ const cors = require("cors");
 // habilita CORS para todas as origens
 app.use(cors()); // permite requisições de qualquer origem
 app.use(express.json()); // permite trabalhar com JSON no body das requisições
-const port = 3000; // porta padrão
+const port = process.env.PORT || 3000;
 // Banco de dados (em memória)
 let fases = [] // objeto para armazenar fases
 
@@ -48,6 +48,7 @@ const novaFase = { id: fases.length+1, ...req.body }; // cria uma nova fase com 
 });
 
 // Iniciar servidor
+
 app.listen(port, () => {
   console.log(`🚀 Servidor rodando em http://localhost:${port}\n💾 http://localhost:${port}/saved-levels`);
 });
