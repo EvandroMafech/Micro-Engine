@@ -246,7 +246,9 @@ window.addEventListener("keydown", e => {
  
   if (key === "escape") { 
     
-    functionButtons.selectItens = false; 
+    functionButtons.selectItens = !functionButtons.selectItens;
+    functionButtons.eraser = false 
+    functionButtons.selectTileset = false 
     
     if (gameState.gameRunning & !gameState.onGamePage){
       showModal("Deseja voltar para o editor? O progresso no jogo será perdido.", "exit", { yes: true, no: true });
@@ -260,6 +262,9 @@ window.addEventListener("keydown", e => {
 // Image selection
 UI.dropdownButtons.forEach(btn => {
   btn.addEventListener("click", e => {
+    functionButtons.selectItens = true;
+    functionButtons.selectTileset = false;
+    functionButtons.eraser = false;
     const style = window.getComputedStyle(e.target);
     const match = style.backgroundImage.match(/public.*?\.png/);
     if (!match) return;
@@ -282,7 +287,7 @@ UI.headerButtons.forEach(btn => {
         headerButtonsState.displayGrid = !headerButtonsState.displayGrid;
         break;
       case "eraser": 
-      functionButtons.selectItens = !functionButtons.selectItens; 
+      functionButtons.eraser = !functionButtons.eraser; 
       break;
       case "player": 
       player.playerState.avatarNumber = (player.playerState.avatarNumber + 1) % 4; 

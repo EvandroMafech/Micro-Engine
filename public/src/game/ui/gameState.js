@@ -22,7 +22,9 @@ export const cameraPosition = {
 };
 
 export const functionButtons = {
-  selectItens: false
+  selectItens: true,
+  eraser: false,
+  selectTileset: false
 };
 
 export const keyboardShortcuts = {

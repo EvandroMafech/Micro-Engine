@@ -13,9 +13,9 @@ export const positionAdjust = { //objeto com as informação de ajuste offset
     box3: { x: 10, y: 5  },
     box: { x: 10, y: 5  },
     block: { x: 0, y: 0  },
-    end: { x: 0, y: 0  },
-    checkpoint: { x: 0, y: 0 },
-    start: { x: 0, y: 0  }
+    end: { x: 64, y: 128  },
+    checkpoint: { x: 64, y: 128 },
+    start: { x: 64, y: 128  }
 }
 
 function createImage(){

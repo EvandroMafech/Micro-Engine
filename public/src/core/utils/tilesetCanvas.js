@@ -1,4 +1,5 @@
 
+import { functionButtons } from "../../game/ui/gameState.js"
 import { activeSelectedImage } from "../engine/editor.js"
 import { tileSetSpriteheet_image_path } from "./constants.js"
 
@@ -55,4 +56,10 @@ function drawTilesetImages(){
 
 drawTilesetImages()
 
-tileSetSheetCanvas.addEventListener("click", (event) => {selectTilesetImageFromGrid(event)})
+tileSetSheetCanvas.addEventListener("click", (event) => {
+    functionButtons.selectItens=true
+    functionButtons.eraser=false
+    functionButtons.selectTileset = true
+
+    selectTilesetImageFromGrid(event)
+})

@@ -15,7 +15,7 @@ import End from "../entities/End.js";
 import Start from "../entities/Start.js";
 import Box from "../entities/Box.js";
 import { functionButtons, gameState, keyboardShortcuts } from "../../game/ui/gameState.js";
-import { allSetIdsArray, animatedImagesArray, backgroundArray, columns, imageSizeFactor, lines, tileArray, tileSize, tilesWithImages } from "../utils/constants.js";
+import { allSetIdsArray, animatedImagesArray, backgroundArray, columns, imageSizeFactor, lines, tileArray, tileSetSpriteheet_image_path, tileSize, tilesWithImages } from "../utils/constants.js";
 import { animatePlayer, createBackgroundGrid, createGrid, createMapBoundaries, setImageOnBackgroundTiles } from "./engine.js";
 
 //canvas para os tilesets   
@@ -47,6 +47,7 @@ export const player = new Player(ctxAnimations) //(ctx,image,x,y,sheetPosition){
 ctx.imageSmoothingEnabled = false
 ctxAnimations.imageSmoothingEnabled = false
 ctxBackground.imageSmoothingEnabled = false
+ctxEditor.imageSmoothingEnabled = false
 
 export const activeSelectedImage = { //usada para salvar a ultima imagem selecionada pelo cliente
     imageUrl: "",
@@ -315,9 +316,11 @@ animationLoop()
 
 
 editorCanvas.addEventListener("mousedown", (event) => {
-    if(functionButtons.selectItens == true){
+    if(functionButtons.eraser == true){
         selectedImage(event.clientX, event.clientY)
-    }else if(gameState.gameRunning == false){ // so pode adicionar imagens se o jogo não estiver rodando
+    }else if(gameState.gameRunning == false &&
+             functionButtons.selectItens == true   
+    ){ // so pode adicionar imagens se o jogo não estiver rodando
 
     manageImages(event)
     }
@@ -355,19 +358,39 @@ window.addEventListener("keyup",(event) => { //usado para fazer debugs apertando
     const key = event.key.toLowerCase() 
 
     if(key == "p"){
-console.log(gameState.onGamePage)
+console.log(functionButtons.eraser)
     }
 
 })
 
    
 editorCanvas.addEventListener("mousemove",event => {
-        const image = new Image()
-        image.src = "../../../public/assets/images/icons/cut.png"
+
         const origin = tileSetCanvas.getBoundingClientRect()
-        console.log("oi")
         ctxEditor.clearRect(0,0,2000,2000)
-        ctxEditor.drawImage(image,event.clientX-origin.left-image.height/2,event.clientY-origin.top-image.height/2)
- })
+        const image = new Image()
+   
+        if(functionButtons.eraser){
+            image.src = "../../../public/assets/images/icons/cut.png"
+            ctxEditor.drawImage(image,event.clientX-origin.left-image.height/2,event.clientY-origin.top-image.height/2)
+        }else if(functionButtons.selectItens == true &&
+                 functionButtons.selectTileset == false
+        ){
+            image.src = activeSelectedImage.imageUrl
+            ctxEditor.drawImage(image,event.clientX-origin.left-image.height/2,event.clientY-origin.top-image.height/2)
+        }else if(functionButtons.selectTileset == true){
+            image.src = tileSetSpriteheet_image_path
+            //ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+
+            const {x , y} = tileSetCanvasFrameInfo
+            ctxEditor.drawImage(image,x,y,16,16,event.clientX-origin.left-16,
+                event.clientY-origin.top-16,32,32)
+          //  ctxEditor.drawImage(image,this.x,this.y,this.width,this.height)
+        }
+    })
+
+    editorCanvas.addEventListener("mouseleave",() => {
+        ctxEditor.clearRect(0,0,2000,2000)
+    })
 
 
