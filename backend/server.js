@@ -2,6 +2,11 @@
 const express = require("express"); // importa o Express
 const app = express(); // cria uma aplicação Express
 const cors = require("cors");
+const path = require("path");
+
+// serve arquivos estáticos da pasta public
+app.use(express.static(path.join(__dirname, "public")));
+
 // habilita CORS para todas as origens
 app.use(cors()); // permite requisições de qualquer origem
 app.use(express.json()); // permite trabalhar com JSON no body das requisições
@@ -10,8 +15,12 @@ const port = process.env.PORT || 3000;
 let fases = [] // objeto para armazenar fases
 
 // Rota inicial - http://localhost:3000/
+// app.get("/", (req, res) => {
+//   res.send("Servidor rodando! 🚀");
+// });
+
 app.get("/", (req, res) => {
-  res.send("Servidor rodando! 🚀");
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // [GET] Listar usuários - http://localhost:3000/saved-levels
