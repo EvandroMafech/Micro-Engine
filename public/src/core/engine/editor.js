@@ -358,7 +358,7 @@ window.addEventListener("keyup",(event) => { //usado para fazer debugs apertando
     const key = event.key.toLowerCase() 
 
     if(key == "p"){
-console.log(functionButtons.eraser)
+    console.log(activeSelectedImage.imageUrl)
     }
 
 })

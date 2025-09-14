@@ -266,11 +266,14 @@ UI.dropdownButtons.forEach(btn => {
     functionButtons.selectTileset = false;
     functionButtons.eraser = false;
     const style = window.getComputedStyle(e.target);
-    const match = style.backgroundImage.match(/public.*?\.png/);
+    const match = style.backgroundImage.match(/assets.*?\.png/);
+    console.log(match)
     if (!match) return;
 
     activeSelectedImage.imageId = e.target.id;
-    activeSelectedImage.imageUrl = "../../../" + match[0];
+    //activeSelectedImage.imageUrl = "../../../" + match[0];
+    activeSelectedImage.imageUrl = match[0];
+
     activeSelectedImage.type = e.target.getAttribute("data-type") === "background" ? "background" : "animated";
   });
 });
