@@ -54,7 +54,7 @@ const tileSize = 64*3
             let x = tileSize*l
             let y = tileSize*c
             let id = `l${x/tileSize}` + `c${y/tileSize}` //adiciona um id único para cada um
-            const imagePath = "../public/assets/images/Background/Blue.png"
+            const imagePath = "/assets/images/Background/Blue.png"
             const tile = new Tile(x,y,tileSize,tileSize,ctx,id,imagePath)
             backgroundArray.push(tile)
             
