@@ -1,7 +1,7 @@
 export const tileSetSpriteheet_image_path = "/assets/images/Terrain/Terrain (16x16) vertical.png"
 const chain = new Image()
 
-chain.src = "public/assets/images/Traps/Spiked Ball/Chain.png.png"
+chain.src = "/assets/images/Traps/Spiked Ball/Chain.png.png"
 export {chain}
 
 

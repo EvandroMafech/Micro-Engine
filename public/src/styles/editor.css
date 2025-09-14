@@ -298,10 +298,10 @@ main{
 
 /* #ninjafrog-run{background-image: url("../../../public/assets/images/Main Characters/Ninja Frog/Jump (32x32).png");} */
 
-#fruit-apple { background-image: url("../../../public/assets/images/Items/Fruits/Apple(64x64).png"); }
-#fruit-bananas { background-image: url("../../../public/assets/images/Items/Fruits/Bananas(64x64).png"); }
-#fruit-cherries { background-image: url("../../../public/assets/images/Items/Fruits/Cherries(64x64).png"); }
-#fruit-kiwi { background-image: url("../../../public/assets/images/Items/Fruits/Kiwi(64x64).png"); }
+#fruit-apple { background-image: url("/assets/images/Items/Fruits/Apple(64x64).png"); }
+#fruit-bananas { background-image: url("/public/assets/images/Items/Fruits/Bananas(64x64).png"); }
+#fruit-cherries { background-image: url("public/assets/images/Items/Fruits/Cherries(64x64).png"); }
+#fruit-kiwi { background-image: url("assets/images/Items/Fruits/Kiwi(64x64).png"); }
 #fruit-melon { background-image: url("../../../public/assets/images/Items/Fruits/Melon(64x64).png"); }
 #fruit-orange { background-image: url("../../../public/assets/images/Items/Fruits/Orange(64x64).png"); }
 #fruit-pineapple { background-image: url("../../../public/assets/images/Items/Fruits/Pineapple(64x64).png"); }
