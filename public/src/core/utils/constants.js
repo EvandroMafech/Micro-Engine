@@ -1,9 +1,6 @@
 export const tileSetSpriteheet_image_path = "/assets/images/Terrain/Terrain (16x16) vertical.png"
-const chain = new Image()
-
-chain.src = "/assets/images/Traps/Spiked Ball/Chain.png.png"
-export {chain}
-
+export const chain = new Image()
+chain.src = "/assets/images/Traps/Spiked Ball/Chain.png"
 
 export const lines = 13 //linhas do editor
 export const columns = 31 // clounas do editor

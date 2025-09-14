@@ -296,7 +296,7 @@ main{
 
 
 
-/* #ninjafrog-run{background-image: url("../../../public/assets/images/Main Characters/Ninja Frog/Jump (32x32).png");} */
+/* #ninjafrog-run{background-image: url("/assets/images/Main Characters/Ninja Frog/Jump (32x32).png");} */
 
 #fruit-apple { background-image: url("/assets/images/Items/Fruits/Apple(64x64).png"); }
 #fruit-bananas { background-image: url("/assets/images/Items/Fruits/Bananas(64x64).png"); }
@@ -308,42 +308,42 @@ main{
 #fruit-strawberry { background-image: url("/assets/images/Items/Fruits/Strawberry(64x64).png"); }
 
 
-#checkpoint-noflag { background-image: url("../../../public/assets/images/Items/Checkpoints/Checkpoint/Checkpoint(64x64).png"); }
+#checkpoint-noflag { background-image: url("/assets/images/Items/Checkpoints/Checkpoint/Checkpoint(64x64).png"); }
 
-#end-idle{ background-image: url("../../../public/assets/images/Items/Checkpoints/End/End (Idle).png"); }
-#start-idle { background-image: url("../../../public/assets/images/Items/Checkpoints/Start/Start (Idle).png"); }
+#end-idle{ background-image: url("/assets/images/Items/Checkpoints/End/End (Idle).png"); }
+#start-idle { background-image: url("/assets/images/Items/Checkpoints/Start/Start (Idle).png"); }
 
 
-#box1-idle{ background-image: url("../../../public/assets/images/Items/Boxes/Box1/Idle.png"); }
-#box2-idle{ background-image: url("../../../public/assets/images/Items/Boxes/Box2/Idle.png"); }
-#box3-idle{ background-image: url("../../../public/assets/images/Items/Boxes/Box3/Idle.png"); }
+#box1-idle{ background-image: url("/assets/images/Items/Boxes/Box1/Idle.png"); }
+#box2-idle{ background-image: url("/assets/images/Items/Boxes/Box2/Idle.png"); }
+#box3-idle{ background-image: url("/assets/images/Items/Boxes/Box3/Idle.png"); }
 
-#block-idle { background-image: url("../../../public/assets/images/Traps/Blocks/Idle.png"); }
+#block-idle { background-image: url("/assets/images/Traps/Blocks/Idle.png"); }
                                            
                                   
 
 
-#platform-on { background-image: url("../../../public/assets/images/Traps/Falling Platforms/Off(64x64).png"); }
+#platform-on { background-image: url("/assets/images/Traps/Falling Platforms/Off(64x64).png"); }
 
-#fan-on { background-image: url("../../../public/assets/images/Traps/Fan/Off(64x64).png"); }
+#fan-on { background-image: url("/assets/images/Traps/Fan/Off(64x64).png"); }
 
-#saw-on { background-image: url("../../../public/assets/images/Traps/Saw/Off(64x64).png"); }
+#saw-on { background-image: url("/assets/images/Traps/Saw/Off(64x64).png"); }
 
-#spykes-idle { background-image: url("../../../public/assets/images/Traps/Spikes/Idle(64x64).png"); }
+#spykes-idle { background-image: url("/assets/images/Traps/Spikes/Idle(64x64).png"); }
 
-#trampoline-idle { background-image: url("../../../public/assets/images/Traps/Trampoline/Idle(64x64).png"); }
+#trampoline-idle { background-image: url("/assets/images/Traps/Trampoline/Idle(64x64).png"); }
 
-#spikedball-chained { background-image: url("../../../public/assets/images/Traps/Spiked Ball/Spiked Ball(64x64).png"); }
+#spikedball-chained { background-image: url("/assets/images/Traps/Spiked Ball/Spiked Ball(64x64).png"); }
 
 
 
-#Blue { background-image: url("../../../public/assets/images/Background/Blue.png"); }
-#Brown { background-image: url("../../../public/assets/images/Background/Brown.png"); }
-#Gray { background-image: url("../../../public/assets/images/Background/Gray.png"); }
-#Green { background-image: url("../../../public/assets/images/Background/Green.png"); }
-#Pink { background-image: url("../../../public/assets/images/Background/Pink.png"); }
-#Purple { background-image: url("../../../public/assets/images/Background/Purple.png"); }
-#Yellow { background-image: url("../../../public/assets/images/Background/Yellow.png"); }
+#Blue { background-image: url("/assets/images/Background/Blue.png"); }
+#Brown { background-image: url("/assets/images/Background/Brown.png"); }
+#Gray { background-image: url("/assets/images/Background/Gray.png"); }
+#Green { background-image: url("/assets/images/Background/Green.png"); }
+#Pink { background-image: url("/assets/images/Background/Pink.png"); }
+#Purple { background-image: url("/assets/images/Background/Purple.png"); }
+#Yellow { background-image: url("/assets/images/Background/Yellow.png"); }
 
 
 
