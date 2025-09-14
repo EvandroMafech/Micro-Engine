@@ -5,7 +5,7 @@ const cors = require("cors");
 const path = require("path");
 
 // serve arquivos estáticos da pasta public
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname,"..", "public")));
 
 // habilita CORS para todas as origens
 app.use(cors()); // permite requisições de qualquer origem
