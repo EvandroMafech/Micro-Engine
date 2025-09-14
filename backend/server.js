@@ -50,9 +50,9 @@ const novaFase = { id: fases.length+1, ...req.body }; // cria uma nova fase com 
   fases.push(novaFase);
 
   res.json({
-    message: `Fase salva com sucesso! Jogue em: http://127.0.0.1:5500/public/game.html?id=${novaFase.id}`,
-       link: `http://localhost:${port}/saved-levels/${novaFase.id}`,
-       gameLink: `http://127.0.0.1:5500/public/game.html?id=${novaFase.id}`
+    message: `Fase salva com sucesso! Jogue em: https://micro-engine.onrender.com/game.html?id=${novaFase.id}`,
+       link: `https://micro-engine.onrender.com/saved-levels/${novaFase.id}`,
+       gameLink: `https://micro-engine.onrender.com/game.html?id=${novaFase.id}`
 });
 });
 
@@ -60,6 +60,7 @@ const novaFase = { id: fases.length+1, ...req.body }; // cria uma nova fase com 
 
 app.listen(port, () => {
   console.log(`🚀 Servidor rodando em https://micro-engine.onrender.com 💾 https://micro-engine.onrender.com/saved-levels`);
+  console.log(process.env)
 });
 
 

@@ -39,7 +39,7 @@ const modalInfo = {
 
 async function checkIfSaved() {
 
-  const checkSave = await fetch("http://localhost:3000/saved-levels/lastsave")
+  const checkSave = await fetch("https://micro-engine.onrender.com/saved-levels/lastsave")
   const result = await checkSave.json()
   
   return result === 0 ? false : true 

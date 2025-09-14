@@ -8,7 +8,7 @@ window.addEventListener("DOMContentLoaded", async () => { // espera o HTML carre
 
   if (faseId) {
     // carrega fase do servidor
-    const response = await fetch(`http://localhost:3000/saved-levels/${faseId}`);
+    const response = await fetch(`https://micro-engine.onrender.com/saved-levels/${faseId}`);
     const fase = await response.json();
 
     gameState.onGamePage = true
