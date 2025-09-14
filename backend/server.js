@@ -20,7 +20,7 @@ let fases = [] // objeto para armazenar fases
 // });
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.sendFile(path.join(__dirname,"..", "public", "index.html"));
 });
 
 // [GET] Listar usuários - http://localhost:3000/saved-levels
