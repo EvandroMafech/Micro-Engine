@@ -15,7 +15,7 @@ import End from "../entities/End.js";
 import Start from "../entities/Start.js";
 import Box from "../entities/Box.js";
 import { functionButtons, gameState, keyboardShortcuts } from "../../game/ui/gameState.js";
-import { allSetIdsArray, animatedImagesArray, backgroundArray, columns, imageSizeFactor, lines, tileArray, tileSetSpriteheet_image_path, tileSize, tilesWithImages } from "../utils/constants.js";
+import { allSetIdsArray, animatedImagesArray, API_URL, backgroundArray, columns, imageSizeFactor, lines, tileArray, tileSetSpriteheet_image_path, tileSize, tilesWithImages } from "../utils/constants.js";
 import { animatePlayer, createBackgroundGrid, createGrid, createMapBoundaries, setImageOnBackgroundTiles } from "./engine.js";
 
 //canvas para os tilesets   
@@ -358,7 +358,7 @@ window.addEventListener("keyup",(event) => { //usado para fazer debugs apertando
     const key = event.key.toLowerCase() 
 
     if(key == "p"){
-    console.log(activeSelectedImage.imageUrl)
+    console.log(API_URL)
     }
 
 })

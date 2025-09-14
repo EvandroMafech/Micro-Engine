@@ -3,6 +3,7 @@ const express = require("express"); // importa o Express
 const app = express(); // cria uma aplicação Express
 const cors = require("cors");
 const path = require("path");
+const { API_URL } = require("../public/src/core/utils/constants");
 
 // serve arquivos estáticos da pasta public
 app.use(express.static(path.join(__dirname,"..", "public")));
@@ -50,17 +51,16 @@ const novaFase = { id: fases.length+1, ...req.body }; // cria uma nova fase com 
   fases.push(novaFase);
 
   res.json({
-    message: `Fase salva com sucesso! Jogue em: https://micro-engine.onrender.com/game.html?id=${novaFase.id}`,
-       link: `https://micro-engine.onrender.com/saved-levels/${novaFase.id}`,
-       gameLink: `https://micro-engine.onrender.com/game.html?id=${novaFase.id}`
+    message: `Fase salva com sucesso! Jogue em: ${API_URL}/game.html?id=${novaFase.id}`,
+       link: `${API_URL}/saved-levels/${novaFase.id}`,
+       gameLink: `${API_URL}/game.html?id=${novaFase.id}`
 });
 });
 
 // Iniciar servidor
 
 app.listen(port, () => {
-  console.log(`🚀 Servidor rodando em https://micro-engine.onrender.com 💾 https://micro-engine.onrender.com/saved-levels`);
-  console.log(process.env)
+  console.log(`🚀 Servidor rodando em ${API_URL} 💾 ${API_URL}/saved-levels`);
 });
 
 

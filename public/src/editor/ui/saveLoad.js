@@ -1,6 +1,6 @@
 import { setImageOnBackgroundTiles } from "../../core/engine/engine.js";
 import {  activeSelectedImage, createAnimatedImage} from "../../core/engine/editor.js";
-import { animatedImagesArray, backgroundArray, tileArray, tileSize, tilesWithImages } from "../../core/utils/constants.js";
+import { animatedImagesArray, API_URL, backgroundArray, tileArray, tileSize, tilesWithImages } from "../../core/utils/constants.js";
 import { spriteCoordinates, positionAdjust } from "../../core/utils/imageData.js";
 import { gameState } from "../../game/ui/gameState.js";
 
@@ -44,7 +44,7 @@ export async function loadLevel(save){
   let savedOnServer
   if(save === undefined){
 try{
-    const savedId = await fetch("https://micro-engine.onrender.com/saved-levels/lastsave")
+    const savedId = await fetch(`${API_URL}/saved-levels/lastsave`)
 
     if(!savedId.ok) {
       throw new Error("Save não encontrado!")
@@ -122,7 +122,7 @@ try{
 // Exemplo: enviando uma fase para o servidor
 async function sendToServer(fase) {
   try {
-    const response = await fetch("https://micro-engine.onrender.com/save-level", {
+    const response = await fetch(`${API_URL}.com/save-level`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -148,7 +148,7 @@ async function sendToServer(fase) {
 
 async function getSaveOnServer(id) {
   try {
-    const response = await fetch(`https://micro-engine.onrender.com/saved-levels/${id}`);
+    const response = await fetch(`${API_URL}.com/saved-levels/${id}`);
   
     if (!response.ok) {throw new Error("Fase não encontrada");}
    

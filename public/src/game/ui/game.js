@@ -1,3 +1,4 @@
+import { API_URL } from "../../core/utils/constants.js";
 import { startGame } from "../../editor/ui/interfaceButtons.js";
 import { loadLevel } from "../../editor/ui/saveLoad.js";
 import { gameState } from "./gameState.js";
@@ -8,7 +9,7 @@ window.addEventListener("DOMContentLoaded", async () => { // espera o HTML carre
 
   if (faseId) {
     // carrega fase do servidor
-    const response = await fetch(`https://micro-engine.onrender.com/saved-levels/${faseId}`);
+    const response = await fetch(`${API_URL}/saved-levels/${faseId}`);
     const fase = await response.json();
 
     gameState.onGamePage = true

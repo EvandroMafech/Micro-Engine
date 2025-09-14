@@ -1,3 +1,8 @@
+export const API_URL = window.location.hostname
+
+
+fetch(`${API_URL}/api/fases`)
+
 export const tileSetSpriteheet_image_path = "/assets/images/Terrain/Terrain (16x16) vertical.png"
 export const chain = new Image()
 chain.src = "/assets/images/Traps/Spiked Ball/Chain.png"

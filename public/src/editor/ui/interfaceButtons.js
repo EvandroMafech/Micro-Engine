@@ -6,7 +6,7 @@ import {
 import { cameraPosition, functionButtons, gameState } from "../../game/ui/gameState.js";
 import { placeInitialCameraPosition } from "../../game/ui/camera.js";
 import { loadLevel, saveLevel } from "./saveLoad.js";
-import { tilesWithImages, allSetIdsArray, animatedImagesArray, backgroundArray, tileArray } from "../../core/utils/constants.js";
+import { tilesWithImages, allSetIdsArray, animatedImagesArray, backgroundArray, tileArray, API_URL } from "../../core/utils/constants.js";
 import { createMapBoundaries, hidePlayer } from "../../core/engine/engine.js";
 
 // ======================
@@ -39,7 +39,7 @@ const modalInfo = {
 
 async function checkIfSaved() {
 
-  const checkSave = await fetch("https://micro-engine.onrender.com/saved-levels/lastsave")
+  const checkSave = await fetch(`${API_URL}/saved-levels/lastsave`)
   const result = await checkSave.json()
   
   return result === 0 ? false : true 
@@ -52,7 +52,7 @@ export function goToPage(page,newPage = false) {
   if(!newPage){
   window.location.href = page;
   }else{
-    console.log(page)
+    //console.log(page)
     window.open(page,"_blank")
   }
 }
@@ -208,11 +208,11 @@ function handleModalNo() {
     break
     case "gameOver-game": case "gameEnd-game": 
       hideModal();
-      goToPage("http://127.0.0.1:5500/public/index.html")
+      goToPage(`${API_URL}`)
     break
     case "exit-game":
       hideModal();
-      goToPage("http://127.0.0.1:5500/public/index.html")
+      goToPage(`${API_URL}`)
     break   
 }
 }
@@ -267,7 +267,6 @@ UI.dropdownButtons.forEach(btn => {
     functionButtons.eraser = false;
     const style = window.getComputedStyle(e.target);
     const match = style.backgroundImage.match(/assets.*?\.png/);
-    console.log(match)
     if (!match) return;
 
     activeSelectedImage.imageId = e.target.id;
