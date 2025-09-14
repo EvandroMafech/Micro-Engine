@@ -1,7 +1,4 @@
-export const API_URL = window.location.hostname
-
-
-fetch(`${API_URL}/api/fases`)
+export const API_URL = 'https://micro-engine.onrender.com'
 
 export const tileSetSpriteheet_image_path = "/assets/images/Terrain/Terrain (16x16) vertical.png"
 export const chain = new Image()
