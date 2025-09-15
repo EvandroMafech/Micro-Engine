@@ -51,17 +51,18 @@ const novaFase = { id: fases.length+1, ...req.body }; // cria uma nova fase com 
   fases.push(novaFase);
 
   res.json({
-    message: `Fase salva com sucesso! Jogue em: ${API_url}/game.html?id=${noURLase.id}`,
-       link: `${API_url}/saved-levels/${noURLase.id}`,
-       gameLink: `${API_url}/game.html?id=${noURLase.id}`
+    message: `Fase salva com sucesso! Jogue em: ${API_url}/game.html?id=${novaFase.id}`,
+       link: `${API_url}/saved-levels/${novaFase.id}`,
+       gameLink: `${API_url}/game.html?id=${novaFase.id}`
 });
 });
 
 // Iniciar servidor
 
 app.listen(port, () => {
-  console.log(`🚀 Servidor rodando em ${API_url} 💾 ${API_url}/saveURLevels`);
-}URL
+  console.log(`🚀 Servidor rodando em ${API_url} 💾 ${API_url}/saved-levels`);
+});
+
 
 // // [PUT] Atualizar usuário
 // app.put("/usuarios/:id", (req, res) => {
