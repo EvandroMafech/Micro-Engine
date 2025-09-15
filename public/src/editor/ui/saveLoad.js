@@ -37,7 +37,7 @@ export function saveLevel() {
 }
 
 export async function loadLevel(save){
-
+    console.log(`${API_URL}/saved-levels/lastsave`)
   gameState.startPointPlaced = false
   gameState.endPointPlaced = false
 
@@ -45,6 +45,7 @@ export async function loadLevel(save){
   if(save === undefined){
 try{
     const savedId = await fetch(`${API_URL}/saved-levels/lastsave`)
+
 
     if(!savedId.ok) {
       throw new Error("Save não encontrado!")
