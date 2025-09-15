@@ -1,6 +1,5 @@
 import { positionAdjust, spriteCoordinates } from "../utils/imageData.js";
 import AnimatedImage from "../entities/AnimatedImage.js";
-import Tile from "../entities/Tile.js";
 import { tileSetCanvasFrameInfo } from "../utils/tilesetCanvas.js";
 import Player from "../entities/Player.js";
 import Fruit from "../entities/Fruit.js";
@@ -15,10 +14,10 @@ import End from "../entities/End.js";
 import Start from "../entities/Start.js";
 import Box from "../entities/Box.js";
 import { functionButtons, gameState, keyboardShortcuts } from "../../game/ui/gameState.js";
-import { allSetIdsArray, animatedImagesArray, API_URL, backgroundArray, columns, imageSizeFactor, lines, tileArray, tileSetSpriteheet_image_path, tileSize, tilesWithImages } from "../utils/constants.js";
+import { allSetIdsArray, animatedImagesArray, API_URL, imageSizeFactor, tileArray, tileSetSpriteheet_image_path, tileSize, tilesWithImages } from "../utils/constants.js";
 import { animatePlayer, createBackgroundGrid, createGrid, createMapBoundaries, setImageOnBackgroundTiles } from "./engine.js";
 
-//canvas para os tilesets   
+  
 export const tileSetCanvas = document.querySelector(".tileset") 
 const ctx = tileSetCanvas.getContext("2d")
 
@@ -31,12 +30,11 @@ const ctxGrid = gridCanvas.getContext("2d")
 export const editorCanvas = document.querySelector(".editor")
 const ctxEditor = editorCanvas.getContext("2d")
 
-// canvas para imagens animadas
 export const animationCanvas = document.querySelector(".animations") 
 const ctxAnimations = animationCanvas.getContext("2d")
 
-tileSetCanvas.width = animationCanvas.width = backgroundCanvas.width = 1984
-tileSetCanvas.height = animationCanvas.height = backgroundCanvas.height = 832
+tileSetCanvas.width = animationCanvas.width = backgroundCanvas.width = gridCanvas.width = editorCanvas.width = 1984
+tileSetCanvas.height = animationCanvas.height = backgroundCanvas.height = gridCanvas.height = editorCanvas.height = 832
 
 export let animatedImagesArrayLastSave = [] //usado para salvar o estado anterior do array de imagens animadas
 export let tileArrayLastSave = [] //usado para salvar o estado anterior do array de tiles
@@ -57,10 +55,11 @@ export const activeSelectedImage = { //usada para salvar a ultima imagem selecio
 }
 
 let fruitsId = 0 //id de cada fruta plotada na tela 
-let boxId = 0 //id de cada fruta plotada na tela 
+let boxId = 0 //id de cada caixa plotada na tela 
+
+
 
 function undoImages(){ //apaga imagens da tela pelo atalho CTRL-Z
-
 
 let lastImage = allSetIdsArray[allSetIdsArray.length-1].type 
     
@@ -277,7 +276,6 @@ export function selectedImage(clientX, clientY){
 
 export function animationLoop(){ //loop principal
     
-    
 
     if(gameState.pause == false){  
     ctxAnimations.clearRect(0,0, tileSetCanvas.width,tileSetCanvas.height) //limpa tela do canvas das animações
@@ -285,12 +283,13 @@ export function animationLoop(){ //loop principal
 
     animatedImagesArray.forEach(image => {
         image.animate()  //atualiza os quadros de todas as imagens animadas
-        image.checkCollisionWithPlayer() //verifica se colidiu com o player
     }) 
    
   
     if(gameState.gameRunning) {
         animatePlayer() // anima o player na tela
+        animatedImagesArray.forEach(image => {image.checkCollisionWithPlayer() //verifica se colidiu com o player
+    }) 
             
     }else{
         player.position.y = 5000
@@ -365,6 +364,14 @@ window.addEventListener("keyup",(event) => { //usado para fazer debugs apertando
 
    
 editorCanvas.addEventListener("mousemove",event => {
+
+        if(gameState.gameRunning) {
+            ctxEditor.clearRect(0,0,2000,2000)
+            functionButtons.selectTileset = false
+            functionButtons.selectItens = true
+            functionButtons.eraser = false
+            return
+        }
 
         const origin = tileSetCanvas.getBoundingClientRect()
         ctxEditor.clearRect(0,0,2000,2000)

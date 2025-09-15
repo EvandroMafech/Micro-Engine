@@ -76,7 +76,6 @@ export function animatePlayer(){ //funções para animar o player
     player.animate()
     player.applyGravity()
     player.checkCollisionOnTiles()
-
 }
 
 export function hidePlayer(){

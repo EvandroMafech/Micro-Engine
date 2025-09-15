@@ -2,25 +2,18 @@
 const express = require("express"); // importa o Express
 const app = express(); // cria uma aplicação Express
 const cors = require("cors");
-const path = require("path");
+const path = require("path"); //usado para facilitar os caminhos do frontend
 const API_url = "https://micro-engine.onrender.com"
-const port = process.env.PORT || 3000;
-// serve arquivos estáticos da pasta public
-app.use(express.static(path.join(__dirname,"..", "public")));
+const port = process.env.PORT || 3000; //define a porta do servidor dinamicamente
 
-// habilita CORS para todas as origens
-app.use(cors()); // permite requisições de qualquer origem
+app.use(express.static(path.join(__dirname,"..", "public"))); // serve arquivos estáticos da pasta public
+app.use(cors()); // permite requisições de qualquer origem // habilita CORS para todas as origens
 app.use(express.json()); // permite trabalhar com JSON no body das requisições
 
 // Banco de dados (em memória)
 let fases = [] // objeto para armazenar fases
 
-// Rota inicial - http://localhost:3000/
-// app.get("/", (req, res) => {
-//   res.send("Servidor rodando! 🚀");
-// });
-
-app.get("/", (req, res) => {
+app.get("/", (req, res) => { //define a rota da página inicial
   res.sendFile(path.join(__dirname,"..", "public", "index.html"));
 });
 
@@ -34,10 +27,9 @@ app.get("/saved-levels/lastsave",(req,res) => {
   res.json(fases.length) // retorna a última fase salva
 })
 
-// [GET] Buscar usuário por ID - http://localhost:3000/fases/1
+// [GET] Buscar usuário por ID - http://localhost:3000/saved-levels/1
 app.get("/saved-levels/:id", (req, res) => {
   const id = parseInt(req.params.id);
-
   const fase = fases.find(f => f.id === id);
   
   if (!fase) return res.status(404).json({ erro: "Fase não encontrada" });
@@ -45,7 +37,7 @@ app.get("/saved-levels/:id", (req, res) => {
   res.json(fase);
 });
 
-// [POST] Criar novo usuário - http://localhost:3000/save-level
+// [POST] Criar nova fase - http://localhost:3000/save-level
 app.post("/save-level", (req, res) => {
 const novaFase = { id: fases.length+1, ...req.body }; // cria uma nova fase com ID único
   fases.push(novaFase);
@@ -60,7 +52,9 @@ const novaFase = { id: fases.length+1, ...req.body }; // cria uma nova fase com 
 // Iniciar servidor
 
 app.listen(port, () => {
-  console.log(`🚀 Servidor rodando em ${API_url} 💾 ${API_url}/saved-levels`);
+  console.log(`🚀 Servidor rodando em ${API_url} 
+               💾 ${API_url}/saved-levels
+               🌐 ${API_url}/saved-levels/lastsave `);
 });
 
 

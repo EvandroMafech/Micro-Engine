@@ -1,5 +1,5 @@
 import { 
-  activeSelectedImage,  animationLoop,  clearGrid,
+  activeSelectedImage, clearGrid,
   drawGrid,  player,  
 } from "../../core/engine/editor.js";
 
@@ -319,7 +319,7 @@ UI.headerButtons.forEach(btn => {
         break;
       case "clear": showModal("Excluir todos os elementos? Alterações não salvas serão perdidas.", "clear", { yes: true, no: true }); break;
       case "save": showModal("Deseja salvar?", "save", { yes: true, no: true }); break;
-      case "open": showModal("Abrir outro save? Alterações não salvas serão perdidas.", "open", { yes: true, no: true }); break;
+      case "open": showModal("Abrir último save? Alterações não salvas serão perdidas.", "open", { yes: true, no: true }); break;
       case "link": showModal(`Acesse sua fase pelo link: ${gameState.link} Deseja acessar agora?`, "link", { yes: true, no: true }); break;
     }
   });

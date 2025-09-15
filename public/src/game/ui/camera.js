@@ -1,4 +1,4 @@
-import { animationCanvas, backgroundCanvas, gridCanvas, player, tileSetCanvas } from "../../core/engine/editor.js";
+import { animationCanvas, backgroundCanvas, gridCanvas, tileSetCanvas } from "../../core/engine/editor.js";
 import { cameraPosition } from "./gameState.js";
 
 export function placeInitialCameraPosition(positionX,positionY){

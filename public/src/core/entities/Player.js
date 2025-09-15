@@ -215,7 +215,7 @@ checkCollisionOnTiles() {
 
         const tileEdges = this.calculateTileEdges(tile);
 
-        // --- Colisão vindo de cima (aterrissagem) ---
+        // Colisão vindo de cima (aterrissagem) ---
         const landing =
             playerEdges.bottom >= tileEdges.top &&
             playerEdges.bottom <= tileEdges.bottom &&
