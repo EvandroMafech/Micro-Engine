@@ -1,8 +1,5 @@
 export const API_URL = "https://micro-engine.onrender.com"
 export const tileSetSpriteheet_image_path = "/assets/images/Terrain/Terrain (16x16) vertical.png"
-export const chain = new Image()
-chain.src = "/assets/images/Traps/Spiked Ball/Chain.png"
-
 export const lines = 13 //linhas do editor
 export const columns = 31 // clounas do editor
 export const tileSize = 64 //tamanho de cada frame do grid

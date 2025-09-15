@@ -1,5 +1,5 @@
 import { player } from "../engine/editor.js";
-import { chain, staggerFrames } from "../utils/constants.js";
+import { staggerFrames } from "../utils/constants.js";
 import AnimatedImage from "./AnimatedImage.js";
 import { gameOverModal } from "../../editor/ui/interfaceButtons.js";
 import { gameState } from "../../game/ui/gameState.js";
@@ -45,6 +45,9 @@ export default class Spikedball extends AnimatedImage{
     }
 
     animateChain(){
+        const chain = new Image()
+        chain.src = "/assets/images/Traps/Spiked Ball/Chain.png"  
+        
         const image = chain
    
         let position = Math.floor(frames/staggerFrames)%this.spriteFrames

@@ -336,7 +336,7 @@ window.addEventListener("keydown",(event) => {
     }
     if(key == "shift"){keyboardShortcuts.alignItens = true}
     if(event.ctrlKey && key == "z"){undoImages()}
-    if(key == "r"){keyboardShortcuts.rotateImage += 90}
+    //if(key == "r"){keyboardShortcuts.rotateImage += 90}
 })
 
 window.addEventListener("keyup",(event) => {
@@ -357,7 +357,7 @@ window.addEventListener("keyup",(event) => { //usado para fazer debugs apertando
     const key = event.key.toLowerCase() 
 
     if(key == "p"){
-    console.log(API_URL)
+    //console.log(API_URL)
     }
 
 })

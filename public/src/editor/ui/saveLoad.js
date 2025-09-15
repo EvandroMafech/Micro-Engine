@@ -37,7 +37,7 @@ export function saveLevel() {
 }
 
 export async function loadLevel(save){
-    console.log(`${API_URL}/saved-levels/lastsave`)
+
   gameState.startPointPlaced = false
   gameState.endPointPlaced = false
 
@@ -137,8 +137,8 @@ async function sendToServer(fase) {
     }
 
     const result = await response.json();
-    console.log("Fase salva em: ", result.link);
-    console.log("Link para jogar: ", result.gameLink);
+    //console.log("Fase salva em: ", result.link);
+    //console.log("Link para jogar: ", result.gameLink);
     gameState.link = result.gameLink 
     //alert(`Link para jogar: ${result.gameLink}`)
     return result.link; // você pode mostrar para o usuário ou salvar
