@@ -15,6 +15,8 @@ export default class Spikedball extends AnimatedImage{
         this.amplitude = 0.5*Math.PI
         this.phase = 0
         this.gravity = 120
+        this.chain = new Image()
+        this.chain.src = "/assets/images/Traps/Spiked Ball/Chain.png" 
     }
 
     originPosition(){
@@ -45,10 +47,8 @@ export default class Spikedball extends AnimatedImage{
     }
 
     animateChain(){
-        const chain = new Image()
-        chain.src = "/assets/images/Traps/Spiked Ball/Chain.png"  
-        
-        const image = chain
+       
+        const image = this.chain
    
         let position = Math.floor(frames/staggerFrames)%this.spriteFrames
         let frameX = position*this.width
@@ -63,6 +63,8 @@ export default class Spikedball extends AnimatedImage{
 
             const chainX = -chainRadious*Math.sin(this.amplitude*Math.cos(chainAngularFreq*this.time + this.phase)) + this.origin.x + this.width/1.3
             const chainY = +chainRadious*Math.cos(this.amplitude*Math.cos(chainAngularFreq*this.time + this.phase)) + this.origin.y
+            
+
             this.ctxAnimations.drawImage(image,frameX,frameY, this.width,this.height, chainX, chainY, this.width*this.size , this.height*this.size) //(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
             chainRadious -= 20
         }

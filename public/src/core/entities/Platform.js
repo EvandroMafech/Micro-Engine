@@ -1,5 +1,4 @@
 import {  player } from "../engine/editor.js";
-import { animatedImagesArray } from "../utils/constants.js";
 import AnimatedImage from "./AnimatedImage.js";
 
 export default class Platform extends AnimatedImage{
