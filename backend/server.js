@@ -3,7 +3,7 @@ const express = require("express"); // importa o Express
 const app = express(); // cria uma aplicação Express
 const cors = require("cors");
 const path = require("path");
-const { API_URL } = require("../public/src/core/utils/constants");
+const API_URL = 'https://micro-engine.onrender.com'
 
 // serve arquivos estáticos da pasta public
 app.use(express.static(path.join(__dirname,"..", "public")));
