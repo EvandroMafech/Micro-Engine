@@ -123,7 +123,7 @@ try{
 // Exemplo: enviando uma fase para o servidor
 async function sendToServer(fase) {
   try {
-    const response = await fetch(`${API_URL}.com/save-level`, {
+    const response = await fetch(`${API_URL}/save-level`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -149,7 +149,7 @@ async function sendToServer(fase) {
 
 async function getSaveOnServer(id) {
   try {
-    const response = await fetch(`${API_URL}.com/saved-levels/${id}`);
+    const response = await fetch(`${API_URL}/saved-levels/${id}`);
   
     if (!response.ok) {throw new Error("Fase não encontrada");}
    
