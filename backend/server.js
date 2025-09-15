@@ -3,15 +3,15 @@ const express = require("express"); // importa o Express
 const app = express(); // cria uma aplicação Express
 const cors = require("cors");
 const path = require("path");
-const API_URL = process.env.API_URL
-
+const API_url = process.env.API_URL
+const port = process.env.PORT || 3000;
 // serve arquivos estáticos da pasta public
 app.use(express.static(path.join(__dirname,"..", "public")));
 
 // habilita CORS para todas as origens
 app.use(cors()); // permite requisições de qualquer origem
 app.use(express.json()); // permite trabalhar com JSON no body das requisições
-const port = process.env.PORT || 3000;
+
 // Banco de dados (em memória)
 let fases = [] // objeto para armazenar fases
 
@@ -51,18 +51,17 @@ const novaFase = { id: fases.length+1, ...req.body }; // cria uma nova fase com 
   fases.push(novaFase);
 
   res.json({
-    message: `Fase salva com sucesso! Jogue em: ${API_URL}/game.html?id=${novaFase.id}`,
-       link: `${API_URL}/saved-levels/${novaFase.id}`,
-       gameLink: `${API_URL}/game.html?id=${novaFase.id}`
+    message: `Fase salva com sucesso! Jogue em: ${API_url}/game.html?id=${noURLase.id}`,
+       link: `${API_url}/saved-levels/${noURLase.id}`,
+       gameLink: `${API_url}/game.html?id=${noURLase.id}`
 });
 });
 
 // Iniciar servidor
 
 app.listen(port, () => {
-  console.log(`🚀 Servidor rodando em ${API_URL} 💾 ${API_URL}/saved-levels`);
-});
-
+  console.log(`🚀 Servidor rodando em ${API_url} 💾 ${API_url}/saveURLevels`);
+}URL
 
 // // [PUT] Atualizar usuário
 // app.put("/usuarios/:id", (req, res) => {
