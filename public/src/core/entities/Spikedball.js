@@ -1,4 +1,4 @@
-import { player } from "../engine/editor.js";
+import { frames, player } from "../engine/editor.js";
 import { staggerFrames } from "../utils/constants.js";
 import AnimatedImage from "./AnimatedImage.js";
 import { gameOverModal } from "../../editor/ui/interfaceButtons.js";
@@ -65,11 +65,7 @@ export default class Spikedball extends AnimatedImage{
             const chainY = +chainRadious*Math.cos(this.amplitude*Math.cos(chainAngularFreq*this.time + this.phase)) + this.origin.y
             
 
-           this.ctxAnimations.drawImage(
-    image,
-    chainX, chainY,
-    this.width*this.size, this.height*this.size
-)
+            this.ctxAnimations.drawImage(image,frameX,frameY, this.width,this.height, chainX, chainY, this.width*this.size , this.height*this.size) //(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
             chainRadious -= 20
         }
         
