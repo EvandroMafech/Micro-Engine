@@ -28,7 +28,7 @@ export function saveLevel() {
                 rotation: img.rotation ?? null
             }
         })),
-        background: activeBackgroundImage
+        background: activeBackgroundImage[activeBackgroundImage.length-1]
     }
 
     //localStorage.setItem("savedLevel", JSON.stringify(saveData)) // salvar no localStorage
