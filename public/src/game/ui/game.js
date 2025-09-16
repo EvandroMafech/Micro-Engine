@@ -18,7 +18,7 @@ window.addEventListener("DOMContentLoaded", async () => { // espera o HTML carre
     loadLevel(fase).then(() =>{
     startGame()
     console.log("Onload",fase.background)
-    setImageOnBackgroundTiles(fase.background)
+    
     })
 
 
@@ -32,6 +32,7 @@ window.addEventListener("keyup",(event) => { //usado para fazer debugs apertando
     const key = event.key.toLowerCase() 
 
     if(key == "t"){
+    setImageOnBackgroundTiles(fase.background)
     console.log(backgroundArray)
     }
 

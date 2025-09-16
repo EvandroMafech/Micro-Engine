@@ -76,6 +76,7 @@ try{
     animatedImagesArray.length = 0
     tilesWithImages.length = 0
     tileArray.forEach(tile => { tile.activeImage = " "; tile.cleanTile() })
+    backgroundArray.forEach(tile =>{ tile.activeBackgroundImage = ""})
 
     // recriar tiles
     saveData.tiles.forEach(savedTile => {
