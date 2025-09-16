@@ -75,11 +75,12 @@ calculateHitbox(){
 }
 
 performJump(jumpType) {
+    this.spriteState = this.selectAvatar() + jumpType;
     this.phisics.velocityY = this.phisics.jumpStrength;
     this.position.y += this.phisics.velocityY;
     this.playerState.isJumping = true
     this.playerState.keyJumpIsUp = false
-    this.spriteState = this.selectAvatar() + jumpType;
+
 }
 
 getLettersAfterChar(str, char) {

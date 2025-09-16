@@ -277,25 +277,23 @@ export function selectedImage(clientX, clientY){
 export function animationLoop(){ //loop principal
     
 
-    if(gameState.pause == false){  
+    if(gameState.pause == false){ 
+
     ctxAnimations.clearRect(0,0, tileSetCanvas.width,tileSetCanvas.height) //limpa tela do canvas das animações
-
-
-    animatedImagesArray.forEach(image => {
-        image.animate()  //atualiza os quadros de todas as imagens animadas
-    }) 
    
-  
     if(gameState.gameRunning) {
         animatePlayer() // anima o player na tela
         animatedImagesArray.forEach(image => {image.checkCollisionWithPlayer() //verifica se colidiu com o player
-    }) 
-            
+    })         
     }else{
         player.position.y = 5000
         player.position.x = 5000
     }
 
+    animatedImagesArray.forEach(image => {
+        image.animate()  //atualiza os quadros de todas as imagens animadas
+    }) 
+   
     if(player.MoveAction.left || player.MoveAction.right) player.move()
     if(player.MoveAction.jump == true) player.jump()
   
