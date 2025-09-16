@@ -89,8 +89,8 @@ try{
         }
     })
     //Carrega background
-    //setImageOnBackgroundTiles("../../" + saveData.background,typeof saveData.background)
-    //console.log("Background carregado:", "../../" + saveData.background)
+    setImageOnBackgroundTiles(saveData.background)
+    console.log("Background carregado: ",saveData.background)
 
 
     // recriar imagens animadas
