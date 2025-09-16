@@ -18,7 +18,7 @@ window.addEventListener("DOMContentLoaded", async () => { // espera o HTML carre
     loadLevel(fase).then(() =>{
     startGame()
     console.log("Onload",fase.background)
-    setImageOnBackgroundTiles(fase.background)
+    setImageOnBackgroundTiles("/" + fase.background)
     })
 
 
