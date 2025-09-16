@@ -1,5 +1,5 @@
 import { setImageOnBackgroundTiles } from "../../core/engine/engine.js";
-import { API_URL } from "../../core/utils/constants.js";
+import { API_URL, backgroundArray } from "../../core/utils/constants.js";
 import { startGame } from "../../editor/ui/interfaceButtons.js";
 import { loadLevel } from "../../editor/ui/saveLoad.js";
 import { gameState } from "./gameState.js";
@@ -18,7 +18,7 @@ window.addEventListener("DOMContentLoaded", async () => { // espera o HTML carre
     loadLevel(fase).then(() =>{
     startGame()
     console.log("Onload",fase.background)
-    setImageOnBackgroundTiles("/" + fase.background)
+    setImageOnBackgroundTiles(fase.background)
     })
 
 
@@ -27,3 +27,12 @@ window.addEventListener("DOMContentLoaded", async () => { // espera o HTML carre
     console.log("Nenhum ID de fase fornecido na URL.");
   }
 });
+
+window.addEventListener("keyup",(event) => { //usado para fazer debugs apertando p para gerar informaçãos no console
+    const key = event.key.toLowerCase() 
+
+    if(key == "t"){
+    console.log(backgroundArray)
+    }
+
+})
