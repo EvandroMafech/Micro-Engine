@@ -13,7 +13,6 @@ export const animatedImagesArray = [] //salva em sequencia todas as imagens anim
 export const allSetIdsArray = [] //salva todas as imagens em sequencia para ser usada ao apertar a tecla CTRL+Z
 export const activeBackgroundImage = []
 
-
 export const specialTilesIds = [ //ids de tiles que são como plataformas (o player pode pular por baixo deles)
   "l6c20",
   "l7c20",

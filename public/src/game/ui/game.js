@@ -1,3 +1,4 @@
+import { setImageOnBackgroundTiles } from "../../core/engine/engine.js";
 import { API_URL } from "../../core/utils/constants.js";
 import { startGame } from "../../editor/ui/interfaceButtons.js";
 import { loadLevel } from "../../editor/ui/saveLoad.js";
@@ -15,9 +16,10 @@ window.addEventListener("DOMContentLoaded", async () => { // espera o HTML carre
     gameState.onGamePage = true
     //console.log("Fase carregada do servidor:", fase);
     loadLevel(fase).then(() =>{
+    setImageOnBackgroundTiles(fase.background)  
     startGame()
     })
-    //setImageOnBackgroundTiles("../../" + fase.background,typeof fase.background)
+
 
   } else {
 
