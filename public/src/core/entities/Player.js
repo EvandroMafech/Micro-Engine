@@ -121,6 +121,8 @@ animate(){
     const image = spriteCoordinates[this.spriteState].location[0].imageInstance
     image.src = spriteCoordinates[this.spriteState].location[0].image
 
+    image.onload(() => {
+
     let frameX = position*this.spriteWidth
     let frameY = spriteCoordinates[this.spriteState].location[position].y
 
@@ -148,6 +150,10 @@ animate(){
             this.spriteWidth * this.spriteSize, this.spriteHeight * this.spriteSize
         )
     }
+
+    })
+
+    
 
 }
 
