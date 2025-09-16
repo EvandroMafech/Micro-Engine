@@ -1,5 +1,5 @@
 import Tile from "../entities/Tile.js"
-import { backgroundArray, columns, lines, tileArray, tileSize } from "../utils/constants.js"
+import { activeBackgroundImage, backgroundArray, columns, lines, tileArray, tileSize } from "../utils/constants.js"
 import { activeSelectedImage, player } from "./editor.js"
 
 export function createGrid(ctx){ //cria todas as instancias do grid principal do editor
@@ -67,7 +67,8 @@ const tileSize = 64*3
 
 export function setImageOnBackgroundTiles(image){ //posiciona os quadrados de background no canvas
     const bgImage = image ?? activeSelectedImage.imageUrl;
-    console.log(bgImage)
+    activeBackgroundImage = bgImage
+    console.log(activeBackgroundImage)
     backgroundArray.forEach(tile => {tile.drawBackground(bgImage)})
 }
 

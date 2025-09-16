@@ -11,6 +11,7 @@ export const tileArray = [] //guarda uma instancia para cada frame do editor
 export const backgroundArray = [] //salva as instancia de cada frame do background
 export const animatedImagesArray = [] //salva em sequencia todas as imagens animadas
 export const allSetIdsArray = [] //salva todas as imagens em sequencia para ser usada ao apertar a tecla CTRL+Z
+export const activeBackgroundImage = ""
 
 
 export const specialTilesIds = [ //ids de tiles que são como plataformas (o player pode pular por baixo deles)

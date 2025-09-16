@@ -1,6 +1,6 @@
 import { setImageOnBackgroundTiles } from "../../core/engine/engine.js";
 import {  activeSelectedImage, createAnimatedImage} from "../../core/engine/editor.js";
-import { animatedImagesArray, API_URL, backgroundArray, tileArray, tileSize, tilesWithImages } from "../../core/utils/constants.js";
+import { activeBackgroundImage, animatedImagesArray, API_URL, backgroundArray, tileArray, tileSize, tilesWithImages } from "../../core/utils/constants.js";
 import { spriteCoordinates, positionAdjust } from "../../core/utils/imageData.js";
 import { gameState } from "../../game/ui/gameState.js";
 
@@ -28,7 +28,7 @@ export function saveLevel() {
                 rotation: img.rotation ?? null
             }
         })),
-        background: backgroundArray[0].backgroundImageSource
+        background: activeBackgroundImage
     }
 
     //localStorage.setItem("savedLevel", JSON.stringify(saveData)) // salvar no localStorage
@@ -89,8 +89,9 @@ try{
         }
     })
     //Carrega background
-    setImageOnBackgroundTiles(saveData.background)
     console.log("Background carregado: ",saveData.background)
+    setImageOnBackgroundTiles(saveData.background)
+ 
 
 
     // recriar imagens animadas
