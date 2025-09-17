@@ -70,7 +70,6 @@ export function setImageOnBackgroundTiles(image){ //posiciona os quadrados de ba
     activeBackgroundImage.push(bgImage)
     backgroundArray.forEach(tile => {
         tile.drawBackground(bgImage)
-        tile.activeBackgroundImage = bgImage
     })
 }
 
