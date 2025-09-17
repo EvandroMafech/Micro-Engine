@@ -90,7 +90,6 @@ try{
         }
     })
     //Carrega background
-    console.log("Background carregado: ",saveData.background)
     setImageOnBackgroundTiles(saveData.background)
  
 

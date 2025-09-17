@@ -68,7 +68,6 @@ const tileSize = 64*3
 export function setImageOnBackgroundTiles(image){ //posiciona os quadrados de background no canvas
     const bgImage = image ?? activeSelectedImage.imageUrl;
     activeBackgroundImage.push(bgImage)
-    console.log(activeBackgroundImage[activeBackgroundImage.length-1])
     backgroundArray.forEach(tile => {
         tile.drawBackground(bgImage)
         tile.activeBackgroundImage = bgImage
