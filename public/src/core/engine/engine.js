@@ -69,7 +69,10 @@ export function setImageOnBackgroundTiles(image){ //posiciona os quadrados de ba
     const bgImage = image ?? activeSelectedImage.imageUrl;
     activeBackgroundImage.push(bgImage)
     console.log(activeBackgroundImage[activeBackgroundImage.length-1])
-    backgroundArray.forEach(tile => {tile.drawBackground(bgImage)})
+    backgroundArray.forEach(tile => {
+        tile.drawBackground(bgImage)
+        tile.activeBackgroundImage = bgImage
+    })
 }
 
 
