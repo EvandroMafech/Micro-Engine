@@ -36,7 +36,7 @@ window.addEventListener("keyup",(event) => { //usado para fazer debugs apertando
     const key = event.key.toLowerCase() 
 
     if(key == "t"){
-    setImageOnBackgroundTiles("assets/images/Background/Gray.png")
+    setImageOnBackgroundTiles("assets/images/Background/Green.png")
     console.log(backgroundArray)
     }
 
