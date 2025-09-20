@@ -1,5 +1,5 @@
 //classe mãe para todas as imagens animadas
-import { frames, player} from "../engine/editor.js";
+import { frames, player } from "../engine/editor.js";
 import { staggerFrames } from "../../core/utils/constants.js";
 
 export default class AnimatedImage {
@@ -15,7 +15,7 @@ export default class AnimatedImage {
     canvas,
     imageSizeFactor,
     id,
-    rotateAngle
+    rotateAngle,
   ) {
     this.x = x;
     this.y = y;
@@ -70,7 +70,7 @@ export default class AnimatedImage {
       this.x,
       this.y,
       this.width * this.size,
-      this.height * this.size
+      this.height * this.size,
     );
   }
 
@@ -84,7 +84,7 @@ export default class AnimatedImage {
     this.ctxAnimations.save(); // Salva o estado original do contexto
     this.ctxAnimations.translate(
       this.x + (this.width / 2) * this.size,
-      this.y + (this.height / 2) * this.size
+      this.y + (this.height / 2) * this.size,
     ); // Ajusta o ponto de origem
     this.ctxAnimations.rotate((this.rotateAngle * Math.PI) / 180);
 
@@ -98,7 +98,7 @@ export default class AnimatedImage {
       -32,
       -32, // Ajustado para o sistema de coordenadas transformado
       this.width * this.size,
-      this.height * this.size
+      this.height * this.size,
     );
     this.ctxAnimations.restore(); //Restaura o estado original
   }
@@ -110,7 +110,7 @@ export default class AnimatedImage {
       this.y + (this.height / 2) * this.size,
       5, //raio
       0,
-      2 * Math.PI
+      2 * Math.PI,
     ); // Define o arco (círculo completo)
     this.ctxAnimations.fillStyle = "red"; // Cor do preenchimento
     this.ctxAnimations.fill(); // Preenche o círculo
@@ -130,7 +130,7 @@ export default class AnimatedImage {
       this.x,
       this.y,
       this.width * this.size,
-      this.height * this.size
+      this.height * this.size,
     );
 
     //retirar comentario para mostrar contorno na imagem e centro da imagem

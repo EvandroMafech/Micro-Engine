@@ -1,45 +1,140 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Editor de Fases</title>
-  <link rel="stylesheet" href="/public/src/styles/index.css">
-  <script src ="/public/src/login/index.js" defer></script>
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Bungee&display=swap" rel="stylesheet">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Editor de Fases</title>
+    <link rel="stylesheet" href="/public/src/styles/index.css" />
+    <script type="module" src="/public/src/login/index.js" defer></script>
 
-    <div id="customModal" class="modal">
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Bungee&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- <div id = "loginModal" class="loginModal">
 
-        <div class="modal-content">
-          <p class="text">Você quer continuar?</p>
-          <button class="btn-yes">Sim</button>
-          <button class="btn-no">Não</button>
-          <button class="btn-ok">Ok</button>
+        <div class="loginModal-content">
+         
+          <label class="text">Digite seu login e senha</label>
+            <label class="text">Usuário</label>
+          <input type="text" class="user">
+         <label class="text">Senha</label>
+          <input type="password" class="password">
+
+          <button class="submit">Entrar</button>
+          <button class="noAcount">Não tenho conta</button>
+
         </div>
 
+    </div> -->
+    <div id="loginModal" class="loginModal">
+      <div class="loginModal-content">
+        <label class="text">Digite seu login e senha</label>
+
+        <form class="form">
+          <!-- Usuário -->
+          <label for="username">Usuário</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            class="user"
+            required
+          >
+
+          <!-- Senha -->
+          <label for="password">Senha</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="password"
+            required
+          >
+
+          <!-- Botão -->
+          <button type="submit" class="submit">Entrar</button>
+          <button class="noAcount">Não tenho conta</button>
+        </form>
+      </div>
     </div>
 
+    <!-- <div id="CreateAccount" class="CreateAccount">
+      <div class="CreateAccount-content">
+        <label class="text">Registre sua conta</label>
+        <label class="text">Usuário</label>
+        <input type="text" class="user" />
+        <label class="text">Senha</label>
+        <input type="password" class="password" />
+        <label class="text">Digite a senha novamente</label>
+        <input type="password" class="password" />
 
+        <button class="register-btn">Registrar</button>
+        <button class="btn-no">Não tenho conta</button>
+        <button class="btn-ok">Ok</button>
+      </div>
+    </div> -->
 
-  <section class="preview">
-     <div class="preview-box"></div>
-  </section>
+    <div id="CreateAccount" class="CreateAccount">
+      <div class="CreateAccount-content">
+        <label class="text">Registre sua conta</label>
 
-  <!-- HERO -->
-  <header class="call">
-    <p class="call-text">Crie sua fase e compartilhe com amigos!</p>
-    <a class="btn">Começar Agora</a>
-    <!-- <a href="editor.html" class="btn">Começar Agora</a> -->
-  </header>
+        <form class="registerForm">
+          <!-- Usuário -->
+          <label for="username">Usuário</label>
+          <input
+            type="text"
+            id="newUsername"
+            name="username"
+            class="user"
+            required
+          >
 
-  <section class = "bottom-text">
-    <p class="text">Level Editor - Desenvolvido por Evandro Magalhães</p>
-     <a href="https://github.com/EvandroMafech" class="btn-git">GitHub</a>
-      <a href="https://www.youtube.com/channel/UCrhB4GL8IKS-9oAWuE99cWQ" class="btn-youtube">Youtube</a>
-  </section>
+          <!-- Senha -->
+          <label for="password">Senha</label>
+          <input
+            type="password"
+            id="password1"
+            name="password"
+            class="password"
+            required
+          >
+          <label for="password">Digite a senha novamente</label>
+          <input
+            type="password"
+            id="password2"
+            name="password"
+            class="password"
+            required
+          >
 
-</body>
+          <!-- Botão -->
+          <button type="submit" class="register-btn">Criar conta</button>
+        </form>
+      </div>
+    </div>
 
+    <section class="preview">
+      <div class="preview-box"></div>
+    </section>
 
+    <!-- HERO -->
+    <header class="call">
+      <p class="call-text">Crie sua fase e compartilhe com amigos!</p>
+      <a class="btn">Começar Agora</a>
+      <!-- <a href="editor.html" class="btn">Começar Agora</a> -->
+    </header>
+
+    <section class="bottom-text">
+      <p class="text">Level Editor - Desenvolvido por Evandro Magalhães</p>
+      <a href="https://github.com/EvandroMafech" class="btn-git">GitHub</a>
+      <a
+        href="https://www.youtube.com/channel/UCrhB4GL8IKS-9oAWuE99cWQ"
+        class="btn-youtube"
+        >Youtube</a
+      >
+    </section>
+  </body>
+</html>

@@ -5,14 +5,27 @@
   box-sizing: border-box;
 }
 
-:root{
-    --primary-color: #3bbd91; /* verde */
-    --secondary-color: #FFD700; /* amarelo */
-    --accent-color: #FF5722; /* laranja */
-    --background-color: #1e1e2f; /* cinza claro */
-    --text-color: #222; /* cinza escuro */
-}
+:root {
+  --primary-color: #3bbd91; /* verde */
+  --secondary-color: #ffd700; /* amarelo */
+  --accent-color: #ff5722; /* laranja */
+  --background-color: #1e1e2f; /* cinza claro */
+  --text-color: #222; /* cinza escuro */
 
+  --bg: #1e1e2f; /* Fundo app */
+  --panel: #232931; /* Painéis */
+  --panel-2: #2a2e35;
+  --text: #f0f0f0;
+  --muted: #9aa0a6;
+
+  --primary: #4ccda2; /* Verde destaque */
+  --primary-600: #3bbd91;
+  --accent: #3a7bd5; /* Azul ação */
+  --danger: #ff6b6b;
+
+  --stroke: rgba(78, 204, 163, 0.35);
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
 
 body {
   font-family: "Bungee", sans-serif;
@@ -55,13 +68,12 @@ body {
 /* PREVIEW */
 .preview {
   padding: 10px 20px;
-  background:   var(--background-color);
-
+  background: var(--background-color);
 }
 
 .preview-box {
   border: 3px solid #000;
-  background-size: contain   ;     /* faz a imagem cobrir toda a caixa */
+  background-size: contain; /* faz a imagem cobrir toda a caixa */
   background-position: center; /* centraliza a imagem */
   background-repeat: no-repeat; /* evita repetição */
   background-image: url(/public/assets/images/Landingpage/banner.png);
@@ -70,11 +82,12 @@ body {
   border-radius: 12px;
 }
 
-.bottom-text{
-    font-size: 0.8rem;
+.bottom-text {
+  font-size: 0.8rem;
 }
 
-.btn-git, .btn-youtube {
+.btn-git,
+.btn-youtube {
   display: inline-block;
   padding: 5px 15px;
   color: #892f91;
@@ -90,38 +103,145 @@ body {
   color: #b356b3;
 }
 
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(10, 10, 14, 0.45);
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
-    backdrop-filter: blur(4px);
-  }
-  .modal-content {
-    background: var(--panel-2);
-    padding: 22px;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: var(--shadow);
-    color: var(--text);
-  }
-  .modal-content button {
-    margin: 10px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 800;
-  }
-.btn-yes { background-color: var(--primary); color: #12221c; }
-.btn-no  { background-color: var(--danger);  color: #fff; }
-.btn-ok  { background-color: var(--accent);  color: #fff; }
-.btn-yes:hover { background-color: var(--primary-600); }
-.btn-no:hover  { filter: brightness(0.95); }
-.btn-ok:hover  { filter: brightness(0.95); }
+.loginModal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 14, 0.45);
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  backdrop-filter: blur(4px);
+}
+.loginModal-content {
+  display: flex;
+  gap: 20px;
+  flex-direction: column; /* força o conteúdo ficar em coluna */
+  background: var(--panel-2);
+  padding: 50px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  color: var(--text);
+}
+
+.form{
+  display: flex;
+  gap: 10px;
+  flex-direction: column; /* força o conteúdo ficar em coluna */
+  padding: 10px;
+  text-align: center;
+  color: var(--text);
+ 
+}
+
+
+.loginModal-content input {
+  border-radius: 12px;
+  padding: 8px;
+  width: 100%;
+  font-size: 1rem;
+  background-color: #ffffff;
+  border: none;
+}
+
+.submit {
+  margin: 20px 10px 10px 0px;
+  padding: 10px 20px;
+  border: none;
+  width: 100%;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 800;
+  background-color: var(--primary);
+  color: #12221c;
+  font-size: 1rem;
+}
+
+.noAcount {
+  display: inline-block;
+  padding: 5px 15px;
+  color: #b957c2;
+  background-color: #00000000;
+  text-decoration: none;
+  font-size: 1rem;
+  border: none;
+  margin: 5px;
+  font-weight: 800;
+}
+
+.noAcount:hover {
+  color: #d27dd2;
+}
+
+.submit:hover {
+  background-color: var(--primary-600);
+}
+
+
+
+
+
+.CreateAccount {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 14, 0.45);
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  backdrop-filter: blur(4px);
+}
+
+.CreateAccount-content {
+  display: flex;
+  gap: 10px;
+  flex-direction: column; /* força o conteúdo ficar em coluna */
+  background: var(--panel-2);
+  padding: 50px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  color: var(--text);
+}
+
+.registerForm{
+  display: flex;
+  gap: 10px;
+  flex-direction: column; /* força o conteúdo ficar em coluna */
+  padding: 10px;
+  text-align: center;
+  color: var(--text);
+ 
+}
+
+.CreateAccount-content input {
+  border-radius: 12px;
+  padding: 8px;
+  font-size: 1rem;
+  background-color: #ffffff;
+  border: none;
+}
+
+.register-btn {
+  margin: 20px 10px 10px 0px;
+  padding: 10px 20px;
+  border: none;
+  width: 100%;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 800;
+  background-color: var(--primary);
+  color: #12221c;
+  font-size: 1rem;
+}
+
+.register-btn:hover {
+  background-color: var(--primary-600);
+}
