@@ -3,11 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>Editor de Fases</title>
-  <link rel="stylesheet" href="/src/styles/index.css">
+  <link rel="stylesheet" href="/public/src/styles/index.css">
+  <script src ="/public/src/login/index.js" defer></script>
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Bungee&display=swap" rel="stylesheet">
 </head>
 <body>
+
+    <div id="customModal" class="modal">
+
+        <div class="modal-content">
+          <p class="text">Você quer continuar?</p>
+          <button class="btn-yes">Sim</button>
+          <button class="btn-no">Não</button>
+          <button class="btn-ok">Ok</button>
+        </div>
+
+    </div>
+
+
 
   <section class="preview">
      <div class="preview-box"></div>
@@ -16,7 +30,8 @@
   <!-- HERO -->
   <header class="call">
     <p class="call-text">Crie sua fase e compartilhe com amigos!</p>
-    <a href="editor.html" class="btn">Começar Agora</a>
+    <a class="btn">Começar Agora</a>
+    <!-- <a href="editor.html" class="btn">Começar Agora</a> -->
   </header>
 
   <section class = "bottom-text">

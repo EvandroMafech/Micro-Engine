@@ -16,7 +16,7 @@ export default class Spikedball extends AnimatedImage{
         this.phase = 0
         this.gravity = 120
         this.chain = new Image()
-        this.chain.src = "/assets/images/Traps/Spiked Ball/Chain.png" 
+        this.chain.src = "public/assets/images/Traps/Spiked Ball/Chain.png" 
     }
 
     originPosition(){

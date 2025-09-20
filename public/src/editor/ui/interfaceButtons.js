@@ -183,6 +183,7 @@ function handleModalYes() {
       checkIfSaved().then(save => {
       const isSaved = save
       if(isSaved) {
+        console.log(`${gameState.link}`)
         goToPage(`${gameState.link}`,true)
       }else{
         hideModal()
@@ -270,7 +271,6 @@ UI.dropdownButtons.forEach(btn => {
     if (!match) return;
 
     activeSelectedImage.imageId = e.target.id;
-    //activeSelectedImage.imageUrl = "../../../" + match[0];
     activeSelectedImage.imageUrl = match[0];
 
     activeSelectedImage.type = e.target.getAttribute("data-type") === "background" ? "background" : "animated";

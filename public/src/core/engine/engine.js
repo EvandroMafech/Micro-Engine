@@ -54,7 +54,7 @@ const tileSize = 64*3
             let x = tileSize*l
             let y = tileSize*c
             let id = `l${x/tileSize}` + `c${y/tileSize}` //adiciona um id único para cada um
-            const imagePath = "/assets/images/Background/Blue.png"
+            const imagePath = "../public/assets/images/Background/Blue.png"
             const tile = new Tile(x,y,tileSize,tileSize,ctx,id,imagePath)
             backgroundArray.push(tile)
             
@@ -66,6 +66,8 @@ const tileSize = 64*3
 
 
 export function setImageOnBackgroundTiles(image){ //posiciona os quadrados de background no canvas
+   
+    if(activeSelectedImage.type !== "background" && !image) return
     const bgImage = image ?? activeSelectedImage.imageUrl;
     activeBackgroundImage.push(bgImage)
     backgroundArray.forEach(tile => {
