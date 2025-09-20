@@ -65,7 +65,7 @@ app.post("/save-level", (req, res) => {
 app.post("/register", async (req, res) => {
   const { userName, password } = req.body
   
-  const userExist = users.find(user => user.useName == userName)
+  const userExist = users.find(u => u.userName === userName)
   if (userExist) return res.status(400).json({ msg: "Usuário já existe" })
   
   const passwordHash = await bcrypt.hash(password, 10)
@@ -80,17 +80,21 @@ app.post("/login", async (req, res) => {
   
   const { userName, password } = req.body
 
-  const user = users.find(user => user.userName === userName)
-  if (!user) res.status(201).json({ msg: "Usuário Não encontrado" })
-  
+  const user = users.find(u => u.userName === userName)
+  if (!user) {
+   
+   return res.status(404).json({ msg: "Usuário Não encontrado" })
+  }
   const validPassword = await bcrypt.compare(password, user.passwordHash)
-  if (!validPassword) return res.status(401).json({ msg: "Senha Incorreta" })
   
-  //const token = jwt.sign({ user: user.userName }, JWT_SECRET, { expiresIn: "1h" })
+  if (!validPassword) {
+    return res.status(401).json({ msg: "Senha Incorreta" })
+  }
   
-  res.json({ msg: "login bem-sucedido", liberation: true })
+    //const token = jwt.sign({ user: user.userName }, JWT_SECRET, { expiresIn: "1h" })
   
-})
+    res.json({ msg: "login bem-sucedido", liberation: true })
+ })
 
 
 // Iniciar servidor

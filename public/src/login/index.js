@@ -6,7 +6,8 @@ const CreateAccount = document.querySelector(".noAcount");
 const registerModal = document.querySelector(".CreateAccount");
 const registerButton = document.querySelector(".register-btn");
 const loginBtn = document.querySelector(".submit");
-
+const loginForm = document.querySelector(".form");
+const registerForm = document.querySelector(".registerForm");
 
 
 openLoginButton.addEventListener("click", () => {
@@ -14,18 +15,29 @@ openLoginButton.addEventListener("click", () => {
 });
 
 CreateAccount.addEventListener("click", (event) => {
-    event.preventDefault();
+  event.preventDefault();
+  
   loginModal.style.display = "none";
   registerModal.style.display = "flex";
 });
 
 registerButton.addEventListener("click", (event) => {
-    event.preventDefault();
+  event.preventDefault();
+  
+    if (!registerForm.checkValidity()) {
+      registerForm.reportValidity(); // mostra mensagens padrão do navegador
+      return;
+    }
     registerNewUser();
 });
 
 loginBtn.addEventListener("click", (event) => {
   event.preventDefault();
+
+      if (!loginForm.checkValidity()) {
+        loginForm.reportValidity(); // mostra mensagens padrão do navegador
+        return;
+      }
   login();
 });
 
@@ -35,9 +47,7 @@ const userName = document.getElementById("newUsername").value;
 const password1 = document.getElementById("password1").value;
 const password2 = document.getElementById("password2").value;
    
-
-  try {
-        
+       
        if (password1 != password2) {
           alert("As duas senhas não são iguais")
           return
@@ -54,8 +64,10 @@ const password2 = document.getElementById("password2").value;
           }),
         });
 
-        if (!register.ok) throw new Error("Erro ao criar novo usuário")
-        
+    if (!register.ok) {
+      const errorMsg = await register.json();
+      alert(errorMsg.msg);
+    }  
         const result = await register.json()
 
     if (result.liberation) {
@@ -65,10 +77,7 @@ const password2 = document.getElementById("password2").value;
       registerModal.style.display = "none";
     }
         
-      } catch(error) {
-        console.error(error);
-      
-      }
+
 }
     
 
@@ -76,8 +85,6 @@ async function login() {
   
   const userName = document.getElementById("username").value
   const password = document.getElementById("username").value
-
-  try {
 
     const login = await fetch(`${API_URL}/login`, {
       method: "POST",
@@ -89,26 +96,23 @@ async function login() {
         password: password,
       }),
     });
- if (!login.ok) throw new Error("Erro ao entrar");
-    const result = await login.json()
+  
+  
+  if (!login.ok) {
+    const errorMsg = await login.json();
+    alert(errorMsg.msg)
+  }
+   
+  const result = await login.json()
 
     if (result.liberation) {
             loginModal.style.display = "none";
             registerModal.style.display = "none";
       console.log("liberado")
-      window.location.href = "/public/editor.html";
+      //window.location.href = "/public/editor.html";
 
     }
-          console.log(result.msg);
-
-
-  } catch (error) {
-    console.error(error)
-    
-  }
-
-
-
+          //alert(result.msg);
 }
 
 
