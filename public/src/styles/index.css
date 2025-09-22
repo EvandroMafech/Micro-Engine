@@ -128,16 +128,14 @@ body {
   color: var(--text);
 }
 
-.form{
+.form {
   display: flex;
   gap: 10px;
   flex-direction: column; /* força o conteúdo ficar em coluna */
   padding: 10px;
   text-align: center;
   color: var(--text);
- 
 }
-
 
 .loginModal-content input {
   border-radius: 12px;
@@ -181,10 +179,6 @@ body {
   background-color: var(--primary-600);
 }
 
-
-
-
-
 .CreateAccount {
   display: none;
   position: fixed;
@@ -211,14 +205,13 @@ body {
   color: var(--text);
 }
 
-.registerForm{
+.registerForm {
   display: flex;
   gap: 10px;
   flex-direction: column; /* força o conteúdo ficar em coluna */
   padding: 10px;
   text-align: center;
   color: var(--text);
- 
 }
 
 .CreateAccount-content input {

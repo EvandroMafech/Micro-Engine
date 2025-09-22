@@ -51,7 +51,14 @@ const modalInfo = {
 };
 
 async function checkIfSaved() {
-  const checkSave = await fetch(`${API_URL}/saved-levels/lastsave`);
+  const token = localStorage.getItem("token");
+  const checkSave = await fetch(`${API_URL}/saved-levels/lastsave`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
   const result = await checkSave.json();
 
   return result === 0 ? false : true;
@@ -61,7 +68,6 @@ export function goToPage(page, newPage = false) {
   if (!newPage) {
     window.location.href = page;
   } else {
-    //console.log(page)
     window.open(page, "_blank");
   }
 }
@@ -96,7 +102,7 @@ function cleanCanvas() {
 function showModal(
   message,
   type,
-  buttons = { yes: true, no: true, ok: false },
+  buttons = { yes: true, no: true, ok: false }
 ) {
   gameState.pause = true;
   UI.modal.style.display = "flex";
@@ -208,7 +214,6 @@ function handleModalYes() {
       checkIfSaved().then((save) => {
         const isSaved = save;
         if (isSaved) {
-          console.log(`${gameState.link}`);
           goToPage(`${gameState.link}`, true);
         } else {
           hideModal();
@@ -252,7 +257,7 @@ function handleModalNo() {
 UI.leftAsideMainButtons.forEach((btn) =>
   btn.addEventListener("click", () => {
     document.getElementById(`dropdown-${btn.id}`).classList.toggle("show");
-  }),
+  })
 );
 
 // Side panels toggle
@@ -262,7 +267,7 @@ document.getElementById("toggle-right-aside").addEventListener("click", () => {
 document
   .getElementById("toggle-left-aside")
   .addEventListener("click", () =>
-    document.getElementById("left-aside").classList.toggle("expanded"),
+    document.getElementById("left-aside").classList.toggle("expanded")
   );
 
 // Prevent zoom shortcuts
@@ -271,7 +276,7 @@ window.addEventListener(
   (e) => {
     if (e.ctrlKey) e.preventDefault();
   },
-  { passive: false },
+  { passive: false }
 );
 
 window.addEventListener("keydown", (e) => {
@@ -288,7 +293,7 @@ window.addEventListener("keydown", (e) => {
       showModal(
         "Deseja voltar para o editor? O progresso no jogo será perdido.",
         "exit",
-        { yes: true, no: true },
+        { yes: true, no: true }
       );
     } else if (gameState.onGamePage) {
       showModal("Jogo pausado, deseja continuar", "exit-game", {
@@ -360,20 +365,20 @@ UI.headerButtons.forEach((btn) => {
           showModal(
             "O mapa será salvo automaticamente antes de iniciar o jogo. Deseja continuar?",
             "play",
-            { yes: true, no: true },
+            { yes: true, no: true }
           );
         else
           showModal(
             "Não é possível iniciar sem um ponto de Start E Fim.",
             "play",
-            { ok: true },
+            { ok: true }
           );
         break;
       case "clear":
         showModal(
           "Excluir todos os elementos? Alterações não salvas serão perdidas.",
           "clear",
-          { yes: true, no: true },
+          { yes: true, no: true }
         );
         break;
       case "save":
@@ -383,14 +388,14 @@ UI.headerButtons.forEach((btn) => {
         showModal(
           "Abrir último save? Alterações não salvas serão perdidas.",
           "open",
-          { yes: true, no: true },
+          { yes: true, no: true }
         );
         break;
       case "link":
         showModal(
           `Acesse sua fase pelo link: ${gameState.link} Deseja acessar agora?`,
           "link",
-          { yes: true, no: true },
+          { yes: true, no: true }
         );
         break;
     }
@@ -415,13 +420,13 @@ export function gameOverModal() {
     showModal(
       "Ops! Você... Morreu. Trágico. Deseja jogar novamente?",
       "gameOver-game",
-      { yes: true, no: true },
+      { yes: true, no: true }
     );
   } else {
     showModal(
       "Ops! Você... Morreu. Trágico. Deseja jogar novamente?",
       "gameOver",
-      { yes: true, no: true },
+      { yes: true, no: true }
     );
   }
 }
@@ -431,13 +436,13 @@ export function gameEnd() {
     showModal(
       "Parabéns! Você conseguiu!!! Deseja jogar novamente?",
       "gameEnd-game",
-      { yes: true, no: true },
+      { yes: true, no: true }
     );
   } else {
     showModal(
       "Parabéns! Você conseguiu!!! Deseja jogar novamente?",
       "gameEnd",
-      { yes: true, no: true },
+      { yes: true, no: true }
     );
   }
 }

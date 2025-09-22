@@ -205,7 +205,7 @@ export function createAnimatedImage(TileId, event) {
           h,
           ctxAnimations,
           imageSizeFactor,
-          fruitImageId,
+          fruitImageId
         );
       } else if (activeSelectedImage.imageId.includes("saw")) {
         animatedImage = new Saw(
@@ -219,7 +219,7 @@ export function createAnimatedImage(TileId, event) {
           h,
           ctxAnimations,
           imageSizeFactor,
-          id,
+          id
         );
       } else if (activeSelectedImage.imageId.includes("enemy")) {
         animatedImage = new AnimatedImage(
@@ -233,7 +233,7 @@ export function createAnimatedImage(TileId, event) {
           h,
           ctxAnimations,
           imageSizeFactor,
-          id,
+          id
         );
       } else if (activeSelectedImage.imageId.includes("platform")) {
         animatedImage = new Platform(
@@ -247,7 +247,7 @@ export function createAnimatedImage(TileId, event) {
           h,
           ctxAnimations,
           imageSizeFactor,
-          id,
+          id
         );
       } else if (activeSelectedImage.imageId.includes("block")) {
         animatedImage = new Box(
@@ -263,7 +263,7 @@ export function createAnimatedImage(TileId, event) {
           imageSizeFactor,
           id,
           boxImageId,
-          1,
+          1
         ); //o ultimo é a vida
       } else if (activeSelectedImage.imageId.includes("box1")) {
         animatedImage = new Box(
@@ -279,7 +279,7 @@ export function createAnimatedImage(TileId, event) {
           imageSizeFactor,
           id,
           boxImageId,
-          2,
+          2
         ); //o ultimo é a vida
       } else if (activeSelectedImage.imageId.includes("box2")) {
         animatedImage = new Box(
@@ -295,7 +295,7 @@ export function createAnimatedImage(TileId, event) {
           imageSizeFactor,
           id,
           boxImageId,
-          4,
+          4
         ); //o ultimo é a vida
       } else if (activeSelectedImage.imageId.includes("box3")) {
         animatedImage = new Box(
@@ -311,7 +311,7 @@ export function createAnimatedImage(TileId, event) {
           imageSizeFactor,
           id,
           boxImageId,
-          6,
+          6
         ); //o ultimo é a vida
       } else if (activeSelectedImage.imageId.includes("checkpoint")) {
         animatedImage = new Checkpoint(
@@ -325,7 +325,7 @@ export function createAnimatedImage(TileId, event) {
           h,
           ctxAnimations,
           imageSizeFactor,
-          id,
+          id
         );
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -343,11 +343,11 @@ export function createAnimatedImage(TileId, event) {
             h,
             ctxAnimations,
             imageSizeFactor,
-            id,
+            id
           );
         } else {
           const placedEndIndex = animatedImagesArray.findIndex(
-            (element) => element.name == "end-idle",
+            (element) => element.name == "end-idle"
           );
           animatedImagesArray.splice(placedEndIndex, 1);
           animatedImage = new End(
@@ -361,7 +361,7 @@ export function createAnimatedImage(TileId, event) {
             h,
             ctxAnimations,
             imageSizeFactor,
-            id,
+            id
           );
         }
         // animatedImage = new End(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
@@ -379,7 +379,7 @@ export function createAnimatedImage(TileId, event) {
           h,
           ctxAnimations,
           imageSizeFactor,
-          id,
+          id
         );
       } else if (activeSelectedImage.imageId.includes("spykes")) {
         animatedImage = new Spykes(
@@ -394,7 +394,7 @@ export function createAnimatedImage(TileId, event) {
           ctxAnimations,
           imageSizeFactor,
           id,
-          keyboardShortcuts.rotateImage,
+          keyboardShortcuts.rotateImage
         );
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -412,11 +412,11 @@ export function createAnimatedImage(TileId, event) {
             h,
             ctxAnimations,
             imageSizeFactor,
-            id,
+            id
           );
         } else {
           const placedStartIndex = animatedImagesArray.findIndex(
-            (element) => element.name == "start-idle",
+            (element) => element.name == "start-idle"
           );
           animatedImagesArray.splice(placedStartIndex, 1);
           animatedImage = new Start(
@@ -430,7 +430,7 @@ export function createAnimatedImage(TileId, event) {
             h,
             ctxAnimations,
             imageSizeFactor,
-            id,
+            id
           );
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -446,7 +446,7 @@ export function createAnimatedImage(TileId, event) {
           h,
           ctxAnimations,
           imageSizeFactor,
-          id,
+          id
         );
       } else if (activeSelectedImage.imageId.includes("spikedball")) {
         animatedImage = new Spikedball(
@@ -460,7 +460,7 @@ export function createAnimatedImage(TileId, event) {
           h,
           ctxAnimations,
           imageSizeFactor,
-          id,
+          id
         );
       }
 
@@ -600,8 +600,6 @@ window.addEventListener("keyup", (event) => {
   }
 });
 
-
-
 editorCanvas.addEventListener("mousemove", (event) => {
   if (gameState.gameRunning) {
     ctxEditor.clearRect(0, 0, 2000, 2000);
@@ -620,7 +618,7 @@ editorCanvas.addEventListener("mousemove", (event) => {
     ctxEditor.drawImage(
       image,
       event.clientX - origin.left - image.height / 2,
-      event.clientY - origin.top - image.height / 2,
+      event.clientY - origin.top - image.height / 2
     );
   } else if (
     functionButtons.selectItens == true &&
@@ -630,7 +628,7 @@ editorCanvas.addEventListener("mousemove", (event) => {
     ctxEditor.drawImage(
       image,
       event.clientX - origin.left - image.height / 2,
-      event.clientY - origin.top - image.height / 2,
+      event.clientY - origin.top - image.height / 2
     );
   } else if (functionButtons.selectTileset == true) {
     image.src = tileSetSpriteheet_image_path;
@@ -646,7 +644,7 @@ editorCanvas.addEventListener("mousemove", (event) => {
       event.clientX - origin.left - 16,
       event.clientY - origin.top - 16,
       32,
-      32,
+      32
     );
     //  ctxEditor.drawImage(image,this.x,this.y,this.width,this.height)
   }

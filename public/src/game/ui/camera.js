@@ -25,10 +25,18 @@ export function moveCamera(directionHorizontal, level, distance) {
     directionHorizontal == "left" ? 1 : directionHorizontal == "right" ? -1 : 0;
 
   //move canvas horizontalmente
-  tileSetCanvas.style.left = `${cameraPosition.currentPositionH + distance * dirFactorH}px`;
-  backgroundCanvas.style.left = `${cameraPosition.currentPositionH + distance * dirFactorH}px`;
-  gridCanvas.style.left = `${cameraPosition.currentPositionH + distance * dirFactorH}px`;
-  animationCanvas.style.left = `${cameraPosition.currentPositionH + distance * dirFactorH}px`;
+  tileSetCanvas.style.left = `${
+    cameraPosition.currentPositionH + distance * dirFactorH
+  }px`;
+  backgroundCanvas.style.left = `${
+    cameraPosition.currentPositionH + distance * dirFactorH
+  }px`;
+  gridCanvas.style.left = `${
+    cameraPosition.currentPositionH + distance * dirFactorH
+  }px`;
+  animationCanvas.style.left = `${
+    cameraPosition.currentPositionH + distance * dirFactorH
+  }px`;
 
   //move canvas verticalmente
   // tileSetCanvas.style.top = `${level}px`

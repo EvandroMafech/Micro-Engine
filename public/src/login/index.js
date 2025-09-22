@@ -9,114 +9,101 @@ const loginBtn = document.querySelector(".submit");
 const loginForm = document.querySelector(".form");
 const registerForm = document.querySelector(".registerForm");
 
-
 openLoginButton.addEventListener("click", () => {
   loginModal.style.display = "flex";
 });
 
 CreateAccount.addEventListener("click", (event) => {
   event.preventDefault();
-  
+
   loginModal.style.display = "none";
   registerModal.style.display = "flex";
 });
 
 registerButton.addEventListener("click", (event) => {
   event.preventDefault();
-  
-    if (!registerForm.checkValidity()) {
-      registerForm.reportValidity(); // mostra mensagens padrão do navegador
-      return;
-    }
-    registerNewUser();
+
+  if (!registerForm.checkValidity()) {
+    registerForm.reportValidity(); // mostra mensagens padrão do navegador
+    return;
+  }
+  registerNewUser();
 });
 
 loginBtn.addEventListener("click", (event) => {
   event.preventDefault();
 
-      if (!loginForm.checkValidity()) {
-        loginForm.reportValidity(); // mostra mensagens padrão do navegador
-        return;
-      }
+  if (!loginForm.checkValidity()) {
+    loginForm.reportValidity(); // mostra mensagens padrão do navegador
+    return;
+  }
   login();
 });
 
-
 async function registerNewUser() {
-const userName = document.getElementById("newUsername").value;
-const password1 = document.getElementById("password1").value;
-const password2 = document.getElementById("password2").value;
-   
-       
-       if (password1 != password2) {
-          alert("As duas senhas não são iguais")
-          return
-        }
+  const userName = document.getElementById("newUsername").value;
+  const password1 = document.getElementById("password1").value;
+  const password2 = document.getElementById("password2").value;
 
-        const register = await fetch(`${API_URL}/register`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userName: userName,
-            password: password1,
-          }),
-        });
+  if (password1 != password2) {
+    alert("As duas senhas não são iguais");
+    return;
+  }
 
-    if (!register.ok) {
-      const errorMsg = await register.json();
-      alert(errorMsg.msg);
-    }  
-        const result = await register.json()
+  const register = await fetch(`${API_URL}/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      userName: userName,
+      password: password1,
+    }),
+  });
 
-    if (result.liberation) {
-      alert("Conta criada com sucesso!");
-      console.log(result);
-      loginModal.style.display = "flex";
-      registerModal.style.display = "none";
-    }
-        
+  if (!register.ok) {
+    const errorMsg = await register.json();
+    alert(errorMsg.msg);
+  }
+  const result = await register.json();
 
+  if (result.liberation) {
+    alert("Conta criada com sucesso!");
+    loginModal.style.display = "flex";
+    registerModal.style.display = "none";
+  }
 }
-    
 
 async function login() {
-  
-  const userName = document.getElementById("username").value
-  const password = document.getElementById("username").value
+  const userName = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
 
-    const login = await fetch(`${API_URL}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userName: userName,
-        password: password,
-      }),
-    });
-  
-  
+  const login = await fetch(`${API_URL}/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      userName: userName,
+      password: password,
+    }),
+  });
+
   if (!login.ok) {
     const errorMsg = await login.json();
-    alert(errorMsg.msg)
+    alert(errorMsg.msg);
   }
-   
-  const result = await login.json()
 
-    if (result.liberation) {
-            loginModal.style.display = "none";
-            registerModal.style.display = "none";
-      console.log("liberado")
-      //window.location.href = "/public/editor.html";
+  const result = await login.json();
 
-    }
-          //alert(result.msg);
+  if (result.liberation) {
+    loginModal.style.display = "none";
+    registerModal.style.display = "none";
+    window.location.href = "/public/editor.html";
+    localStorage.setItem("token", result.token);
+  }
+  //alert(result.msg);
 }
-
-
-
 
 window.addEventListener("keyup", (event) => {
   const key = event.key.toLocaleLowerCase();
@@ -126,24 +113,17 @@ window.addEventListener("keyup", (event) => {
   }
 });
 
-
 window.addEventListener("keyup", (event) => {
   //usado para fazer debugs apertando p para gerar informaçãos no console
   const key = event.key.toLowerCase();
 
   if (key == "t") {
-
-    viewUsers();
+    //viewUsers();
   }
 });
 
-
 async function viewUsers() {
+  const users = await fetch(`${API_URL}/users`);
 
-  const users = await fetch(`${API_URL}/users`)
-  
-  const result = await users.json()
-  console.log(result)
-
-
+  const result = await users.json();
 }

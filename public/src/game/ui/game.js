@@ -24,8 +24,6 @@ window.addEventListener("DOMContentLoaded", async () => {
         setImageOnBackgroundTiles("/public/" + fase.background);
       }, 1000);
     });
-  } else {
-    console.log("Nenhum ID de fase fornecido na URL.");
   }
 });
 
@@ -34,6 +32,6 @@ window.addEventListener("keyup", (event) => {
   const key = event.key.toLowerCase();
 
   if (key == "t") {
-    console.log(backgroundArray);
+
   }
 });

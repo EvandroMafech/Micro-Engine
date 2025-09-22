@@ -53,24 +53,23 @@ export function saveLevel() {
 export async function loadLevel(save) {
   gameState.startPointPlaced = false;
   gameState.endPointPlaced = false;
-
+    const token = localStorage.getItem("token");
   let savedOnServer;
   if (save === undefined) {
-    try {
-      const savedId = await fetch(`${API_URL}/saved-levels/lastsave`);
+    const savedId = await fetch(`${API_URL}/saved-levels/lastsave`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-      if (!savedId.ok) {
-        throw new Error("Save não encontrado!");
-        return;
-      }
-
-      const responseId = await savedId.json();
-      savedOnServer = await getSaveOnServer(responseId);
-    } catch {
-      console.log("Error", Error);
+    if (!savedId.ok) {
+      alert("Save não encontrado!");
+      return;
     }
 
-    //console.log("Fase recuperada do servidor: ",savedOnServer)
+    const responseId = await savedId.json();
+    savedOnServer = await getSaveOnServer(responseId);
   } else {
     savedOnServer = save;
   }
@@ -119,13 +118,9 @@ export async function loadLevel(save) {
     let adjustX = positionAdjust[type]?.x ?? 0;
     let adjustY = positionAdjust[type]?.y ?? 0;
 
-    //console.log(adjustX, adjustY)
-
     let TileId =
       `l${Math.floor((savedImg.x + adjustX) / tileSize)}` +
       `c${Math.floor((savedImg.y + adjustY) / tileSize)}`;
-
-    // console.log({ clientX: savedImg.x, clientY: savedImg.y},TileId)
     createAnimatedImage(TileId, { clientX: savedImg.x, clientY: savedImg.y });
   });
 
@@ -135,21 +130,24 @@ export async function loadLevel(save) {
 // Exemplo: enviando uma fase para o servidor
 async function sendToServer(fase) {
   try {
+    const token = localStorage.getItem("token");
     const response = await fetch(`${API_URL}/save-level`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(fase),
     });
 
     if (!response.ok) {
-      throw new Error("Erro ao salvar fase");
+      const errorMsg = await response.json();
+      alert(errorMsg.msg);
+
+      //throw new Error("Erro ao salvar fase");
     }
 
     const result = await response.json();
-    //console.log("Fase salva em: ", result.link);
-    //console.log("Link para jogar: ", result.gameLink);
     gameState.link = result.gameLink;
     //alert(`Link para jogar: ${result.gameLink}`)
     return result.link; // você pode mostrar para o usuário ou salvar
@@ -160,15 +158,19 @@ async function sendToServer(fase) {
 
 async function getSaveOnServer(id) {
   try {
-    const response = await fetch(`${API_URL}/saved-levels/${id}`);
+        const token = localStorage.getItem("token");
+    const response = await fetch(`${API_URL}/saved-levels/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     if (!response.ok) {
       throw new Error("Fase não encontrada");
     }
 
     const fase = await response.json();
-
-    //console.log("Fase encontrada:", fase);
     return fase;
   } catch (error) {
     console.error("Erro:", error);

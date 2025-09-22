@@ -15,6 +15,7 @@ app.use(express.json()); // permite trabalhar com JSON no body das requisições
 // Banco de dados (em memória)
 const fases = []; // objeto para armazenar fases
 const users = [];
+
 // app.get("/", (req, res) => { //define a rota da página inicial
 //   res.sendFile(path.join(__dirname,"..", "public", "index.html"));
 // });
@@ -25,13 +26,13 @@ app.get("/", (req, res) => {
 });
 
 // [GET] Listar usuários - http://localhost:3000/saved-levels
-app.get("/saved-levels", (req, res) => {
-  res.json(fases);
-});
+// app.get("/saved-levels", (req, res) => {
+//   res.json(fases);
+// });
 
-app.get("/users", (req, res) => {
-  res.json(users);
-});
+// app.get("/users", (req, res) => {
+//   res.json(users);
+// });
 
 ///http://localhost:3000/saved-levels/lastsave
 app.get("/saved-levels/lastsave", (req, res) => {
@@ -45,12 +46,11 @@ app.get("/saved-levels/:id", (req, res) => {
 
   if (!fase) return res.status(404).json({ erro: "Fase não encontrada" });
 
-  res.json(fase); 
-
+  res.json(fase);
 });
 
 // [POST] Criar nova fase - http://localhost:3000/save-level
-app.post("/save-level", (req, res) => {
+app.post("/save-level", authMiddleware, (req, res) => {
   const novaFase = { id: fases.length + 1, ...req.body }; // cria uma nova fase com ID único
   fases.push(novaFase);
 
@@ -61,41 +61,54 @@ app.post("/save-level", (req, res) => {
   });
 });
 
-
 app.post("/register", async (req, res) => {
-  const { userName, password } = req.body
-  
-  const userExist = users.find(u => u.userName === userName)
-  if (userExist) return res.status(400).json({ msg: "Usuário já existe" })
-  
-  const passwordHash = await bcrypt.hash(password, 10)
-  users.push({ userName, passwordHash })
-  
+  const { userName, password } = req.body;
 
-  res.status(201).json({ msg: "Usuário cadastrado com sucesso!",liberation: true})
+  const userExist = users.find((u) => u.userName === userName);
+  if (userExist) return res.status(400).json({ msg: "Usuário já existe" });
 
+  const passwordHash = await bcrypt.hash(password, 10);
+  users.push({ userName, passwordHash });
+
+  res
+    .status(201)
+    .json({ msg: "Usuário cadastrado com sucesso!", liberation: true });
 });
 
 app.post("/login", async (req, res) => {
-  
-  const { userName, password } = req.body
+  const { userName, password } = req.body;
 
-  const user = users.find(u => u.userName === userName)
+  const user = users.find((u) => u.userName === userName);
   if (!user) {
-   
-   return res.status(404).json({ msg: "Usuário Não encontrado" })
+    return res.status(404).json({ msg: "Usuário Não encontrado" });
   }
-  const validPassword = await bcrypt.compare(password, user.passwordHash)
-  
-  if (!validPassword) {
-    return res.status(401).json({ msg: "Senha Incorreta" })
-  }
-  
-    //const token = jwt.sign({ user: user.userName }, JWT_SECRET, { expiresIn: "1h" })
-  
-    res.json({ msg: "login bem-sucedido", liberation: true })
- })
+  const validPassword = await bcrypt.compare(password, user.passwordHash);
 
+  if (!validPassword) {
+    return res.status(401).json({ msg: "Senha Incorreta" });
+  }
+
+  const token = jwt.sign({ user: user.userName }, JWT_SECRET, {
+    expiresIn: "1h",
+  });
+
+  res.json({ msg: "login bem-sucedido", liberation: true, token });
+});
+
+function authMiddleware(req, res, next) {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+
+  if (!token) return res.status(401).json({ msg: "Token não fornecido" });
+ 
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    req.user = decoded; // salva info do usuário na req
+    next();
+  } catch (err) {
+    return res.status(403).json({ msg: "Sessão expirada, faça o login para salvar"});
+  }
+}
 
 // Iniciar servidor
 
@@ -104,29 +117,6 @@ app.listen(port, () => {
                💾 ${API_url}/saved-levels
                🌐 ${API_url}/saved-levels/lastsave `);
 });
-
-
-// // 📌 Middleware de autenticação
-// function authMiddleware(req, res, next) {
-//   const authHeader = req.headers["authorization"];
-//   const token = authHeader && authHeader.split(" ")[1];
-
-//   if (!token) return res.status(401).json({ msg: "Token não fornecido" });
-
-//   try {
-//     const decoded = jwt.verify(token, JWT_SECRET);
-//     req.user = decoded; // salva info do usuário na req
-//     next();
-//   } catch (err) {
-//     return res.status(403).json({ msg: "Token inválido ou expirado" });
-//   }
-// }
-
-// // 📌 Rota protegida
-// app.get("/dashboard", authMiddleware, (req, res) => {
-//   res.json({ msg: `Bem-vindo, ${req.user.email}! Essa rota é protegida.` });
-// });
-
 
 
 // // [PUT] Atualizar usuário

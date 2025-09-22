@@ -49,7 +49,7 @@ function drawGridTilesetCanvas() {
         x,
         y,
         tileSizeTilesetCanvas * tileSizeFactor,
-        tileSizeTilesetCanvas * tileSizeFactor,
+        tileSizeTilesetCanvas * tileSizeFactor
       ); // (x, y, largura, altura)
     }
   }
@@ -61,7 +61,7 @@ function drawTilesetImages() {
     0,
     0,
     176 * tileSizeFactor,
-    368 * tileSizeFactor,
+    368 * tileSizeFactor
   );
   drawGridTilesetCanvas();
   requestAnimationFrame(drawTilesetImages);
