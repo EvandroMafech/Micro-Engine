@@ -13,8 +13,8 @@ app.use(cors()); // permite requisições de qualquer origem // habilita CORS pa
 app.use(express.json()); // permite trabalhar com JSON no body das requisições
 
 // Banco de dados (em memória)
-const fases = []; // objeto para armazenar fases
-const users = [];
+let levels = []; // objeto para armazenar levels
+let users = [];
 
 // app.get("/", (req, res) => { //define a rota da página inicial
 //   res.sendFile(path.join(__dirname,"..", "public", "index.html"));
@@ -26,38 +26,42 @@ app.get("/", (req, res) => {
 });
 
 // [GET] Listar usuários - http://localhost:3000/saved-levels
-// app.get("/saved-levels", (req, res) => {
-//   res.json(fases);
-// });
+app.get("/saved-levels", (req, res) => {
+  res.json(levels);
+});
 
 // app.get("/users", (req, res) => {
 //   res.json(users);
 // });
 
 ///http://localhost:3000/saved-levels/lastsave
-app.get("/saved-levels/lastsave", (req, res) => {
-  res.json(fases.length); // retorna a última fase salva
+app.get("/saved-levels/lastsave/:id", (req, res) => {
+  const saveId = req.params.id;
+  const save = levels.find(u => u.id === saveId);
+  const result = save ? "true": "false"
+  res.json(result); 
 });
 
 // [GET] Buscar usuário por ID - http://localhost:3000/saved-levels/1
 app.get("/saved-levels/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  const fase = fases.find((f) => f.id === id);
+  const levelId = req.params.id
+  const level = levels.find(f => f.id === levelId);
 
-  if (!fase) return res.status(404).json({ erro: "Fase não encontrada" });
+  if (!level) return res.status(404).json({ erro: "Fase não encontrada" });
 
-  res.json(fase);
+  res.json(level);
 });
 
 // [POST] Criar nova fase - http://localhost:3000/save-level
 app.post("/save-level", authMiddleware, (req, res) => {
-  const novaFase = { id: fases.length + 1, ...req.body }; // cria uma nova fase com ID único
-  fases.push(novaFase);
+  const novaFase = { id: req.body.userId, ...req.body.fase }; // cria uma nova fase com ID único
+  levels.push(novaFase);
 
   res.json({
     message: `Fase salva com sucesso! Jogue em: ${API_url}/game.html?id=${novaFase.id}`,
     link: `${API_url}/saved-levels/${novaFase.id}`,
     gameLink: `http://localhost:5500/public/game.html?id=${novaFase.id}`,
+    level: `userID: ${novaFase.id}`,
   });
 });
 
@@ -92,7 +96,12 @@ app.post("/login", async (req, res) => {
     expiresIn: "1h",
   });
 
-  res.json({ msg: "login bem-sucedido", liberation: true, token });
+  res.json({
+    msg: "login bem-sucedido",
+    liberation: true,
+    user: user.userName,
+    token
+  });
 });
 
 function authMiddleware(req, res, next) {
@@ -119,16 +128,16 @@ app.listen(port, () => {
 });
 
 
-// // [PUT] Atualizar usuário
-// app.put("/usuarios/:id", (req, res) => {
-//   const id = parseInt(req.params.id);
-//   const usuario = usuarios.find(u => u.id === id);
+// [PUT] Atualizar usuário
+app.put("/save-level/:id",authMiddleware, (req, res) => {
+  const id = req.params.id
+  let level = levels.find(u => u.id === id);
 
-//   if (!usuario) return res.status(404).json({ erro: "Usuário não encontrado" });
+  if (!level) return res.status(404).json({ erro: "Usuário não encontrado" });
 
-//   usuario.nome = req.body.nome;
-//   res.json(usuario);
-// });
+  level = {id: id, ...req.body.fase }
+  res.json({msg: "Save alterado com sucesso!"});
+});
 
 // // [DELETE] Deletar usuário
 // app.delete("/usuarios/:id", (req, res) => {

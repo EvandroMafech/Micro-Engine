@@ -50,18 +50,12 @@ const modalInfo = {
   no: false,
 };
 
-async function checkIfSaved() {
-  const token = localStorage.getItem("token");
-  const checkSave = await fetch(`${API_URL}/saved-levels/lastsave`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
+export async function checkIfSaved() {
+  const userId = localStorage.getItem("user");
+  const checkSave = await fetch(`${API_URL}/saved-levels/lastsave/${userId}`);
   const result = await checkSave.json();
-
-  return result === 0 ? false : true;
+  console.log(result)
+  return result
 }
 
 export function goToPage(page, newPage = false) {

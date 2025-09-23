@@ -35,6 +35,7 @@ import {
   createMapBoundaries,
   setImageOnBackgroundTiles,
 } from "./engine.js";
+import { checkIfSaved } from "../../editor/ui/interfaceButtons.js";
 
 export const tileSetCanvas = document.querySelector(".tileset");
 const ctx = tileSetCanvas.getContext("2d");
@@ -653,3 +654,26 @@ editorCanvas.addEventListener("mousemove", (event) => {
 editorCanvas.addEventListener("mouseleave", () => {
   ctxEditor.clearRect(0, 0, 2000, 2000);
 });
+
+
+window.addEventListener("keyup", (event) => {
+  const key = event.key.toLocaleLowerCase()
+
+  if (key === "t") {
+    test()
+  }
+  if (key === "v") {
+    checkIfSaved()
+
+  }
+})
+
+
+async function test() {
+  const test = await fetch(`${API_URL}/saved-levels`);
+
+  const result = await test.json()
+  console.log(result)
+
+
+}

@@ -9,6 +9,11 @@ const loginBtn = document.querySelector(".submit");
 const loginForm = document.querySelector(".form");
 const registerForm = document.querySelector(".registerForm");
 
+localStorage.removeItem("user");
+localStorage.removeItem("token");
+localStorage.removeItem("savedLevel");
+
+
 openLoginButton.addEventListener("click", () => {
   loginModal.style.display = "flex";
 });
@@ -101,6 +106,7 @@ async function login() {
     registerModal.style.display = "none";
     window.location.href = "/public/editor.html";
     localStorage.setItem("token", result.token);
+    localStorage.setItem("user", result.user);
   }
   //alert(result.msg);
 }
