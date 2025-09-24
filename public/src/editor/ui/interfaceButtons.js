@@ -406,7 +406,7 @@ UI.headerButtons.forEach((btn) => {
         break;
       case "link":
         showModal(
-          `Acesse sua fase pelo link: ${gameState.link} Deseja acessar agora?`,
+          `Acesse sua fase pelo link: <br>${gameState.link}<br>Deseja acessar agora?`,
           "link",
           { yes: true, no: true }
         );
