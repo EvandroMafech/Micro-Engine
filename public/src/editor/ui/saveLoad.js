@@ -203,3 +203,13 @@ async function getSaveOnServer() {
     console.error("Erro:", error);
   }
 }
+
+
+export async function getSave() {
+  const url = new URL(window.location.href); // cria um objeto URL
+  const faseId = url.searchParams.get("id");
+  if (!faseId) return;
+  const response = await fetch(`${API_URL}/saved-levels/${faseId}`);
+  const fase = await response.json();
+  return fase;
+}

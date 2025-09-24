@@ -11,7 +11,7 @@ import {
   gameState,
 } from "../../game/ui/gameState.js";
 import { placeInitialCameraPosition } from "../../game/ui/camera.js";
-import { loadLevel, saveLevel } from "./saveLoad.js";
+import { getSave, loadLevel, saveLevel } from "./saveLoad.js";
 import {
   tilesWithImages,
   allSetIdsArray,
@@ -21,6 +21,7 @@ import {
   API_URL,
 } from "../../core/utils/constants.js";
 import { createMapBoundaries, hidePlayer } from "../../core/engine/engine.js";
+
 
 // ======================
 // UI Elements
@@ -157,7 +158,7 @@ function returToEditor() {
 // ======================
 // Modal Actions
 // ======================
-function handleModalYes() {
+async function handleModalYes() {
   switch (modalInfo.type) {
     case "clear":
       cleanCanvas();
@@ -188,6 +189,20 @@ function handleModalYes() {
       hidePlayer();
       cleanCanvas();
       loadLevel().then(() => {
+        startGame();
+      });
+
+      UI.canvasContainer.classList.toggle("canvas-container-centered");
+      break;
+    case "gameOver-link":
+    case "gameEnd-link":
+      hidePlayer();
+      cleanCanvas();
+      let fase = null
+      if (gameState.onGameLink) {
+         fase = await getSave();
+      }
+      loadLevel(fase).then(() => {
         startGame();
       });
 
@@ -232,6 +247,11 @@ function handleModalNo() {
       break;
     case "gameOver-game":
     case "gameEnd-game":
+      hideModal();
+      goToPage(`${API_URL}`);
+      break;
+    case "gameOver-link":
+    case "gameEnd-link":
       hideModal();
       goToPage(`${API_URL}`);
       break;
@@ -409,7 +429,16 @@ window.addEventListener("click", (e) => {
 // External Exports
 // ======================
 export function gameOverModal() {
-  if (gameState.onGamePage) {
+  
+  if(gameState.onGameLink){
+ showModal(
+      "Ops! Você... Morreu. Trágico. Deseja jogar novamente?",
+      "gameOver-link",
+      { yes: true, no: true }
+      
+    )
+    return
+  } else if (gameState.onGamePage) {
     showModal(
       "Ops! Você... Morreu. Trágico. Deseja jogar novamente?",
       "gameOver-game",
@@ -425,7 +454,15 @@ export function gameOverModal() {
 }
 export function gameEnd() {
   hidePlayer();
-  if (gameState.onGamePage) {
+
+  if (gameState.onGameLink) {
+    showModal(
+      "Ops! Você... Morreu. Trágico. Deseja jogar novamente?",
+      "gameEnd-link",
+      { yes: true, no: true }
+    );
+        return
+  }else if (gameState.onGamePage) {
     showModal(
       "Parabéns! Você conseguiu!!! Deseja jogar novamente?",
       "gameEnd-game",

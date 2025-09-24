@@ -3,6 +3,7 @@ export const gameState = {
   endPointPlaced: false,
   gameRunning: false,
   onGamePage: false,
+  onGameLink: false,
   pause: false,
   link: "",
 };
