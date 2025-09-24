@@ -40,7 +40,6 @@ export default class Spikedball extends AnimatedImage {
     this.phase = 0;
     this.gravity = 120;
     this.chain = new Image();
-    this.chain.src = "public/assets/images/Traps/Spiked Ball/Chain.png";
   }
 
   originPosition() {
@@ -82,6 +81,7 @@ export default class Spikedball extends AnimatedImage {
 
   animateChain() {
     const image = this.chain;
+    image.src = "/public/assets/images/Traps/Spiked Ball/Chain.png";
 
     let position = Math.floor(frames / staggerFrames) % this.spriteFrames;
     let frameX = position * this.width;

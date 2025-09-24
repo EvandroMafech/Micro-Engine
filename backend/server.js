@@ -30,9 +30,16 @@ app.get("/saved-levels", (req, res) => {
   res.json(levels);
 });
 
-// app.get("/users", (req, res) => {
-//   res.json(users);
-// });
+app.get("/users/usernames", (req, res) => {
+  const userNames = users.map(u => {
+    if(u.Usarname =! "") return u.userName 
+})
+  res.json(userNames);
+});
+
+app.get("/info", (req, res) => {
+  res.json(`Numero de contas criadas: ${users.length}`);
+});
 
 ///http://localhost:3000/saved-levels/lastsave
 app.get("/saved-levels/lastsave/:id", (req, res) => {
@@ -138,14 +145,3 @@ app.listen(port, () => {
                💾 ${API_url}/saved-levels
                🌐 ${API_url}/saved-levels/lastsave `);
 });
-
-
-
-
-// // [DELETE] Deletar usuário
-// app.delete("/usuarios/:id", (req, res) => {
-//   const id = parseInt(req.params.id);
-//   usuarios = usuarios.filter(u => u.id !== id);
-
-//   res.json({ mensagem: "Usuário deletado com sucesso" });
-// });

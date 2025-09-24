@@ -2,39 +2,21 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <title>Editor de Fases</title>
+    <title>Level editor</title>
     <link rel="stylesheet" href="/public/src/styles/index.css" />
     <script type="module" src="/public/src/login/index.js" defer></script>
 
-    <!-- Google Fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Bungee&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
-    <!-- <div id = "loginModal" class="loginModal">
-
-        <div class="loginModal-content">
-         
-          <label class="text">Digite seu login e senha</label>
-            <label class="text">Usuário</label>
-          <input type="text" class="user">
-         <label class="text">Senha</label>
-          <input type="password" class="password">
-
-          <button class="submit">Entrar</button>
-          <button class="noAcount">Não tenho conta</button>
-
-        </div>
-
-    </div> -->
     <div id="loginModal" class="loginModal">
       <div class="loginModal-content">
         <label class="text">Digite seu login e senha</label>
 
         <form class="form">
-          <!-- Usuário -->
           <label for="username">Usuário</label>
           <input
             type="text"
@@ -48,7 +30,6 @@
             required
           />
 
-          <!-- Senha -->
           <label for="password">Senha</label>
           <input
             type="password"
@@ -61,35 +42,17 @@
             title="A senha deve ter entre 6 e 30 caracteres"
           />
 
-          <!-- Botão -->
           <button type="submit" class="submit">Entrar</button>
           <button class="noAcount">Não tenho conta</button>
         </form>
       </div>
     </div>
 
-    <!-- <div id="CreateAccount" class="CreateAccount">
-      <div class="CreateAccount-content">
-        <label class="text">Registre sua conta</label>
-        <label class="text">Usuário</label>
-        <input type="text" class="user" />
-        <label class="text">Senha</label>
-        <input type="password" class="password" />
-        <label class="text">Digite a senha novamente</label>
-        <input type="password" class="password" />
-
-        <button class="register-btn">Registrar</button>
-        <button class="btn-no">Não tenho conta</button>
-        <button class="btn-ok">Ok</button>
-      </div>
-    </div> -->
-
     <div id="CreateAccount" class="CreateAccount">
       <div class="CreateAccount-content">
         <label class="text">Registre sua conta</label>
 
         <form class="registerForm">
-          <!-- Usuário -->
           <label for="username">Usuário</label>
           <input
             type="text"
@@ -103,7 +66,6 @@
             title="Use apenas letras e números, entre 3 e 20 caracteres"
           />
 
-          <!-- Senha -->
           <label for="password">Senha</label>
           <input
             type="password"
@@ -127,7 +89,6 @@
             title="A senha deve ter entre 6 e 30 caracteres"
           />
 
-          <!-- Botão -->
           <button type="submit" class="register-btn">Criar conta</button>
         </form>
       </div>
@@ -137,11 +98,9 @@
       <div class="preview-box"></div>
     </section>
 
-    <!-- HERO -->
     <header class="call">
       <p class="call-text">Crie sua fase e compartilhe com amigos!</p>
       <a class="btn">Começar Agora</a>
-      <!-- <a href="editor.html" class="btn">Começar Agora</a> -->
     </header>
 
     <section class="bottom-text">

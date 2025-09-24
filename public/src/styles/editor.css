@@ -236,7 +236,7 @@ main {
   position: fixed;
   top: 55px;
   left: 0;
-  width: 20px;
+  width: 400px;
   height: 100vh;
   background-color: var(--panel);
   color: #fff;
@@ -251,7 +251,7 @@ main {
 }
 
 .left-aside.expanded {
-  width: 400px; /* abre quando recebe a classe expanded */
+  width: 20px; /* abre quando recebe a classe expanded */
 }
 
 #toggle-left-aside {
@@ -295,7 +295,7 @@ main {
   position: fixed;
   top: 55px;
   right: 0;
-  width: 20px;
+  width: 400px;
   height: 100vh;
   background-color: var(--panel);
   color: #fff;
@@ -308,7 +308,7 @@ main {
 }
 
 .right-aside.expanded {
-  width: 400px;
+  width: 20px;
 }
 
 .right-aside canvas {
