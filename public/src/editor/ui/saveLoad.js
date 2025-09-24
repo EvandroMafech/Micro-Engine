@@ -54,11 +54,11 @@ export async function loadLevel(save) {
   gameState.startPointPlaced = false;
   gameState.endPointPlaced = false;
   const token = localStorage.getItem("token");
-  const userId = localStorage.getItem("user");
+
   let savedOnServer;
  
   if (save === undefined) {
-    savedOnServer = await getSaveOnServer(userId);
+    savedOnServer = await getSaveOnServer();
   } else {
     savedOnServer = save;
   }
@@ -141,17 +141,13 @@ async function overWriteSave(fase) {
     });
 
     if (!response.ok) {
-      const errorMsg = await response.json();
-      alert(errorMsg.msg);
+      alert(await response.json());
+      return;
     }
-
     const result = await response.json();
-
-    console.log(result);
     gameState.link = result.gameLink;
 
-    return result.link; // você pode mostrar para o usuário ou salvar
-  } catch (error) {
+    } catch (error) {
     console.error("Erro:", error);
   }
 
@@ -174,26 +170,23 @@ async function createNewSave(fase) {
     });
 
     if (!response.ok) {
-      const errorMsg = await response.json();
-      alert(errorMsg.msg);
+      alert(await response.json());
+      return
     }
-
-    const result = await response.json();
-
-    console.log(result.level);
+    const result = await response.json() 
     gameState.link = result.gameLink;
-    //alert(`Link para jogar: ${result.gameLink}`)
-    return result.link; // você pode mostrar para o usuário ou salvar
+
   } catch (error) {
     console.error("Erro:", error);
   }
 }
 
 
-async function getSaveOnServer(id) {
+async function getSaveOnServer() {
   try {
     const token = localStorage.getItem("token");
-    const response = await fetch(`${API_URL}/saved-levels/${id}`, {
+      const userId = localStorage.getItem("user");
+    const response = await fetch(`${API_URL}/saved-levels/${userId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

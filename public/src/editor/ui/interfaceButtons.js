@@ -54,7 +54,6 @@ export async function checkIfSaved() {
   const userId = localStorage.getItem("user");
   const checkSave = await fetch(`${API_URL}/saved-levels/lastsave/${userId}`);
   const result = await checkSave.json();
-  console.log(result)
   return result
 }
 

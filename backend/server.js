@@ -58,11 +58,23 @@ app.post("/save-level", authMiddleware, (req, res) => {
   levels.push(novaFase);
 
   res.json({
-    message: `Fase salva com sucesso! Jogue em: ${API_url}/game.html?id=${novaFase.id}`,
-    link: `${API_url}/saved-levels/${novaFase.id}`,
     gameLink: `http://localhost:5500/public/game.html?id=${novaFase.id}`,
-    level: `userID: ${novaFase.id}`,
   });
+});
+
+// [PUT] Atualizar usuário
+app.put("/save-level/:id",authMiddleware, (req, res) => {
+  const id = req.params.id
+  let level = levels.find(u => u.id === id);
+   
+  if (!level) return res.status(404).json({ erro: "Usuário não encontrado" });
+
+  const saveIndex = levels.indexOf(level);
+  levels[saveIndex] = { id: id, ...req.body }
+  
+   res.json({
+     gameLink: `http://localhost:5500/public/game.html?id=${level.id}`,
+   });
 });
 
 app.post("/register", async (req, res) => {
@@ -128,16 +140,7 @@ app.listen(port, () => {
 });
 
 
-// [PUT] Atualizar usuário
-app.put("/save-level/:id",authMiddleware, (req, res) => {
-  const id = req.params.id
-  let level = levels.find(u => u.id === id);
 
-  if (!level) return res.status(404).json({ erro: "Usuário não encontrado" });
-
-  level = {id: id, ...req.body.fase }
-  res.json({msg: "Save alterado com sucesso!"});
-});
 
 // // [DELETE] Deletar usuário
 // app.delete("/usuarios/:id", (req, res) => {
