@@ -1,4 +1,4 @@
-export const API_URL = "http://localhost:3600";
+export const API_URL = "https://micro-engine.onrender.com";
 export const tileSetSpriteheet_image_path =
   "/assets/images/Terrain/Terrain (16x16) vertical.png";
 export const lines = 13; //linhas do editor
