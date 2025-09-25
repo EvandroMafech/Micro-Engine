@@ -76,7 +76,7 @@ body {
   background-size: contain; /* faz a imagem cobrir toda a caixa */
   background-position: center; /* centraliza a imagem */
   background-repeat: no-repeat; /* evita repetição */
-  background-image: url(/public/assets/images/Landingpage/banner.png);
+  background-image: url(/assets/images/Landingpage/banner.png);
   padding: 250px;
   margin-top: 20px;
   border-radius: 12px;

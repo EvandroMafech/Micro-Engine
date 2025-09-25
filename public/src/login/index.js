@@ -104,7 +104,7 @@ async function login() {
   if (result.liberation) {
     loginModal.style.display = "none";
     registerModal.style.display = "none";
-    window.location.href = "/public/editor.html";
+    window.location.href = "/editor.html";
     localStorage.setItem("token", result.token);
     localStorage.setItem("user", result.user);
   }

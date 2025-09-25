@@ -4,28 +4,28 @@ const app = express(); // cria uma aplicação Express
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-//const path = require("path"); //usado para facilitar os caminhos do frontend
-const API_url = "http://localhost:3600";
-const port = 3600; //define a porta do servidor dinamicamente
+const path = require("path"); //usado para facilitar os caminhos do frontend
+const API_url = "https://micro-engine.onrender.com";
+const port = process.env.PORT || 3600; //define a porta do servidor dinamicamente
 const JWT_SECRET = "meusegredosuperseguro";
-//app.use(express.static(path.join(__dirname,"..", "public"))); // serve arquivos estáticos da pasta public
+app.use(express.static(path.join(__dirname,"..", "public"))); // serve arquivos estáticos da pasta public
 app.use(cors()); // permite requisições de qualquer origem // habilita CORS para todas as origens
 app.use(express.json()); // permite trabalhar com JSON no body das requisições
 
 // Banco de dados (em memória)
 let levels = []; // objeto para armazenar levels
-let users = [];
+let users = []; // objeto para listar usuários
 
-// app.get("/", (req, res) => { //define a rota da página inicial
-//   res.sendFile(path.join(__dirname,"..", "public", "index.html"));
-// });
-
-app.get("/", (req, res) => {
-  //define a rota da página inicial
-  res.send("Servidor rodando!");
+app.get("/", (req, res) => { //define a rota da página inicial
+  res.sendFile(path.join(__dirname,"..", "public", "index.html"));
 });
 
-// [GET] Listar usuários - http://localhost:3000/saved-levels
+// app.get("/", (req, res) => {
+//   //define a rota da página inicial
+//   res.send("Servidor rodando!");
+// });
+
+//  Listar usuários -
 app.get("/saved-levels", (req, res) => {
   res.json(levels);
 });
@@ -41,7 +41,7 @@ app.get("/info", (req, res) => {
   res.json(`Numero de contas criadas: ${users.length}`);
 });
 
-///http://localhost:3000/saved-levels/lastsave
+
 app.get("/saved-levels/lastsave/:id", (req, res) => {
   const saveId = req.params.id;
   const save = levels.find(u => u.id === saveId);
@@ -49,7 +49,7 @@ app.get("/saved-levels/lastsave/:id", (req, res) => {
   res.json(result); 
 });
 
-// [GET] Buscar usuário por ID - http://localhost:3000/saved-levels/1
+
 app.get("/saved-levels/:id", (req, res) => {
   const levelId = req.params.id
   const level = levels.find(f => f.id === levelId);
@@ -59,13 +59,13 @@ app.get("/saved-levels/:id", (req, res) => {
   res.json(level);
 });
 
-// [POST] Criar nova fase - http://localhost:3000/save-level
+
 app.post("/save-level", authMiddleware, (req, res) => {
   const novaFase = { id: req.body.userId, ...req.body.fase }; // cria uma nova fase com ID único
   levels.push(novaFase);
 
   res.json({
-    gameLink: `http://localhost:5500/public/game.html?id=${novaFase.id}`,
+    gameLink: `${API_url}/game.html?id=${novaFase.id}`,
   });
 });
 
@@ -80,7 +80,7 @@ app.put("/save-level/:id",authMiddleware, (req, res) => {
   levels[saveIndex] = { id: id, ...req.body }
   
    res.json({
-     gameLink: `http://localhost:5500/public/game.html?id=${level.id}`,
+     gameLink: `${API_url}/game.html?id=${level.id}`,
    });
 });
 

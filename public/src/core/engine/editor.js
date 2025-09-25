@@ -615,7 +615,7 @@ editorCanvas.addEventListener("mousemove", (event) => {
   const image = new Image();
 
   if (functionButtons.eraser) {
-    image.src = "../../../public/assets/images/icons/cut.png";
+    image.src = "/assets/images/icons/cut.png";
     ctxEditor.drawImage(
       image,
       event.clientX - origin.left - image.height / 2,

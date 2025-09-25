@@ -81,7 +81,7 @@ export default class Spikedball extends AnimatedImage {
 
   animateChain() {
     const image = this.chain;
-    image.src = "/public/assets/images/Traps/Spiked Ball/Chain.png";
+    image.src = "/assets/images/Traps/Spiked Ball/Chain.png";
 
     let position = Math.floor(frames / staggerFrames) % this.spriteFrames;
     let frameX = position * this.width;

@@ -14,10 +14,10 @@ window.addEventListener("DOMContentLoaded", async () => {
       startGame();
       //por algum motivo tenho que duplicar isso
       setTimeout(() => {
-        setImageOnBackgroundTiles("/public/" + fase.background);
+        setImageOnBackgroundTiles(fase.background);
       }, 500);
       setTimeout(() => {
-        setImageOnBackgroundTiles("/public/" + fase.background);
+        setImageOnBackgroundTiles(fase.background);
       }, 1200);
     });
 
