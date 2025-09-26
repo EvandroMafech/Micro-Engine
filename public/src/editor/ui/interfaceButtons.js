@@ -54,6 +54,12 @@ const modalInfo = {
 export async function checkIfSaved() {
   const userId = localStorage.getItem("user");
   const checkSave = await fetch(`${API_URL}/saved-levels/lastsave/${userId}`);
+
+  if (!checkSave) {
+    alert("Não foi possível verificar fases salvas!")
+    return
+  }
+
   const result = await checkSave.json();
   return result
 }

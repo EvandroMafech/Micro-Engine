@@ -141,7 +141,8 @@ async function overWriteSave(fase) {
     });
 
     if (!response.ok) {
-      alert(await response.json());
+      const error = await response.json();
+      alert(error);
       return;
     }
     const result = await response.json();
@@ -169,10 +170,11 @@ async function createNewSave(fase) {
       body: JSON.stringify({ fase, userId }),
     });
 
-    if (!response.ok) {
-      alert(await response.json());
-      return
-    }
+   if (!response.ok) {
+     const error = await response.json();
+     alert(error);
+     return;
+   }
     const result = await response.json() 
     gameState.link = result.gameLink;
 
@@ -183,7 +185,7 @@ async function createNewSave(fase) {
 
 
 async function getSaveOnServer() {
-  try {
+
     const token = localStorage.getItem("token");
       const userId = localStorage.getItem("user");
     const response = await fetch(`${API_URL}/saved-levels/${userId}`, {
@@ -194,14 +196,13 @@ async function getSaveOnServer() {
     });
 
     if (!response.ok) {
-      throw new Error("Fase não encontrada");
+      alert("Fase não encontrada");
+      return
     }
 
     const fase = await response.json();
     return fase;
-  } catch (error) {
-    console.error("Erro:", error);
-  }
+
 }
 
 
@@ -210,6 +211,12 @@ export async function getSave() {
   const faseId = url.searchParams.get("id");
   if (!faseId) return;
   const response = await fetch(`${API_URL}/saved-levels/${faseId}`);
+
+      if (!response.ok) {
+        alert("Fase não encontrada");
+        return;
+      }
+
   const fase = await response.json();
   return fase;
 }

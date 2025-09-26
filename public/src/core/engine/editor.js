@@ -656,24 +656,22 @@ editorCanvas.addEventListener("mouseleave", () => {
 });
 
 
-window.addEventListener("keyup", (event) => {
-  const key = event.key.toLocaleLowerCase()
+// window.addEventListener("keyup", (event) => {
+//   const key = event.key.toLocaleLowerCase()
 
-  if (key === "t") {
-    test()
-  }
-  if (key === "v") {
-    checkIfSaved()
+//   if (key === "t") {
+//     test()
+//   }
+//   if (key === "v") {
+//     checkIfSaved()
 
-  }
-})
-
-
-async function test() {
-  const test = await fetch(`${API_URL}/saved-levels`);
-
-  const result = await test.json()
-  console.log(result)
+//   }
+// })
 
 
-}
+// async function test() {
+//   const test = await fetch(`${API_URL}/saved-levels`);
+
+//   const result = await test.json()
+//   console.log(result)
+// }

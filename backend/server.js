@@ -69,12 +69,12 @@ app.post("/save-level", authMiddleware, (req, res) => {
   });
 });
 
-// [PUT] Atualizar usuário
+// [PUT] Atualizar save
 app.put("/save-level/:id",authMiddleware, (req, res) => {
   const id = req.params.id
   let level = levels.find(u => u.id === id);
    
-  if (!level) return res.status(404).json({ erro: "Usuário não encontrado" });
+  if (!level) return res.status(404).json({ msg: "Sua sessão foi encerrada" });
 
   const saveIndex = levels.indexOf(level);
   levels[saveIndex] = { id: id, ...req.body }
