@@ -19,14 +19,13 @@ export const positionAdjust = {
   start: { x: 64, y: 128 },
 };
 
-function createImage() {
+function createImage(path) {
   const image = new Image();
+  image.src = path
   return image;
 }
 
 const ImagesInfo = [
-  //line é a linha onde esta presente os frames em um spritesheet
-
   {
     name: "ninjafrog",
     state: "idle",
@@ -36,7 +35,9 @@ const ImagesInfo = [
     height: 32,
     image:
       "../public/assets/images/Main Characters/Ninja Frog/Idle (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Ninja Frog/Idle (32x32).png"
+    ),
   },
   {
     name: "ninjafrog",
@@ -46,7 +47,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Main Characters/Ninja Frog/hit (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Ninja Frog/hit (32x32).png"
+    ),
   },
   {
     name: "ninjafrog",
@@ -57,7 +60,9 @@ const ImagesInfo = [
     height: 32,
     image:
       "../public/assets/images/Main Characters/Ninja Frog/Double Jump (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Ninja Frog/Double Jump (32x32).png"
+    ),
   },
   {
     name: "ninjafrog",
@@ -68,7 +73,9 @@ const ImagesInfo = [
     height: 32,
     image:
       "../public/assets/images/Main Characters/Ninja Frog/Wall Jump (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Ninja Frog/Wall Jump (32x32).png"
+    ),
   },
   {
     name: "ninjafrog",
@@ -78,7 +85,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Main Characters/Ninja Frog/Run (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Ninja Frog/Run (32x32).png"
+    ),
   },
   {
     name: "ninjafrog",
@@ -88,7 +97,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Main Characters/Ninja Frog/Run (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Ninja Frog/Run (32x32).png"
+    ),
   },
   {
     name: "ninjafrog",
@@ -99,7 +110,9 @@ const ImagesInfo = [
     height: 32,
     image:
       "../public/assets/images/Main Characters/Ninja Frog/Jump (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Ninja Frog/Jump (32x32).png"
+    ),
   },
   {
     name: "ninjafrog",
@@ -110,7 +123,9 @@ const ImagesInfo = [
     height: 32,
     image:
       "../public/assets/images/Main Characters/Ninja Frog/Fall (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Ninja Frog/Fall (32x32).png"
+    ),
   },
   {
     name: "ninjafrog",
@@ -120,7 +135,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Main Characters/Desappearing (96x96)2.png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Desappearing (96x96)2.png"
+    ),
   },
   {
     name: "maskdude",
@@ -130,7 +147,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Main Characters/Mask Dude/Idle (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Mask Dude/Idle (32x32).png"
+    ),
   },
   {
     name: "maskdude",
@@ -140,7 +159,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Main Characters/Mask Dude/hit (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Mask Dude/hit (32x32).png"
+    ),
   },
   {
     name: "maskdude",
@@ -151,7 +172,9 @@ const ImagesInfo = [
     height: 32,
     image:
       "../public/assets/images/Main Characters/Mask Dude/Double Jump (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Mask Dude/Double Jump (32x32).png"
+    ),
   },
   {
     name: "maskdude",
@@ -162,7 +185,9 @@ const ImagesInfo = [
     height: 32,
     image:
       "../public/assets/images/Main Characters/Mask Dude/Wall Jump (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Mask Dude/Wall Jump (32x32).png"
+    ),
   },
   {
     name: "maskdude",
@@ -172,7 +197,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Main Characters/Mask Dude/Run (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Mask Dude/Run (32x32).png"
+    ),
   },
   {
     name: "maskdude",
@@ -182,7 +209,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Main Characters/Mask Dude/Run (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Mask Dude/Run (32x32).png"
+    ),
   },
   {
     name: "maskdude",
@@ -192,7 +221,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Main Characters/Mask Dude/Jump (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Mask Dude/Jump (32x32).png"
+    ),
   },
   {
     name: "maskdude",
@@ -202,7 +233,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Main Characters/Mask Dude/Fall (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Mask Dude/Fall (32x32).png"
+    ),
   },
   {
     name: "maskdude",
@@ -212,7 +245,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Main Characters/Desappearing (96x96)2.png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Desappearing (96x96)2.png"
+    ),
   },
   {
     name: "pinkman",
@@ -222,7 +257,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Main Characters/Pink Man/Idle (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Pink Man/Idle (32x32).png"
+    ),
   },
   {
     name: "pinkman",
@@ -232,7 +269,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Main Characters/Pink Man/hit (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Pink Man/hit (32x32).png"
+    ),
   },
   {
     name: "pinkman",
@@ -243,7 +282,9 @@ const ImagesInfo = [
     height: 32,
     image:
       "../public/assets/images/Main Characters/Pink Man/Double Jump (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Pink Man/Double Jump (32x32).png"
+    ),
   },
   {
     name: "pinkman",
@@ -254,7 +295,9 @@ const ImagesInfo = [
     height: 32,
     image:
       "../public/assets/images/Main Characters/Pink Man/Wall Jump (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Pink Man/Wall Jump (32x32).png"
+    ),
   },
   {
     name: "pinkman",
@@ -264,7 +307,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Main Characters/Pink Man/Run (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Pink Man/Run (32x32).png"
+    ),
   },
   {
     name: "pinkman",
@@ -274,7 +319,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Main Characters/Pink Man/Run (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Pink Man/Run (32x32).png"
+    ),
   },
   {
     name: "pinkman",
@@ -284,7 +331,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Main Characters/Pink Man/Jump (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Pink Man/Jump (32x32).png"
+    ),
   },
   {
     name: "pinkman",
@@ -294,7 +343,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Main Characters/Pink Man/Fall (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Pink Man/Fall (32x32).png"
+    ),
   },
   {
     name: "pinkman",
@@ -304,7 +355,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Main Characters/Desappearing (96x96)2.png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Desappearing (96x96)2.png"
+    ),
   },
   {
     name: "virtualguy",
@@ -315,7 +368,9 @@ const ImagesInfo = [
     height: 32,
     image:
       "../public/assets/images/Main Characters/Virtual Guy/Idle (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Virtual Guy/Idle (32x32).png"
+    ),
   },
   {
     name: "virtualguy",
@@ -326,7 +381,9 @@ const ImagesInfo = [
     height: 32,
     image:
       "../public/assets/images/Main Characters/Virtual Guy/hit (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Virtual Guy/hit (32x32).png"
+    ),
   },
   {
     name: "virtualguy",
@@ -337,7 +394,9 @@ const ImagesInfo = [
     height: 32,
     image:
       "../public/assets/images/Main Characters/Virtual Guy/Double Jump (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Virtual Guy/Double Jump (32x32).png"
+    ),
   },
   {
     name: "virtualguy",
@@ -348,7 +407,9 @@ const ImagesInfo = [
     height: 32,
     image:
       "../public/assets/images/Main Characters/Virtual Guy/Wall Jump (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Virtual Guy/Wall Jump (32x32).png"
+    ),
   },
   {
     name: "virtualguy",
@@ -359,7 +420,9 @@ const ImagesInfo = [
     height: 32,
     image:
       "../public/assets/images/Main Characters/Virtual Guy/Run (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Virtual Guy/Run (32x32).png"
+    ),
   },
   {
     name: "virtualguy",
@@ -370,7 +433,9 @@ const ImagesInfo = [
     height: 32,
     image:
       "../public/assets/images/Main Characters/Virtual Guy/Run (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Virtual Guy/Run (32x32).png"
+    ),
   },
   {
     name: "virtualguy",
@@ -381,7 +446,9 @@ const ImagesInfo = [
     height: 32,
     image:
       "../public/assets/images/Main Characters/Virtual Guy/Jump (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Virtual Guy/Jump (32x32).png"
+    ),
   },
   {
     name: "virtualguy",
@@ -392,7 +459,9 @@ const ImagesInfo = [
     height: 32,
     image:
       "../public/assets/images/Main Characters/Virtual Guy/Fall (32x32).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Virtual Guy/Fall (32x32).png"
+    ),
   },
   {
     name: "virtualguy",
@@ -402,7 +471,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Main Characters/Desappearing (96x96)2.png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Main Characters/Desappearing (96x96)2.png"
+    ),
   },
 
   {
@@ -413,7 +484,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Items/Fruits/Strawberry.png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Items/Fruits/Strawberry.png"
+    ),
   },
   {
     name: "fruit",
@@ -423,7 +496,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Items/Fruits/Pineapple.png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Items/Fruits/Pineapple.png"
+    ),
   },
   {
     name: "fruit",
@@ -433,7 +508,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Items/Fruits/Orange.png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Items/Fruits/Orange.png"
+    ),
   },
   {
     name: "fruit",
@@ -443,7 +520,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Items/Fruits/Apple.png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Items/Fruits/Apple.png"
+    ),
   },
   {
     name: "fruit",
@@ -453,7 +532,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Items/Fruits/Bananas.png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Items/Fruits/Bananas.png"
+    ),
   },
   {
     name: "fruit",
@@ -463,7 +544,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Items/Fruits/Cherries.png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Items/Fruits/Cherries.png"
+    ),
   },
   {
     name: "fruit",
@@ -473,7 +556,7 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Items/Fruits/Kiwi.png",
-    imageInstance: createImage(),
+    imageInstance: createImage("../public/assets/images/Items/Fruits/Kiwi.png"),
   },
   {
     name: "fruit",
@@ -483,7 +566,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Items/Fruits/Melon.png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Items/Fruits/Melon.png"
+    ),
   },
   {
     name: "fruit",
@@ -493,7 +578,9 @@ const ImagesInfo = [
     width: 32,
     height: 32,
     image: "../public/assets/images/Items/Fruits/Collected.png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Items/Fruits/Collected.png"
+    ),
   },
   {
     name: "checkpoint",
@@ -504,7 +591,9 @@ const ImagesInfo = [
     height: 64,
     image:
       "../public/assets/images/Items/Checkpoints/Checkpoint/Checkpoint (Flag Idle)(64x64).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Items/Checkpoints/Checkpoint/Checkpoint (Flag Idle)(64x64).png"
+    ),
   },
   {
     name: "checkpoint",
@@ -515,7 +604,9 @@ const ImagesInfo = [
     height: 64,
     image:
       "../public/assets/images/Items/Checkpoints/Checkpoint/Checkpoint (Flag Out) (64x64).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Items/Checkpoints/Checkpoint/Checkpoint (Flag Out) (64x64).png"
+    ),
   },
   {
     name: "checkpoint",
@@ -526,7 +617,9 @@ const ImagesInfo = [
     height: 64,
     image:
       "../public/assets/images/Items/Checkpoints/Checkpoint/Checkpoint (No Flag).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Items/Checkpoints/Checkpoint/Checkpoint (No Flag).png"
+    ),
   },
   {
     name: "box1",
@@ -536,7 +629,9 @@ const ImagesInfo = [
     width: 28,
     height: 24,
     image: "../public/assets/images/Items/Boxes/Box1/Idle.png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Items/Boxes/Box1/Idle.png"
+    ),
   },
   {
     name: "box1",
@@ -546,7 +641,9 @@ const ImagesInfo = [
     width: 28,
     height: 24,
     image: "../public/assets/images/Items/Boxes/Box1/Hit (28x24).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Items/Boxes/Box1/Hit (28x24).png"
+    ),
   },
   {
     name: "box2",
@@ -556,7 +653,9 @@ const ImagesInfo = [
     width: 28,
     height: 24,
     image: "../public/assets/images/Items/Boxes/Box2/Idle.png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Items/Boxes/Box2/Idle.png"
+    ),
   },
   {
     name: "box2",
@@ -566,7 +665,9 @@ const ImagesInfo = [
     width: 28,
     height: 24,
     image: "../public/assets/images/Items/Boxes/Box2/Hit (28x24).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Items/Boxes/Box2/Hit (28x24).png"
+    ),
   },
   {
     name: "box3",
@@ -576,7 +677,9 @@ const ImagesInfo = [
     width: 28,
     height: 24,
     image: "../public/assets/images/Items/Boxes/Box3/Idle.png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Items/Boxes/Box3/Idle.png"
+    ),
   },
   {
     name: "box3",
@@ -586,7 +689,9 @@ const ImagesInfo = [
     width: 28,
     height: 24,
     image: "../public/assets/images/Items/Boxes/Box3/Hit (28x24).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Items/Boxes/Box3/Hit (28x24).png"
+    ),
   },
   {
     name: "end",
@@ -596,7 +701,9 @@ const ImagesInfo = [
     width: 64,
     height: 64,
     image: "../public/assets/images/Items/Checkpoints/End/End (Idle).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Items/Checkpoints/End/End (Idle).png"
+    ),
   },
   {
     name: "end",
@@ -607,7 +714,9 @@ const ImagesInfo = [
     height: 64,
     image:
       "../public/assets/images/Items/Checkpoints/End/End (Pressed) (64x64).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Items/Checkpoints/End/End (Pressed) (64x64).png"
+    ),
   },
   {
     name: "start",
@@ -617,7 +726,9 @@ const ImagesInfo = [
     width: 64,
     height: 64,
     image: "../public/assets/images/Items/Checkpoints/Start/Start (Idle).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Items/Checkpoints/Start/Start (Idle).png"
+    ),
   },
   {
     name: "start",
@@ -628,7 +739,9 @@ const ImagesInfo = [
     height: 64,
     image:
       "../public/assets/images/Items/Checkpoints/Start/Start (Moving) (64x64).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Items/Checkpoints/Start/Start (Moving) (64x64).png"
+    ),
   },
   {
     name: "block",
@@ -638,7 +751,9 @@ const ImagesInfo = [
     width: 22,
     height: 22,
     image: "../public/assets/images/Traps/Blocks/HitTop (22x22).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Traps/Blocks/HitTop (22x22).png"
+    ),
   },
   {
     name: "block",
@@ -648,7 +763,7 @@ const ImagesInfo = [
     width: 22,
     height: 22,
     image: "../public/assets/images/Traps/Blocks/Idle.png",
-    imageInstance: createImage(),
+    imageInstance: createImage("../public/assets/images/Traps/Blocks/Idle.png"),
   },
   {
     name: "platform",
@@ -658,7 +773,9 @@ const ImagesInfo = [
     width: 32,
     height: 10,
     image: "../public/assets/images/Traps/Falling Platforms/Off.png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Traps/Falling Platforms/Off.png"
+    ),
   },
   {
     name: "platform",
@@ -668,7 +785,9 @@ const ImagesInfo = [
     width: 32,
     height: 10,
     image: "../public/assets/images/Traps/Falling Platforms/On (32x10).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Traps/Falling Platforms/On (32x10).png"
+    ),
   },
   {
     name: "fan",
@@ -678,7 +797,9 @@ const ImagesInfo = [
     width: 24,
     height: 8,
     image: "../public/assets/images/Traps/Fan/On (24x8).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Traps/Fan/On (24x8).png"
+    ),
   },
   {
     name: "fan",
@@ -688,7 +809,7 @@ const ImagesInfo = [
     width: 24,
     height: 8,
     image: "../public/assets/images/Traps/Fan/Off.png",
-    imageInstance: createImage(),
+    imageInstance: createImage("../public/assets/images/Traps/Fan/Off.png"),
   },
   {
     name: "saw",
@@ -698,7 +819,9 @@ const ImagesInfo = [
     width: 38,
     height: 38,
     image: "../public/assets/images/Traps/Saw/On (38x38).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Traps/Saw/On (38x38).png"
+    ),
   },
   {
     name: "spykes",
@@ -708,7 +831,7 @@ const ImagesInfo = [
     width: 16,
     height: 16,
     image: "../public/assets/images/Traps/Spikes/Idle.png",
-    imageInstance: createImage(),
+    imageInstance: createImage("../public/assets/images/Traps/Spikes/Idle.png"),
   },
   {
     name: "trampoline",
@@ -718,7 +841,9 @@ const ImagesInfo = [
     width: 28,
     height: 28,
     image: "../public/assets/images/Traps/Trampoline/Idle.png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Traps/Trampoline/Idle.png"
+    ),
   },
   {
     name: "trampoline",
@@ -728,7 +853,9 @@ const ImagesInfo = [
     width: 28,
     height: 28,
     image: "../public/assets/images/Traps/Trampoline/Jump (28x28).png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Traps/Trampoline/Jump (28x28).png"
+    ),
   },
   {
     name: "spikedball",
@@ -738,9 +865,12 @@ const ImagesInfo = [
     width: 28,
     height: 28,
     image: "../public/assets/images/Traps/Spiked Ball/Spiked Ball.png",
-    imageInstance: createImage(),
+    imageInstance: createImage(
+      "../public/assets/images/Traps/Spiked Ball/Spiked Ball.png"
+    ),
   },
 ];
+
 
 ImagesInfo.forEach((content, index) => {
   //função que cria um array contendo um chave de facil acesso e varias informações para manipulação da imagem

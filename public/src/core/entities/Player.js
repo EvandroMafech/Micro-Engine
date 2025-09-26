@@ -135,7 +135,6 @@ export default class Player {
       spriteCoordinates[this.spriteState].location.length;
 
     const image = spriteCoordinates[this.spriteState].location[0].imageInstance;
-    image.src = spriteCoordinates[this.spriteState].location[0].image;
 
     let frameX = position * this.spriteWidth;
     let frameY = spriteCoordinates[this.spriteState].location[position].y;
