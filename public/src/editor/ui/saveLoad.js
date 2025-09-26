@@ -128,7 +128,7 @@ async function sendToServer(fase) {
 }
 
 async function overWriteSave(fase) {
-  try {
+
     const userId = localStorage.getItem("user");
     const token = localStorage.getItem("token");
     const response = await fetch(`${API_URL}/save-level/${userId}`, {
@@ -141,15 +141,15 @@ async function overWriteSave(fase) {
     });
 
     if (!response.ok) {
-      alert(await response.json());
+      const error = await response.json();
+
+      alert(error.msg);
       return;
     }
     const result = await response.json();
     gameState.link = result.gameLink;
 
-    } catch (error) {
-    console.error("Erro:", error);
-  }
+
 
 
 }
@@ -157,7 +157,7 @@ async function overWriteSave(fase) {
 
 
 async function createNewSave(fase) {
-  try {
+
     const userId = localStorage.getItem("user");
     const token = localStorage.getItem("token");
     const response = await fetch(`${API_URL}/save-level`, {
@@ -170,20 +170,20 @@ async function createNewSave(fase) {
     });
 
     if (!response.ok) {
-      alert(await response.json());
+      const error = await response.json();
+      
+      alert(error.msg)
       return
     }
     const result = await response.json() 
     gameState.link = result.gameLink;
 
-  } catch (error) {
-    console.error("Erro:", error);
-  }
+
 }
 
 
 async function getSaveOnServer() {
-  try {
+
     const token = localStorage.getItem("token");
       const userId = localStorage.getItem("user");
     const response = await fetch(`${API_URL}/saved-levels/${userId}`, {
@@ -194,14 +194,12 @@ async function getSaveOnServer() {
     });
 
     if (!response.ok) {
-      throw new Error("Fase não encontrada");
+      alert("Fase não encontrada");
+      return
     }
 
     const fase = await response.json();
     return fase;
-  } catch (error) {
-    console.error("Erro:", error);
-  }
 }
 
 
