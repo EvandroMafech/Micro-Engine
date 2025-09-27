@@ -227,11 +227,12 @@ async function handleModalYes() {
     case "link":
       checkIfSaved().then((save) => {
         const isSaved = save;
-        if (isSaved) {
+        if (isSaved == "true") {
           goToPage(`${gameState.link}`, true);
         } else {
           hideModal();
           alert("Não há fases salvas!");
+          return
         }
       });
 

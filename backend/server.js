@@ -127,7 +127,7 @@ function authMiddleware(req, res, next) {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 
-  if (!token) return res.status(401).json({ msg: "Token não fornecido" });
+  if (!token) return res.status(401).json({ msg: "Sessão expirada, faça o login" });
  
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
