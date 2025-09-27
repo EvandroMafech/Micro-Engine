@@ -41,6 +41,7 @@ export function saveLevel() {
         id: img.id ?? null,
         life: img.life ?? null,
         rotation: img.rotation ?? null,
+        origin: img.origin ?? null,
       },
     })),
     background: activeBackgroundImage[activeBackgroundImage.length - 1],
@@ -56,7 +57,7 @@ export async function loadLevel(save) {
   const token = localStorage.getItem("token");
 
   let savedOnServer;
- 
+
   if (save === undefined) {
     savedOnServer = await getSaveOnServer();
   } else {
@@ -65,7 +66,7 @@ export async function loadLevel(save) {
 
   const saved = JSON.stringify(savedOnServer); // pegar do servidor
   if (!saved) {
-    alert("Nenhum save encontrado")
+    alert("Nenhum save encontrado");
     return;
   }
 
@@ -107,96 +108,91 @@ export async function loadLevel(save) {
     let adjustX = positionAdjust[type]?.x ?? 0;
     let adjustY = positionAdjust[type]?.y ?? 0;
 
-    let TileId =
-      `l${Math.floor((savedImg.x + adjustX) / tileSize)}` +
-      `c${Math.floor((savedImg.y + adjustY) / tileSize)}`;
-    createAnimatedImage(TileId, { clientX: savedImg.x, clientY: savedImg.y });
-  });
+    let xPos = savedImg.x;
+    let yPos = savedImg.y;
 
+    if (type === "spikedball") {
+      xPos = savedImg.extra.origin.x;
+      yPos = savedImg.extra.origin.y;
+    }
+
+    let TileId =
+      `l${Math.floor((xPos + adjustX) / tileSize)}` +
+      `c${Math.floor((yPos + adjustY) / tileSize)}`;
+    createAnimatedImage(TileId, { clientX: xPos, clientY: yPos });
+  });
 }
 
 // Exemplo: enviando uma fase para o servidor
 async function sendToServer(fase) {
-  
-  const isSaved = await checkIfSaved()
+  const isSaved = await checkIfSaved();
   if (isSaved === "true") {
-      overWriteSave(fase)
-
+    overWriteSave(fase);
   } else {
-     createNewSave(fase);
+    createNewSave(fase);
   }
 }
 
 async function overWriteSave(fase) {
+  const userId = localStorage.getItem("user");
+  const token = localStorage.getItem("token");
+  const response = await fetch(`${API_URL}/save-level/${userId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(fase),
+  });
 
-    const userId = localStorage.getItem("user");
-    const token = localStorage.getItem("token");
-    const response = await fetch(`${API_URL}/save-level/${userId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(fase),
-    });
-
-   if (!response.ok) {
-     const error = await response.json();
-     alert(error.msg);
-     return;
-   }
-    const result = await response.json();
-    gameState.link = result.gameLink;
-
+  if (!response.ok) {
+    const error = await response.json();
+    alert(error.msg);
+    return;
+  }
+  const result = await response.json();
+  gameState.link = result.gameLink;
 }
-
-
 
 async function createNewSave(fase) {
+  const userId = localStorage.getItem("user");
+  const token = localStorage.getItem("token");
+  const response = await fetch(`${API_URL}/save-level`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ fase, userId }),
+  });
 
-    const userId = localStorage.getItem("user");
-    const token = localStorage.getItem("token");
-    const response = await fetch(`${API_URL}/save-level`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ fase, userId }),
-    });
-
-   if (!response.ok) {
-     const error = await response.json();
-     alert(error.msg);
-     return;
-   }
-    const result = await response.json() 
-    gameState.link = result.gameLink;
-
+  if (!response.ok) {
+    const error = await response.json();
+    alert(error.msg);
+    return;
+  }
+  const result = await response.json();
+  gameState.link = result.gameLink;
 }
-
 
 async function getSaveOnServer() {
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("user");
+  const response = await fetch(`${API_URL}/saved-levels/${userId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
-    const token = localStorage.getItem("token");
-      const userId = localStorage.getItem("user");
-    const response = await fetch(`${API_URL}/saved-levels/${userId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+  if (!response.ok) {
+    alert("Fase não encontrada");
+    return;
+  }
 
-    if (!response.ok) {
-      alert("Fase não encontrada");
-      return
-    }
-
-    const fase = await response.json();
-    return fase;
-
+  const fase = await response.json();
+  return fase;
 }
-
 
 export async function getSave() {
   const url = new URL(window.location.href); // cria um objeto URL
@@ -204,10 +200,10 @@ export async function getSave() {
   if (!faseId) return;
   const response = await fetch(`${API_URL}/saved-levels/${faseId}`);
 
-      if (!response.ok) {
-        alert("Fase não encontrada");
-        return;
-      }
+  if (!response.ok) {
+    alert("Fase não encontrada");
+    return;
+  }
 
   const fase = await response.json();
   return fase;
