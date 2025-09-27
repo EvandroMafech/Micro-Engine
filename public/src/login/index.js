@@ -118,18 +118,3 @@ window.addEventListener("keyup", (event) => {
     registerModal.style.display = "none";
   }
 });
-
-// window.addEventListener("keyup", (event) => {
-//   //usado para fazer debugs apertando p para gerar informaçãos no console
-//   const key = event.key.toLowerCase();
-
-//   if (key == "t") {
-//     //viewUsers();
-//   }
-// });
-
-// async function viewUsers() {
-//   const users = await fetch(`${API_URL}/users`);
-
-//   const result = await users.json();
-// }

@@ -23,9 +23,8 @@ import {
 import { createMapBoundaries, hidePlayer } from "../../core/engine/engine.js";
 
 
-// ======================
 // UI Elements
-// ======================
+
 const UI = {
   leftAsideMainButtons: document.querySelectorAll(".main-btn"),
   dropdownButtons: document.querySelectorAll(".dropdown"),
@@ -42,9 +41,8 @@ UI.modal.btnNo = UI.modal.querySelector(".btn-no");
 UI.modal.btnOk = UI.modal.querySelector(".btn-ok");
 UI.modal.text = UI.modal.querySelector(".text");
 
-// ======================
+
 // Modal State
-// ======================
 const modalInfo = {
   type: "",
   yes: false,
@@ -96,9 +94,7 @@ function cleanCanvas() {
   createMapBoundaries();
 }
 
-// ======================
 // Modal Helpers
-// ======================
 function showModal(
   message,
   type,
@@ -119,9 +115,8 @@ function hideModal() {
   UI.modal.style.display = "none";
 }
 
-// ======================
+
 // Game Flow
-// ======================
 export function startGame() {
   const start = animatedImagesArray.find((e) => e.name === "start-idle");
   const end = animatedImagesArray.find((e) => e.name === "end-idle");
@@ -161,9 +156,8 @@ function returToEditor() {
   }
 }
 
-// ======================
+
 // Modal Actions
-// ======================
 async function handleModalYes() {
   switch (modalInfo.type) {
     case "clear":
@@ -269,9 +263,8 @@ function handleModalNo() {
   }
 }
 
-// ======================
+
 // Event Listeners
-// ======================
 
 // Left aside dropdown toggles
 UI.leftAsideMainButtons.forEach((btn) =>
@@ -432,9 +425,8 @@ window.addEventListener("click", (e) => {
   if (e.target === UI.modal) hideModal();
 });
 
-// ======================
+
 // External Exports
-// ======================
 export function gameOverModal() {
   
   if(gameState.onGameLink){

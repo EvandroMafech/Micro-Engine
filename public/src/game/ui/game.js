@@ -1,5 +1,4 @@
 import { setImageOnBackgroundTiles } from "../../core/engine/engine.js";
-import { API_URL, backgroundArray } from "../../core/utils/constants.js";
 import { startGame } from "../../editor/ui/interfaceButtons.js";
 import { getSave, loadLevel } from "../../editor/ui/saveLoad.js";
 import { gameState } from "./gameState.js";
