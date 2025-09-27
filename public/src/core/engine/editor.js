@@ -541,7 +541,7 @@ export function animationLoop() {
 createGrid(ctx);
 createBackgroundGrid(ctxBackground);
 drawGrid();
-setTimeout(createMapBoundaries, 10); //por algum motivo se eu chamar direto na sequencia de funções acima nao funciona
+setTimeout(createMapBoundaries, 100); //por algum motivo se eu chamar direto na sequencia de funções acima nao funciona
 animationLoop();
 
 editorCanvas.addEventListener("mousedown", (event) => {
