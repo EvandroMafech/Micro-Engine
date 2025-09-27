@@ -456,7 +456,7 @@ export function gameEnd() {
 
   if (gameState.onGameLink) {
     showModal(
-      "Ops! Você... Morreu. Trágico. Deseja jogar novamente?",
+      "Parabéns! Você conseguiu!!! Deseja jogar novamente?",
       "gameEnd-link",
       { yes: true, no: true }
     );
