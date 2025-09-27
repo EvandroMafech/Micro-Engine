@@ -8,7 +8,8 @@ const path = require("path"); //usado para facilitar os caminhos do frontend
 const API_url = "https://micro-engine.onrender.com";
 const port = process.env.PORT || 3600; //define a porta do servidor dinamicamente
 const JWT_SECRET = "meusegredosuperseguro";
-app.use(express.static(path.join(__dirname,"..", "public"))); // serve arquivos estáticos da pasta public
+
+app.use(express.static(path.join(__dirname, "..", "public"))); // serve arquivos estáticos da pasta public
 app.use(cors()); // permite requisições de qualquer origem // habilita CORS para todas as origens
 app.use(express.json()); // permite trabalhar com JSON no body das requisições
 
@@ -16,20 +17,17 @@ app.use(express.json()); // permite trabalhar com JSON no body das requisições
 let levels = []; // objeto para armazenar levels
 let users = []; // objeto para listar usuários
 
-app.get("/", (req, res) => { //define a rota da página inicial
+//define a rota da página inicial
+app.get("/", (req, res) => { 
   res.sendFile(path.join(__dirname,"..", "public", "index.html"));
 });
 
-// app.get("/", (req, res) => {
-//   //define a rota da página inicial
-//   res.send("Servidor rodando!");
-// });
-
-//  Listar usuários -
+//  Listar fases salvas
 app.get("/saved-levels", (req, res) => {
   res.json(levels);
 });
 
+//listar nomes dos usuários
 app.get("/users/usernames", (req, res) => {
   const userNames = users.map(u => {
     if(u.Usarname =! "") return u.userName 
@@ -37,11 +35,12 @@ app.get("/users/usernames", (req, res) => {
   res.json(userNames);
 });
 
+//listar numero de contas criadas
 app.get("/info", (req, res) => {
   res.json(`Numero de contas criadas: ${users.length}`);
 });
 
-
+//verifica se foi salvo
 app.get("/saved-levels/lastsave/:id", (req, res) => {
   const saveId = req.params.id;
   const save = levels.find(u => u.id === saveId);
@@ -49,7 +48,7 @@ app.get("/saved-levels/lastsave/:id", (req, res) => {
   res.json(result); 
 });
 
-
+//retorna a fase salva pelo id
 app.get("/saved-levels/:id", (req, res) => {
   const levelId = req.params.id
   const level = levels.find(f => f.id === levelId);
@@ -59,7 +58,7 @@ app.get("/saved-levels/:id", (req, res) => {
   res.json(level);
 });
 
-
+//salva fase
 app.post("/save-level", authMiddleware, (req, res) => {
   const novaFase = { id: req.body.userId, ...req.body.fase }; // cria uma nova fase com ID único
   levels.push(novaFase);
@@ -84,6 +83,7 @@ app.put("/save-level/:id",authMiddleware, (req, res) => {
    });
 });
 
+//registra usuário
 app.post("/register", async (req, res) => {
   const { userName, password } = req.body;
 
@@ -98,6 +98,8 @@ app.post("/register", async (req, res) => {
     .json({ msg: "Usuário cadastrado com sucesso!", liberation: true });
 });
 
+
+//login
 app.post("/login", async (req, res) => {
   const { userName, password } = req.body;
 
@@ -141,7 +143,5 @@ function authMiddleware(req, res, next) {
 // Iniciar servidor
 
 app.listen(port, () => {
-  console.log(`🚀 Servidor rodando em ${API_url} 
-               💾 ${API_url}/saved-levels
-               🌐 ${API_url}/saved-levels/lastsave `);
+  console.log(`🚀 Servidor rodando em ${API_url}`);
 });

@@ -1,7 +1,7 @@
 {
   "name": "gamecreator",
   "version": "1.0.0",
-  "description": "Criador de fases.",
+  "description": "Level-Editor.",
   "main": "editor.js",
   "scripts": {
     "start": "node server.js",

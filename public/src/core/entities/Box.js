@@ -54,7 +54,7 @@ export default class Box extends AnimatedImage {
     const boxRight = this.x + this.width * this.size;
     const boxLeft = this.x;
 
-    // --- Colisão por baixo (player bate a cabeça) ---
+    // Colisão por baixo (player bate a cabeça) 
     if (
       player.phisics.velocityY < 0 &&
       playerTop <= boxBottom &&
@@ -66,7 +66,7 @@ export default class Box extends AnimatedImage {
       return;
     }
 
-    // --- Colisão por cima (player pisa no box) ---
+    //  Colisão por cima (player pisa no box) 
     if (
       player.phisics.velocityY > 0 &&
       playerBottom >= boxTop &&
@@ -78,7 +78,7 @@ export default class Box extends AnimatedImage {
       return;
     }
 
-    // --- Colisão lateral ---
+    // Colisão lateral 
     if (playerBottom > boxTop && playerTop < boxBottom) {
       if (playerRight > boxRight && playerLeft < boxRight) {
         player.leftBlocked = true;

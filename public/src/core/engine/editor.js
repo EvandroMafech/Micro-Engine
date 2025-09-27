@@ -21,7 +21,6 @@ import {
 import {
   allSetIdsArray,
   animatedImagesArray,
-  API_URL,
   imageSizeFactor,
   tileArray,
   tileSetSpriteheet_image_path,
@@ -35,7 +34,6 @@ import {
   createMapBoundaries,
   setImageOnBackgroundTiles,
 } from "./engine.js";
-import { checkIfSaved } from "../../editor/ui/interfaceButtons.js";
 
 export const tileSetCanvas = document.querySelector(".tileset");
 const ctx = tileSetCanvas.getContext("2d");
@@ -365,7 +363,6 @@ export function createAnimatedImage(TileId, event) {
             id
           );
         }
-        // animatedImage = new End(sheetImage,x - adjustX,y - adjustY,activeSelectedImage.imageId,frames,line,w,h,ctxAnimations,imageSizeFactor,id)
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       } else if (activeSelectedImage.imageId.includes("fan")) {
@@ -579,7 +576,7 @@ window.addEventListener("keydown", (event) => {
   if (event.ctrlKey && key == "z") {
     undoImages();
   }
-  //if(key == "r"){keyboardShortcuts.rotateImage += 90}
+  if(key == "r"){keyboardShortcuts.rotateImage += 90}
 });
 
 window.addEventListener("keyup", (event) => {
@@ -654,24 +651,3 @@ editorCanvas.addEventListener("mousemove", (event) => {
 editorCanvas.addEventListener("mouseleave", () => {
   ctxEditor.clearRect(0, 0, 2000, 2000);
 });
-
-
-// window.addEventListener("keyup", (event) => {
-//   const key = event.key.toLocaleLowerCase()
-
-//   if (key === "t") {
-//     test()
-//   }
-//   if (key === "v") {
-//     checkIfSaved()
-
-//   }
-// })
-
-
-// async function test() {
-//   const test = await fetch(`${API_URL}/saved-levels`);
-
-//   const result = await test.json()
-//   console.log(result)
-// }

@@ -91,14 +91,6 @@ export default class Platform extends AnimatedImage {
     this.checkCollisionOnFloor();
     if (this.activated) this.applyGravity();
 
-    //fazer com que a plataforma desapareça
-
-    // if(this.y >= 5000){
-    //    animatedImagesArray.forEach((image,index) => {
-    //         if(image.id == this.id){
-    //             animatedImagesArray.splice(index,1) //deleta o objeto de imagem inteiro
-    //         }
-    //     })
-    // }
+    
   }
 }
